@@ -1,8 +1,10 @@
-from django.urls import re_path
+from worklink import views
+from django.urls import path
 from django.contrib import admin
-from worklink.views import index
 
 urlpatterns = [
-    re_path(r"^admin/", admin.site.urls),
-    re_path(r"^$", index, name='main'),
+    path('admin/', admin.site.urls),
+
+    path('', views.IndexView.as_view()),
+
 ]
