@@ -1,0 +1,336 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %}{{ title|title }}{% endblock %}</title>
+    <link href="{% static '/worklink/img/favicon.ico' %}" rel="shortcut icon" />
+{% block css %}
+    <link rel="stylesheet" href="{% static 'worklink/css/font-awesome/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'worklink/css/flaticon/flaticon.css' %}" />
+    <link rel="stylesheet" href="{% static 'worklink/css/bootstrap/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700">
+
+    <link rel="stylesheet" href="{% static 'worklink/css/owl-carousel/owl.carousel.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'worklink/css/magnific-popup/magnific-popup.css' %}" />
+    <link rel="stylesheet" href="{% static 'worklink/css/select2/select2.css' %}" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'worklink/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'worklink/css/custom.css' %}">
+{% endblock %}
+
+{% block morecss %}
+{% endblock %}
+
+</head>
+<body>
+    <header class="header header-default">
+        <nav class="navbar navbar-static-top navbar-expand-lg navbar-light header-sticky">
+            <div class="container-fluid">
+                <button id="nav-icon4" type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img class="img-fluid" src="{% static 'worklink/img/logo.svg' %}" alt="Work link">
+                </a>
+                <div class="navbar-collapse collapse justify-content-start">
+                    <ul class="nav navbar-nav">
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="#">Резюме</a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="#">Вакансии</a>-->
+<!--                        </li>-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Партнеры</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Новости</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Контакты</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="add-listing">
+                    <div class="login d-inline-block mr-4">
+                        <a href="/login/" data-toggle="modal" data-target="#exampleModalCenter"><i class="far fa-user pr-2"></i>Войти</a>
+                    </div>
+                    <a class="btn btn-primary btn-md" href="#">Регистрация</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    {% block content %}
+    {% endblock %}
+
+	{% block footer %}
+<footer class="footer bg-dark">
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-lg-3 col-md-6 mt-lg-0">
+                <div class="footer-contact-info">
+                    <h5 class="mb-4 text-white">Контакты</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li> <i class="fas fa-map-marker-alt text-primary"></i><span>Россия, г. Москва, ул. Лермонтова, д.5, офис 255</span> </li>
+                        <li> <i class="fas fa-mobile-alt text-primary"></i><span>+7 (995) 345-6789</span> </li>
+                        <li> <i class="far fa-envelope text-primary"></i><span>support@worklink.ru</span> </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-link">
+                    <h5 class="mb-4 text-white">Работа</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="#">Вакансии</a></li>
+                            <li><a href="#">Категории</a></li>
+                            <li><a href="#">Резюме</a></li>
+                        </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
+                <div class="footer-link">
+                    <h5 class="mb-4 text-white">Компаниям</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Блог</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
+                <h5 class="mb-4 text-white">Подпишитесь на обновления</h5>
+                <div class="footer-subscribe">
+                    <p>Подпишитесь на нашу рассылку, чтобы получать последние новости и предложения.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="E-mail">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-md">Получать уведомления</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="bg-dark py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-sm-5 mb-lg-0">
+                    <div class="d-sm-flex">
+                        <div class="align-self-center footer-top-logo">
+                            <img class="img-fluid" src="{% static '/worklink/img/logo-light.svg'%}" alt="">
+                        </div>
+                        <div class="pl-sm-3 ml-sm-3 mt-3 mt-sm-0 border-sm-left text-white">Создайте бесплатную учетную запись, чтобы найти тысячи вакансий, возможностей трудоустройства и карьерного роста вокруг вас!</div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="counter mb-4 mb-sm-0">
+                                <div class="counter-icon">
+                                    <i class="flaticon-contract"></i>
+                                </div>
+                                <div class="counter-content">
+                                    <span class="timer mb-1 text-white" data-to="1049" data-speed="10000">1049</span>
+                                    <label class="mb-0">Резюме</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="counter mb-4 mb-sm-0">
+                                <div class="counter-icon">
+                                    <i class="flaticon-job-3"></i>
+                                </div>
+                                <div class="counter-content">
+                                    <span class="timer mb-1 text-white" data-to="123" data-speed="10000">123</span>
+                                    <label class="mb-0">Принято на работу</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="counter">
+                                <div class="counter-icon">
+                                    <i class="flaticon-apartment"></i>
+                                </div>
+                                <div class="counter-content">
+                                    <span class="timer mb-1 text-white" data-to="240" data-speed="10000">240</span>
+                                    <label class="mb-0">Компаний</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="footer-bottom bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 ">
+                    <div class="d-flex justify-content-md-start justify-content-center">
+                        <ul class="list-unstyled d-flex mb-0">
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Наша команда</a></li>
+                        <li><a href="#">Контакты</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center text-md-right mt-4 mt-md-0">
+                    <p class="mb-0 text-white">&copy; WorkLink {% now "Y" %}. Все права защищены </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div id="back-to-top" class="back-to-top">
+    <i class="fas fa-angle-up"></i>
+</div>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header p-4">
+                <h4 class="mb-0 text-center">Войти</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="login-register">
+                    <fieldset>
+                        <legend class="px-2">Тип аккаунта</legend>
+                        <ul class="nav nav-tabs nav-tabs-border d-flex" role="tablist">
+                            <li class="nav-item mr-4">
+                                <a class="nav-link active"  data-toggle="tab" href="#candidate" role="tab" aria-selected="false">
+                                    <div class="d-flex">
+                                        <div class="tab-icon">
+                                            <i class="flaticon-users"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                              <h6 class="mb-0">Кандидат</h6>
+                                              <p class="mb-0">Войти как кандидат</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"  data-toggle="tab" href="#employer" role="tab" aria-selected="false">
+                                    <div class="d-flex">
+                                        <div class="tab-icon">
+                                            <i class="flaticon-suitcase"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h6 class="mb-0">Работодатель</h6>
+                                            <p class="mb-0">Войти как работодатель</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </fieldset>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="candidate" role="tabpanel">
+                            <form class="mt-4">
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="Email2">Логин / E-mail:</label>
+                                        <input type="text" class="form-control" id="Email22">
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label for="password2">Пароль *</label>
+                                        <input type="password" class="form-control" id="password32">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <a class="btn btn-primary btn-block" href="#">Войти</a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="ml-md-3 mt-3 mt-md-0 forgot-pass">
+                                            <a href="#">Забыли пароль?</a>
+                                            <p class="mt-1">Нет аккаунта? <a href="#">Зарегистрируйтесь</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="employer" role="tabpanel">
+                            <form class="mt-4">
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="Email2">Логин / E-mail:</label>
+                                        <input type="text" class="form-control" id="Email2">
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label for="password2">Пароль *</label>
+                                        <input type="password" class="form-control" id="password2">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <a class="btn btn-primary btn-block" href="#">Войти</a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="ml-md-3 mt-3 mt-md-0">
+                                            <a href="#">Забыли пароль?</a>
+                                            <div class="custom-control custom-checkbox mt-2">
+                                                <input type="checkbox" class="custom-control-input" id="Remember-02">
+                                                <label class="custom-control-label" for="Remember-02">Запомнить пароль</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <fieldset>
+                            <legend class="px-2">Войдите или зарегистрируйтесь с помощью</legend>
+                            <div class="social-login">
+                                <ul class="list-unstyled d-flex mb-0">
+                                    <li class="facebook text-center">
+                                        <a href="#"> <i class="fab fa-facebook-f mr-3 mr-md-4"></i>Войти через Facebook</a>
+                                    </li>
+                                    <li class="twitter text-center">
+                                        <a href="#"> <i class="fab fa-twitter mr-3 mr-md-4"></i>Войти через Twitter</a>
+                                    </li>
+                                    <li class="google text-center">
+                                        <a href="#"> <i class="fab fa-google mr-3 mr-md-4"></i>Войти через Google</a>
+                                    </li>
+                                    <li class="linkedin text-center">
+                                        <a href="#"> <i class="fab fa-linkedin-in mr-3 mr-md-4"></i>Войти через Linkedin</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    {% endblock %}
+
+
+    <script src="{% static '/worklink/js/jquery-3.5.1.min.js'%}"></script>
+    <script src="{% static '/worklink/js/popper/popper.min.js' %}"></script>
+    <script src="{% static '/worklink/js/bootstrap/bootstrap.min.js' %}"></script>
+
+    <!-- Page JS Implementing Plugins (Remove the plugin script here if site does not use that feature)-->
+    <script src="{% static '/worklink/js/jquery.appear.js' %}"></script>
+    <script src="{% static '/worklink/js/counter/jquery.countTo.js' %}"></script>
+    <script src="{% static '/worklink/js/owl-carousel/owl-carousel.min.js' %}"></script>
+    <script src="{% static '/worklink/js/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static '/worklink/js/select2/select2.full.js' %}"></script>
+
+    <!-- Template Scripts (Do not remove)-->
+    <script src="{% static '/worklink/js/custom.js' %}"></script>
+    {% block js %}
+    {% endblock %}
+</body>
+</html>
