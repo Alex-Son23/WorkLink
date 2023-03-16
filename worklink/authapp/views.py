@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.contrib import auth
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
@@ -6,6 +7,7 @@ from django.urls import reverse
 
 from authapp.forms import UserRegisterForm, UserEditForm, UserLoginForm, \
     UserProfileForm
+
 
 # from models import ShopUser
 # from worklink import settings
@@ -91,31 +93,32 @@ def register(request):
     return render(request, 'authapp/register.html', content)
 
 
-# def edit(request):
-#     title = 'редактирование'
-#
-#     if request.method == 'POST':
-#         edit_form = ShopUserEditForm(request.POST, request.FILES,
-#                                      instance=request.user)
-#
-#         profile_form = ShopUserProfileForm(request.POST,
-#                                            instance=request.user.shopuserprofile)
-#         if edit_form.is_valid() and profile_form.is_valid():
-#             edit_form.save()
-#             return HttpResponseRedirect(reverse('auth:edit'))
-#     else:
-#         edit_form = ShopUserEditForm(instance=request.user)
-#         profile_form = ShopUserProfileForm(
-#             instance=request.user.shopuserprofile)
-#
-#     context = {
-#         'title': title,
-#         'edit_form': edit_form,
-#         'profile_form': profile_form,
-#     }
-#
-#     return render(request, 'authapp/edit.html', context)
-#
+@transaction.atomic()
+def edit(request):
+    title = 'редактирование'
+
+    if request.method == 'POST':
+        edit_form = UserEditForm(request.POST, request.FILES,
+                                 instance=request.user)
+
+        profile_form = UserProfileForm(request.POST,
+                                       instance=request.user.userprofile)
+        if edit_form.is_valid() and profile_form.is_valid():
+            edit_form.save()
+            return HttpResponseRedirect(reverse('auth:edit'))
+    else:
+        edit_form = UserEditForm(instance=request.user)
+        profile_form = UserProfileForm(
+            instance=request.user.userprofile)
+
+    content = {
+        'title': title,
+        'edit_form': edit_form,
+        'profile_form': profile_form,
+    }
+
+    return render(request, 'authapp/edit.html', content)
+
 #
 # '''
 # Функция ниже понадобится в будущем, функция верификации пользователя
