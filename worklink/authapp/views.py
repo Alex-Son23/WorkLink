@@ -4,13 +4,17 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditForm, ShopUserProfileForm
+from authapp.forms import UserRegisterForm, UserEditForm, UserLoginForm, \
+    UserProfileForm
+
 # from models import ShopUser
 # from worklink import settings
 
-'''
-Функция ниже понадобится в будущем, функция отправки сообщения
-'''
+# '''
+# Функция ниже понадобится в будущем, функция отправки сообщения
+# '''
+
+
 # def send_verify_mail(user):
 #     verify_link = reverse('auth:verify', args=[user.email, user.activation_key])
 #
@@ -22,32 +26,33 @@ from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditF
 #     return send_mail(title, message, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
 
 
+# Аутентификация пользователя
 def login(request):
     title = 'Вход'
-    login_form = ShopUserLoginForm(data=request.POST)
-
+    login_form = UserLoginForm(data=request.POST or None)
+    # предварительная аутентификации для перехода к страницам
     next = request.GET['next'] if 'next' in request.GET.keys() else ''
 
     if request.method == 'POST' and login_form.is_valid():
         username = request.POST['username']
         password = request.POST['password']
 
+        # процедура аутентификации
         user = auth.authenticate(username=username, password=password)
+
         if user and user.is_active:
             auth.login(request, user)
             if 'next' in request.POST.keys():
-                # print(request.POST['next'])
-                # page = request.POST['next']
                 return HttpResponseRedirect(request.POST['next'])
             else:
                 return HttpResponseRedirect(reverse('index'))
 
-    context = {
+    content = {
         'title': title,
         'login_form': login_form,
         'next': next,
     }
-    return render(request, 'authapp/login.html', context)
+    return render(request, 'authapp/login.html', content)
 
 
 def logout(request):
@@ -55,18 +60,21 @@ def logout(request):
     return HttpResponseRedirect(reverse('index'))
 
 
+# Регистрация пользователя
 def register(request):
     title = 'Регистрация'
 
     if request.method == 'POST':
-        register_form = ShopUserRegisterForm(request.POST, request.FILES)
+        register_form = UserRegisterForm(request.POST, request.FILES)
 
         if register_form.is_valid():
-            user = register_form.save()
+            register_form.save()
+            # перенаправление на страницу аутентификации
+            return HttpResponseRedirect(reverse('auth:login'))
 
-            '''
-            Функция ниже понадобится в будущем, функция отправки сообщения
-            '''
+            # '''
+            # Функция ниже понадобится в будущем, функция отправки сообщения
+            # '''
             # if send_verify_mail(user):
             #     print('сообщение подтверждения отрпавлено')
             #     return HttpResponseRedirect(reverse('auth:login'))
@@ -74,41 +82,44 @@ def register(request):
             #     print('ошибка отправки сообщения')
             #     return HttpResponseRedirect(reverse('auth:login'))
     else:
-        register_form = ShopUserRegisterForm()
+        register_form = UserRegisterForm()
 
-    context = {
+    content = {
         'title': title,
         'register_form': register_form
     }
-    return render(request, 'authapp/register.html', context)
+    return render(request, 'authapp/register.html', content)
 
 
-def edit(request):
-    title = 'редактирование'
-
-    if request.method == 'POST':
-        edit_form = ShopUserEditForm(request.POST, request.FILES, instance=request.user)
-
-        profile_form = ShopUserProfileForm(request.POST, instance=request.user.shopuserprofile)
-        if edit_form.is_valid() and profile_form.is_valid():
-            edit_form.save()
-            return HttpResponseRedirect(reverse('auth:edit'))
-    else:
-        edit_form = ShopUserEditForm(instance=request.user)
-        profile_form = ShopUserProfileForm(instance=request.user.shopuserprofile)
-
-    context = {
-        'title': title,
-        'edit_form': edit_form,
-        'profile_form': profile_form,
-    }
-
-    return render(request, 'authapp/edit.html', context)
-
-
-'''
-Функция ниже понадобится в будущем, функция верификации пользователя
-'''
+# def edit(request):
+#     title = 'редактирование'
+#
+#     if request.method == 'POST':
+#         edit_form = ShopUserEditForm(request.POST, request.FILES,
+#                                      instance=request.user)
+#
+#         profile_form = ShopUserProfileForm(request.POST,
+#                                            instance=request.user.shopuserprofile)
+#         if edit_form.is_valid() and profile_form.is_valid():
+#             edit_form.save()
+#             return HttpResponseRedirect(reverse('auth:edit'))
+#     else:
+#         edit_form = ShopUserEditForm(instance=request.user)
+#         profile_form = ShopUserProfileForm(
+#             instance=request.user.shopuserprofile)
+#
+#     context = {
+#         'title': title,
+#         'edit_form': edit_form,
+#         'profile_form': profile_form,
+#     }
+#
+#     return render(request, 'authapp/edit.html', context)
+#
+#
+# '''
+# Функция ниже понадобится в будущем, функция верификации пользователя
+# '''
 # def verify(request, email, activation_key):
 #     try:
 #         user = ShopUser.objects.get(email=email)
