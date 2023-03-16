@@ -1,41 +1,22 @@
 import hashlib
 import random
 
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, \
+    UserChangeForm
 from django import forms
 from django.contrib.auth.models import User
 
-from authapp.models import  ShopUserProfile
+from authapp.models import User, UserProfile
 
 
-class ShopUserLoginForm(AuthenticationForm):
+# форма для регистрации нового пользователя
+class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username', 'password')
+        # экранная форма на основе модели User с полями
+        fields = ('username', 'password1', 'password2', 'email',)
 
-    def __init__(self, *args, **kwargs):
-        super(ShopUserLoginForm, self).__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-
-
-class ShopUserProfileForm(forms.ModelForm):
-    class Meta:
-        model = ShopUserProfile
-        fields = ('tagline', 'about_me', 'gender')
-
-    def __init__(self, *args, **kwargs):
-        super(ShopUserProfileForm, self).__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-
-
-class ShopUserRegisterForm(UserCreationForm):
-    class Meta:
-        model = User
-
-        fields = ('username', 'first_name', 'password1', 'password2', 'email',)
-
+    # Метод для обеспечения стилизации элементов управления формы
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -43,6 +24,7 @@ class ShopUserRegisterForm(UserCreationForm):
             field.widget.attrs['class'] = 'form-control'
             field.help_text = ''
 
+    # проверка допустимости возраста пользователя
     def clean_age(self):
         data = self.cleaned_data['age']
 
@@ -50,24 +32,28 @@ class ShopUserRegisterForm(UserCreationForm):
             raise forms.ValidationError("Вы слишком молоды!")
         return data
 
-    def save(self):
-        user = super(ShopUserRegisterForm, self).save()
+    # def save(self):
+    #     user = super(ShopUserRegisterForm, self).save()
+    #
+    #     user.is_active = False
+    #     salt = hashlib.sha1(str(random.Random()).encode('utf8')).hexdigest()[
+    #            :6]
+    #     user.activation_key = hashlib.sha1(
+    #         (user.email + salt).encode('utf8')).hexdigest()
+    #     user.save()
+    #
+    #     return user
 
-        user.is_active = False
-        salt = hashlib.sha1(str(random.Random()).encode('utf8')).hexdigest()[:6]
-        user.activation_key = hashlib.sha1((user.email + salt).encode('utf8')).hexdigest()
-        user.save()
 
-        return user
-
-
-class ShopUserEditForm(UserChangeForm):
+# форма для редактирования введенных пользователем регистрационных данных
+class UserEditForm(UserChangeForm):
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'email', 'password')
+        fields = ('username', 'first_name', 'email', 'age', 'avatar',
+                  'password')
 
     def __init__(self, *args, **kwargs):
-        super(ShopUserEditForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
             field.help_text = ''
@@ -76,7 +62,31 @@ class ShopUserEditForm(UserChangeForm):
 
     def clean_age(self):
         data = self.cleaned_data['age']
-        # print(self.data)
         if data < 18:
             raise forms.ValidationError("Вы слишком молоды!")
         return data
+
+
+# форма аутентификации пользователя
+class UserLoginForm(AuthenticationForm):
+    class Meta:
+        model = User
+        fields = ('username', 'password')
+
+    def __init__(self, *args, **kwargs):
+        super(UserLoginForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
+
+# форма для редактирования подробного профиля пользователя
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = (
+            'phone', 'gender', 'birthday', 'country', 'city', 'is_employer')
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
