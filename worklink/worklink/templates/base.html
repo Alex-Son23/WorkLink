@@ -2,71 +2,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>{% block title %}{{ title|title }}{% endblock %}</title>
-    <link href="{% static '/worklink/img/favicon.ico' %}" rel="shortcut icon" />
-{% block css %}
-    <link rel="stylesheet" href="{% static 'worklink/css/font-awesome/all.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'worklink/css/flaticon/flaticon.css' %}" />
-    <link rel="stylesheet" href="{% static 'worklink/css/bootstrap/bootstrap.min.css' %}" />
+    <meta charset="utf-8">
+    <title>{% block title %}{{ title|title }}{% endblock %}</title>
+    <link href="{% static '/worklink/img/favicon.ico' %}" rel="shortcut icon"/>
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'worklink/css/font-awesome/all.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'worklink/css/flaticon/flaticon.css' %}"/>
+    <link rel="stylesheet" href="{% static 'worklink/css/bootstrap/bootstrap.min.css' %}"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700">
 
-    <link rel="stylesheet" href="{% static 'worklink/css/owl-carousel/owl.carousel.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'worklink/css/magnific-popup/magnific-popup.css' %}" />
-    <link rel="stylesheet" href="{% static 'worklink/css/select2/select2.css' %}" />
+    <link rel="stylesheet" href="{% static 'worklink/css/owl-carousel/owl.carousel.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'worklink/css/magnific-popup/magnific-popup.css' %}"/>
+    <link rel="stylesheet" href="{% static 'worklink/css/select2/select2.css' %}"/>
 
     <link rel="stylesheet" type="text/css" href="{% static 'worklink/css/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'worklink/css/custom.css' %}">
-{% endblock %}
+    {% endblock %}
 
-{% block morecss %}
-{% endblock %}
+    {% block morecss %}
+    {% endblock %}
 
 </head>
 <body>
-    <header class="header header-default">
-        <nav class="navbar navbar-static-top navbar-expand-lg navbar-light header-sticky">
-            <div class="container-fluid">
-                <button id="nav-icon4" type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <a class="navbar-brand" href="/">
-                    <img class="img-fluid" src="{% static 'worklink/img/logo.svg' %}" alt="Work link">
-                </a>
-                <div class="navbar-collapse collapse justify-content-start">
-                    <ul class="nav navbar-nav">
-<!--                        <li class="nav-item">-->
-<!--                            <a class="nav-link" href="#">Резюме</a>-->
-<!--                        </li>-->
-<!--                        <li class="nav-item">-->
-<!--                            <a class="nav-link" href="#">Вакансии</a>-->
-<!--                        </li>-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Партнеры</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Новости</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Контакты</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="add-listing">
-                    <div class="login d-inline-block mr-4">
-                        <a href="/login/" data-toggle="modal" data-target="#exampleModalCenter"><i class="far fa-user pr-2"></i>Войти</a>
-                    </div>
-                    <a class="btn btn-primary btn-md" href="#">Регистрация</a>
-                </div>
+<header class="header header-default">
+    <nav class="navbar navbar-static-top navbar-expand-lg navbar-light header-sticky">
+        <div class="container-fluid">
+            <button id="nav-icon4" type="button" class="navbar-toggler" data-toggle="collapse"
+                    data-target=".navbar-collapse">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img class="img-fluid" src="{% static 'worklink/img/logo.svg' %}" alt="Work link">
+            </a>
+            <div class="navbar-collapse collapse justify-content-start">
+                <ul class="nav navbar-nav">
+                    <!--                        <li class="nav-item">-->
+                    <!--                            <a class="nav-link" href="#">Резюме</a>-->
+                    <!--                        </li>-->
+                    <!--                        <li class="nav-item">-->
+                    <!--                            <a class="nav-link" href="#">Вакансии</a>-->
+                    <!--                        </li>-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Партнеры</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Новости</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Контакты</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
-    {% block content %}
-    {% endblock %}
+            <div class="add-listing">
+                {% if not user.is_authenticated %}
+                <div class="login d-inline-block mr-4">
+                    <a class="nav-link" href="{% url 'authapp:login' %}">Войти <i class="fas fa-sign-in-alt"></i></a>
+                </div>
+<!--                 <li class="nav-item">-->
+<!--                    <a class="nav-link" href="{% url 'authapp:login' %}">Войти <i class="fas fa-sign-in-alt"></i></a>-->
+<!--                </li>-->
+                <a class="btn btn-primary btn-md" href="{% url 'auth:register' %}">Регистрация</a>
+                {% else %}
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle" href="" data-toggle="dropdown">
+                            {{ user.username|default:'Пользователь' }}
+                            <span class="caret"> </span>
+                        </a>
+                        <a class="nav-link" href="{% url 'auth:logout' %}">Выйти <i class="fas fa-sign-out-alt"></i></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="nav-link text-dark" href="">Профиль</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" href="">Заказы</a>
+                            </li>
+                        </ul>
+                    </div>
 
-	{% block footer %}
+                </li>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+</header>
+{% block content %}
+{% endblock %}
+
+{% block footer %}
 <footer class="footer bg-dark">
     <div class="container">
         <div class="row mt-4">
@@ -74,20 +99,21 @@
                 <div class="footer-contact-info">
                     <h5 class="mb-4 text-white">Контакты</h5>
                     <ul class="list-unstyled mb-0">
-                        <li> <i class="fas fa-map-marker-alt text-primary"></i><span>Россия, г. Москва, ул. Лермонтова, д.5, офис 255</span> </li>
-                        <li> <i class="fas fa-mobile-alt text-primary"></i><span>+7 (995) 345-6789</span> </li>
-                        <li> <i class="far fa-envelope text-primary"></i><span>support@worklink.ru</span> </li>
+                        <li><i class="fas fa-map-marker-alt text-primary"></i><span>Россия, г. Москва, ул. Лермонтова, д.5, офис 255</span>
+                        </li>
+                        <li><i class="fas fa-mobile-alt text-primary"></i><span>+7 (995) 345-6789</span></li>
+                        <li><i class="far fa-envelope text-primary"></i><span>support@worklink.ru</span></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="footer-link">
                     <h5 class="mb-4 text-white">Работа</h5>
-                        <ul class="list-unstyled">
-                            <li><a href="#">Вакансии</a></li>
-                            <li><a href="#">Категории</a></li>
-                            <li><a href="#">Резюме</a></li>
-                        </ul>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Вакансии</a></li>
+                        <li><a href="#">Категории</a></li>
+                        <li><a href="#">Резюме</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
@@ -121,7 +147,10 @@
                         <div class="align-self-center footer-top-logo">
                             <img class="img-fluid" src="{% static '/worklink/img/logo-light.svg'%}" alt="">
                         </div>
-                        <div class="pl-sm-3 ml-sm-3 mt-3 mt-sm-0 border-sm-left text-white">Создайте бесплатную учетную запись, чтобы найти тысячи вакансий, возможностей трудоустройства и карьерного роста вокруг вас!</div>
+                        <div class="pl-sm-3 ml-sm-3 mt-3 mt-sm-0 border-sm-left text-white">Создайте бесплатную учетную
+                            запись, чтобы найти тысячи вакансий, возможностей трудоустройства и карьерного роста вокруг
+                            вас!
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -172,10 +201,10 @@
                 <div class="col-md-6 ">
                     <div class="d-flex justify-content-md-start justify-content-center">
                         <ul class="list-unstyled d-flex mb-0">
-                        <li><a href="#">Политика конфиденциальности</a></li>
-                        <li><a href="#">О нас</a></li>
-                        <li><a href="#">Наша команда</a></li>
-                        <li><a href="#">Контакты</a></li>
+                            <li><a href="#">Политика конфиденциальности</a></li>
+                            <li><a href="#">О нас</a></li>
+                            <li><a href="#">Наша команда</a></li>
+                            <li><a href="#">Контакты</a></li>
                         </ul>
                     </div>
                 </div>
@@ -206,20 +235,21 @@
                         <legend class="px-2">Тип аккаунта</legend>
                         <ul class="nav nav-tabs nav-tabs-border d-flex" role="tablist">
                             <li class="nav-item mr-4">
-                                <a class="nav-link active"  data-toggle="tab" href="#candidate" role="tab" aria-selected="false">
+                                <a class="nav-link active" data-toggle="tab" href="#candidate" role="tab"
+                                   aria-selected="false">
                                     <div class="d-flex">
                                         <div class="tab-icon">
                                             <i class="flaticon-users"></i>
                                         </div>
                                         <div class="ml-3">
-                                              <h6 class="mb-0">Кандидат</h6>
-                                              <p class="mb-0">Войти как кандидат</p>
+                                            <h6 class="mb-0">Кандидат</h6>
+                                            <p class="mb-0">Войти как кандидат</p>
                                         </div>
                                     </div>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"  data-toggle="tab" href="#employer" role="tab" aria-selected="false">
+                                <a class="nav-link" data-toggle="tab" href="#employer" role="tab" aria-selected="false">
                                     <div class="d-flex">
                                         <div class="tab-icon">
                                             <i class="flaticon-suitcase"></i>
@@ -280,7 +310,8 @@
                                             <a href="#">Забыли пароль?</a>
                                             <div class="custom-control custom-checkbox mt-2">
                                                 <input type="checkbox" class="custom-control-input" id="Remember-02">
-                                                <label class="custom-control-label" for="Remember-02">Запомнить пароль</label>
+                                                <label class="custom-control-label" for="Remember-02">Запомнить
+                                                    пароль</label>
                                             </div>
                                         </div>
                                     </div>
@@ -314,23 +345,23 @@
         </div>
     </div>
 </div>
-    {% endblock %}
+{% endblock %}
 
 
-    <script src="{% static '/worklink/js/jquery-3.5.1.min.js'%}"></script>
-    <script src="{% static '/worklink/js/popper/popper.min.js' %}"></script>
-    <script src="{% static '/worklink/js/bootstrap/bootstrap.min.js' %}"></script>
+<script src="{% static '/worklink/js/jquery-3.5.1.min.js'%}"></script>
+<script src="{% static '/worklink/js/popper/popper.min.js' %}"></script>
+<script src="{% static '/worklink/js/bootstrap/bootstrap.min.js' %}"></script>
 
-    <!-- Page JS Implementing Plugins (Remove the plugin script here if site does not use that feature)-->
-    <script src="{% static '/worklink/js/jquery.appear.js' %}"></script>
-    <script src="{% static '/worklink/js/counter/jquery.countTo.js' %}"></script>
-    <script src="{% static '/worklink/js/owl-carousel/owl-carousel.min.js' %}"></script>
-    <script src="{% static '/worklink/js/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
-    <script src="{% static '/worklink/js/select2/select2.full.js' %}"></script>
+<!-- Page JS Implementing Plugins (Remove the plugin script here if site does not use that feature)-->
+<script src="{% static '/worklink/js/jquery.appear.js' %}"></script>
+<script src="{% static '/worklink/js/counter/jquery.countTo.js' %}"></script>
+<script src="{% static '/worklink/js/owl-carousel/owl-carousel.min.js' %}"></script>
+<script src="{% static '/worklink/js/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static '/worklink/js/select2/select2.full.js' %}"></script>
 
-    <!-- Template Scripts (Do not remove)-->
-    <script src="{% static '/worklink/js/custom.js' %}"></script>
-    {% block js %}
-    {% endblock %}
+<!-- Template Scripts (Do not remove)-->
+<script src="{% static '/worklink/js/custom.js' %}"></script>
+{% block js %}
+{% endblock %}
 </body>
 </html>

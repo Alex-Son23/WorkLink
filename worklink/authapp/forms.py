@@ -14,7 +14,7 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         # экранная форма на основе модели User с полями
-        fields = ('username', 'password1', 'password2', 'email',)
+        fields = ('username', 'password1', 'password2', 'email', 'is_employer',)
 
     # Метод для обеспечения стилизации элементов управления формы
     def __init__(self, *args, **kwargs):
@@ -50,7 +50,7 @@ class UserEditForm(UserChangeForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'email', 'age', 'avatar',
-                  'password')
+                  'password', 'is_employer')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -84,7 +84,7 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = (
-            'phone', 'gender', 'birthday', 'country', 'city', 'is_employer')
+            'phone', 'gender', 'birthday', 'country', 'city',)
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)

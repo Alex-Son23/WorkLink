@@ -12,7 +12,7 @@ from django.utils.timezone import now
 class User(AbstractUser):
     avatar = models.ImageField(upload_to='users_avatars', blank=True)
     age = models.PositiveIntegerField(verbose_name='возраст', default=18)
-
+    is_employer = models.BooleanField(verbose_name='наниматель', default=True)
 
 # модель профиля пользователя
 class UserProfile(models.Model):
@@ -32,7 +32,7 @@ class UserProfile(models.Model):
     birthday = models.DateField(verbose_name="день рождения")
     country = models.CharField(verbose_name='страна', max_length=64)
     city = models.CharField(verbose_name='город', max_length=64)
-    is_employer = models.BooleanField(verbose_name='наниматель', default=True)
+    # is_employer = models.BooleanField(verbose_name='наниматель', default=True)
 
 
 
