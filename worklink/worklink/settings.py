@@ -19,15 +19,14 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    # "django.contrib.admin", # закомментировать чтобы прошли миграции
-    # затем раскомментировать
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
+    'django.contrib.admin',
+    # 'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
 
-    "worklink",
+    # "worklink",
     "authapp",
 ]
 
@@ -117,4 +116,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # ссылка на нашу модель
-AUTH_USER_MODEL = 'authapp.User'
+AUTH_USER_MODEL = 'authapp.worklineuser'

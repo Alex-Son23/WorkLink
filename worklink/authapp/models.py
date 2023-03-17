@@ -9,13 +9,21 @@ from django.utils.timezone import now
 
 
 # шаблон абстрактного пользователя
-class User(AbstractUser):
+class WorkLinkUser(AbstractUser):
+    JOB_FINDER = 'сосискатель'
+    COMPANY = 'компания'
+
+    STATUS_CHOICES = (
+        (JOB_FINDER, 'сосискатель'),
+        (COMPANY, 'компания')
+    )
+
     avatar = models.ImageField(upload_to='users_avatars', blank=True)
-    age = models.PositiveIntegerField(verbose_name='возраст', default=18)
-    is_employer = models.BooleanField(verbose_name='наниматель', default=True)
+    status = models.CharField(verbose_name='статус пользователя', choices=STATUS_CHOICES, blank=False, max_length=16)
+
 
 # модель профиля пользователя
-class UserProfile(models.Model):
+class JobFinderProfile(models.Model):
     MALE = 'M'
     FEMALE = 'W'
 
@@ -25,7 +33,10 @@ class UserProfile(models.Model):
     )
 
     user = models.OneToOneField(
-        User, unique=True, null=False, db_index=True, on_delete=models.CASCADE)
+        WorkLinkUser, unique=True, null=False, db_index=True, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=32, verbose_name='имя')
+    last_name = models.CharField(max_length=32, verbose_name='фамилия')
+    age = models.PositiveIntegerField(verbose_name='возраст', default=18)
     phone = models.CharField(max_length=64, verbose_name='номер телефона')
     gender = models.CharField(verbose_name='пол', choices=GENDER_CHOICES,
                               blank=True, max_length=1)
@@ -34,9 +45,35 @@ class UserProfile(models.Model):
     city = models.CharField(verbose_name='город', max_length=64)
     # is_employer = models.BooleanField(verbose_name='наниматель', default=True)
 
+    @receiver(post_save, sender=WorkLinkUser)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            WorkLinkUser.objects.create(user=instance)
+
+    @receiver(post_save, sender=WorkLinkUser)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.shopuserprofile.save()
 
 
+class CompanyProfile(models.Model):
+    user = models.OneToOneField(
+        WorkLinkUser, unique=True, null=False, db_index=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=32, verbose_name='название компании')
+    phone = models.CharField(max_length=64, verbose_name='номер телефона')
+    country = models.CharField(verbose_name='страна', max_length=64)
+    city = models.CharField(verbose_name='город', max_length=64)
+    description = models.CharField(verbose_name='описание', max_length=512)
+    greeting_letter = models.CharField(verbose_name='приветственное письмо', max_length=512)
+    is_partner = models.BooleanField(blank=True)
 
+    @receiver(post_save, sender=WorkLinkUser)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            WorkLinkUser.objects.create(user=instance)
+
+    @receiver(post_save, sender=WorkLinkUser)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.shopuserprofile.save()
 
 # class User(AbstractUser):
 # avatar = models.ImageField(
