@@ -43,12 +43,14 @@ class JobFinderProfile(models.Model):
     birthday = models.DateField(verbose_name="день рождения")
     country = models.CharField(verbose_name='страна', max_length=64)
     city = models.CharField(verbose_name='город', max_length=64)
+
     # is_employer = models.BooleanField(verbose_name='наниматель', default=True)
 
     @receiver(post_save, sender=WorkLinkUser)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
-            WorkLinkUser.objects.create(user=instance)
+            print(sender, instance)
+            JobFinderProfile.objects.create(user=instance)
 
     @receiver(post_save, sender=WorkLinkUser)
     def save_user_profile(sender, instance, **kwargs):
@@ -69,7 +71,8 @@ class CompanyProfile(models.Model):
     @receiver(post_save, sender=WorkLinkUser)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
-            WorkLinkUser.objects.create(user=instance)
+            print(sender, instance)
+            CompanyProfile.objects.create(user=instance)
 
     @receiver(post_save, sender=WorkLinkUser)
     def save_user_profile(sender, instance, **kwargs):
