@@ -1,9 +1,10 @@
 <!-- шаблон страницы аутентификации пользователя -->
-{% extends 'authapp/base.html' %}
+
+{% extends 'worklink/base.html' %}
 {% load static %}
 
 {% block content %}
-    <div class="container">
+    <div class="container" style="margin-top: 50px; margin-bottom: 30px">
         <div class="login">
             <div class="h2 text-center head">Вход в систему</div>
 
@@ -15,11 +16,11 @@
                 {% endif %}
                 {{ login_form.as_p }}
                 <br>
-                <input class="form-control" type="submit" value="войти">
+                <input class="form-control" type="submit" value="Войти">
             </form>
-            <button class="btn btn-round form-control">
+            <button class="btn btn-round form-control btn-register" style="margin-top: 15px">
                 <a href="{% url 'auth:register' %}" class="">
-                    зарегистрироваться
+                    Зарегистрироваться
                 </a>
             </button>
         </div>

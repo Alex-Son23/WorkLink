@@ -6,7 +6,9 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from authapp.forms import UserRegisterForm, UserEditForm, UserLoginForm, \
-    UserProfileForm
+    UserProfileForm, CompanyProfileForm
+
+from authapp.models import CompanyProfile, JobFinderProfile
 
 
 # from models import ShopUser
@@ -101,20 +103,40 @@ def edit(request):
         edit_form = UserEditForm(request.POST, request.FILES,
                                  instance=request.user)
 
-        profile_form = UserProfileForm(request.POST,
-                                       instance=request.user.userprofile)
+        if request.user.status == 'соискатель':
+            profile = JobFinderProfile.objects.filter(user=request.user)[0]
+            profile_form = UserProfileForm(
+                request.POST,
+                instance=profile)
+        elif request.user.status == 'компания':
+            company = CompanyProfile.objects.filter(user=request.user)[0]
+            profile_form = CompanyProfileForm(
+                request.POST,
+                instance=company)
+
+        # profile_form = UserProfileForm(request.POST,
+        #                                instance=request.user.userprofile)
         if edit_form.is_valid() and profile_form.is_valid():
+            print('HUI')
             edit_form.save()
+            profile_form.save()
             return HttpResponseRedirect(reverse('auth:edit'))
     else:
         edit_form = UserEditForm(instance=request.user)
-        profile_form = UserProfileForm(
-            instance=request.user.userprofile)
+        if request.user.status == 'соискатель':
+            profile = JobFinderProfile.objects.filter(user=request.user)[0]
+            end_form = UserProfileForm(
+                instance=profile)
+        elif request.user.status == 'компания':
+            company = CompanyProfile.objects.filter(user=request.user)[0]
+            end_form = CompanyProfileForm(
+                instance=company
+            )
 
     content = {
         'title': title,
         'edit_form': edit_form,
-        'profile_form': profile_form,
+        'profile_form': end_form,
     }
 
     return render(request, 'authapp/edit.html', content)

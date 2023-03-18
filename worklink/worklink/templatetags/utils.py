@@ -22,7 +22,7 @@ def media_folder_users(string):
     users/user1.jpg --> /media/users/user1.jpg
     """
     if not string:
-        string = 'empty_avatar.png'
+        string = 'avatar.png'
 
     return f'{settings.MEDIA_URL}{string}'
 
