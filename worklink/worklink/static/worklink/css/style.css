@@ -2759,7 +2759,8 @@ button {
   -webkit-box-align: inherit;
       -ms-flex-align: inherit;
           align-items: inherit;
-  margin-left: 40px; }
+  /*margin-left: 40px;*/
+}
 
 .header .megamenu .dropdown-item {
   padding: 0px; }
@@ -4168,6 +4169,45 @@ iframe {
 
 .user-dashboard-info-box .candidate-list-details ul {
   color: #969696; }
+
+.user_avatar img{
+  height: 300px !important;
+}
+
+.user_avatar {
+  margin: 0 auto 10px auto;
+}
+
+form p{
+  width: 500px;
+}
+.form-control{
+  width: 500px;
+  margin: 0 auto;
+}
+
+.btn-register {
+  display: block !important;
+  margin: 15px auto 0 auto !important;
+}
+
+.form-horizontal p{
+  margin: 0 auto;
+}
+
+.profile-wrapper{
+  margin: 0 auto;
+}
+
+.container .form-group{
+  margin: 30px 0;
+}
+
+.profile-wrapper .btn-outline-success{
+  display: block;
+  margin: 10px 0;
+}
+
 
 /* Candidate List */
 .candidate-list {

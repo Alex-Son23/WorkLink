@@ -1,9 +1,9 @@
 
-{% extends 'authapp/base.html'%}
+{% extends 'worklink/base.html'%}
 {%load static%}
 
 {% block content %}
-    <div class="container">
+    <div class="container" style="margin-top: 50px; margin-bottom: 30px">
         <div class="login">
             <div class="h2 text-center head">
                 Регистрация нового пользователя
@@ -15,7 +15,7 @@
                 {{ register_form.as_p }}
                 <br>
                 <input class="form-control"
-                       type="submit" value="зарегистрироваться">
+                       type="submit" value="Зарегистрироваться">
             </form>
         </div>
     </div>
