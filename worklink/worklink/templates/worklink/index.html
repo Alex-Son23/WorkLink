@@ -1,0 +1,468 @@
+{% extends 'worklink/base.html' %}
+{% load static %}
+{% load utils %}
+{% block content %}
+<meta charset="utf-8">
+<section class="banner bg-holder bg-overlay-black-30 text-white" style="background-image: url({% static '/worklink/img/bg/programming.jpeg' %});">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-white mb-3">Пришло время получить лучшую работу в вашей жизни</h1>
+                <p class="lead mb-4 mb-lg-5 font-weight-normal">Лучший способ … найти её</p>
+                <div class="nav-tabs-style-01">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="find-job-tab" data-toggle="tab" href="#find-job" role="tab" aria-controls="find-job" aria-selected="true">Найти работу</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="find-candidate-tab" data-toggle="tab" href="#find-candidate" role="tab" aria-controls="find-candidate" aria-selected="false">Найти сотрудника</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent2">
+                        <div class="tab-pane fade show active" id="find-job" role="tabpanel" aria-labelledby="find-job-tab">
+                            <form class="form-inline">
+                                <div class="row w-100">
+                                    <div class="col-lg-3 col-sm-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control"  placeholder="Должность">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-6">
+                                        <div class="input-group">
+                                            <select class="form-control basic-select">
+                                                <option>Занятость</option>
+                                                <option>Частичная занятость</option>
+                                                <option>Полная занятость</option>
+                                                <option>Удаленная</option>
+                                                <option>Временная</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Название компании">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-6">
+                                        <button class="btn btn-primary btn-block">Найти</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="find-candidate" role="tabpanel" aria-labelledby="find-candidate-tab">
+                            <form class="form-inline">
+                                <div class="row w-100">
+                                    <div class="col-lg-3 col-sm-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control"  placeholder="Вакансия">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-6">
+                                        <div class="input-group">
+                                            <select class="form-control basic-select">
+                                                <option>Направление</option>
+                                                <option>Продажи</option>
+                                                <option>Маркетинг</option>
+                                                <option>Здравоохранение</option>
+                                                <option>IT индустрия</option>
+                                                <option>Инженер</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Расположение">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-6">
+                                        <button class="btn btn-primary btn-block">Найти</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="job-tag mt-4">
+                    <ul class="justify-content-center">
+                        <li class="text-primary">Популярные запросы :</li>
+                        <li><a href="#">Бухгалтерия,</a></li>
+                        <li><a href="#">Клиническая психология,</a></li>
+                        <li><a href="#">Web-программист</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="space-pb j-mt-sm-n6">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="owl-carousel owl-nav-bottom-center category-style-01" data-nav-arrow="false" data-nav-dots="false" data-items="5" data-md-items="3" data-sm-items="2" data-xs-items="2" data-xx-items="1" data-space="20" data-autoheight="true">
+                    <a href="#" class="category-item">
+                        <div class="category-icon mb-4">
+                            <i class="flaticon-businessman"></i>
+                        </div>
+                        <h6>Бухгалтерия</h6>
+                        <span class="mb-0">140 вакансий </span>
+                    </a>
+                    <a href="#" class="category-item">
+                        <div class="category-icon mb-4">
+                            <i class="flaticon-money"></i>
+                        </div>
+                        <h6>Покупки</h6>
+                        <span class="mb-0">202 вакансии</span>
+                    </a>
+                    <a href="#" class="category-item">
+                        <div class="category-icon mb-4">
+                            <i class="flaticon-promotion"></i>
+                        </div>
+                        <h6>Маркетинг</h6>
+                        <span class="mb-0">245 вакансий </span>
+                    </a>
+                    <a href="#" class="category-item">
+                        <div class="category-icon mb-4">
+                            <i class="flaticon-doctor"></i>
+                        </div>
+                        <h6>Здравохранение</h6>
+                        <span class="mb-0">514 вакансий </span>
+                    </a>
+                    <a href="#" class="category-item">
+                        <div class="category-icon mb-4">
+                            <i class="flaticon-worker"></i>
+                        </div>
+                        <h6>Web-программирование</h6>
+                        <span class="mb-0">120 вакансий </span>
+                    </a>
+                    <a href="#" class="category-item">
+                        <div class="category-icon mb-4">
+                            <i class="flaticon-apartment"></i>
+                        </div>
+                        <h6>Конструирование</h6>
+                        <span class="mb-0">410 вакансий </span>
+                    </a>
+                    <a href="#" class="category-item">
+                        <div class="category-icon mb-4">
+                            <i class="flaticon-mortgage"></i>
+                        </div>
+                        <h6>Архитектура</h6>
+                        <span class="mb-0">104 вакансии </span>
+                    </a>
+                    <a href="#" class="category-item">
+                        <div class="category-icon mb-4">
+                            <i class="flaticon-salary"></i>
+                        </div>
+                        <h6>Финансы</h6>
+                        <span class="mb-0">241 вакансия </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="section-title center">
+                    <h2 class="title"><span>Свежие кандидаты</span></h2>
+                    <p>Мы знаем это нутром, но что мы можем с этим поделать? Как мы можем мотивировать самих себя?</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Latest Candidates -->
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="candidate-list border mb-5">
+                    <div class="candidate-list-image">
+                        <img class="img-fluid" src="{% static '/worklink/img/avatar/04.jpg'%} " alt="" >
+                    </div>
+                    <div class="candidate-list-details">
+                        <div class="candidate-list-info">
+                            <div class="candidate-list-title">
+                                <h5 class="mb-0">
+                                    <a href="candidate-detail.html">Nichole Haynes</a>
+                                </h5>
+                            </div>
+                            <div class="candidate-list-option">
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-filter pr-1"></i>IT Contractor</li>
+                                    <li><i class="fas fa-map-marker-alt pr-1"></i>Botchergate, Carlisle</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="candidate-list-favourite-time">
+                        <a class="candidate-list-favourite order-2" href="#"><i class="far fa-heart"></i></a>
+                        <span class="candidate-list-time order-1"><i class="far fa-clock pr-1"></i>6D ago</span>
+                    </div>
+                </div>
+                <div class="candidate-list border mb-5 mt-n3">
+                    <div class="candidate-list-image">
+                        <img class="img-fluid" src="{% static '/worklink/img/avatar/01.jpg' %}" alt="" >
+                    </div>
+                    <div class="candidate-list-details">
+                        <div class="candidate-list-info">
+                            <div class="candidate-list-title">
+                                <h5 class="mb-0"><a href="candidate-detail.html">Ronald Bradley</a></h5>
+                            </div>
+                            <div class="candidate-list-option">
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-filter pr-1"></i>General Insurance</li>
+                                    <li><i class="fas fa-map-marker-alt pr-1"></i>Monroe Township, NJ 08831</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="candidate-list-favourite-time">
+                        <a class="candidate-list-favourite order-2" href="#"><i class="far fa-heart"></i></a>
+                        <span class="candidate-list-time order-1"><i class="far fa-clock pr-1"></i>3D ago</span>
+                    </div>
+                </div>
+                <div class="candidate-list border mt-n3">
+                    <div class="candidate-list-image">
+                        <img class="img-fluid" src="{% static '/worklink/img/avatar/05.jpg'%}" alt="" >
+                    </div>
+                    <div class="candidate-list-details">
+                        <div class="candidate-list-info">
+                            <div class="candidate-list-title">
+                                <h5 class="mb-0"><a href="candidate-detail.html">Vickie Meyer</a></h5>
+                            </div>
+                            <div class="candidate-list-option">
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-filter pr-1"></i>Graphic Design</li>
+                                    <li><i class="fas fa-map-marker-alt pr-1"></i>Saint Louis, MO 63109</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="candidate-list-favourite-time">
+                        <a class="candidate-list-favourite order-2" href="#"><i class="far fa-heart"></i></a>
+                        <span class="candidate-list-time order-1"><i class="far fa-clock pr-1"></i>2D ago</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="candidate-list border mb-5">
+                    <div class="candidate-list-image">
+                        <img class="img-fluid" src="{% static '/worklink/img/avatar/08.jpg' %}" alt="" >
+                    </div>
+                    <div class="candidate-list-details">
+                        <div class="candidate-list-info">
+                            <div class="candidate-list-title">
+                                <h5 class="mb-0"><a href="#">Rafael Briggs</a></h5>
+                            </div>
+                            <div class="candidate-list-option">
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-filter pr-1"></i>Clinical Psychology</li>
+                                    <li><i class="fas fa-map-marker-alt pr-1"></i>Battle Ground, WA 98604</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="candidate-list-favourite-time">
+                        <a class="candidate-list-favourite order-2" href="#"><i class="far fa-heart"></i></a>
+                        <span class="candidate-list-time order-1"><i class="far fa-clock pr-1"></i>2W ago</span>
+                    </div>
+                </div>
+                <div class="candidate-list border mb-5 mt-n3">
+                    <div class="candidate-list-image">
+                        <img class="img-fluid" src="{% static '/worklink/img/avatar/06.jpg' %}" alt="" >
+                    </div>
+                    <div class="candidate-list-details">
+                        <div class="candidate-list-info">
+                            <div class="candidate-list-title">
+                                <h5 class="mb-0"><a href="#">Brooke Kelly</a></h5>
+                            </div>
+                            <div class="candidate-list-option">
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-filter pr-1"></i>Information Technology</li>
+                                    <li><i class="fas fa-map-marker-alt pr-1"></i>Rolling Meadows, IL 60008</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="candidate-list-favourite-time">
+                        <a class="candidate-list-favourite order-2" href="#"><i class="far fa-heart"></i></a>
+                        <span class="candidate-list-time order-1"><i class="far fa-clock pr-1"></i>3W ago</span>
+                    </div>
+                </div>
+                <div class="candidate-list border mt-n3">
+                    <div class="candidate-list-image">
+                        <img class="img-fluid" src="{% static '/worklink/img/avatar/02.jpg' %}" alt="" >
+                    </div>
+                    <div class="candidate-list-details">
+                        <div class="candidate-list-info">
+                            <div class="candidate-list-title">
+                                <h5 class="mb-0"><a href="#">Roderick Moss</a></h5>
+                            </div>
+                            <div class="candidate-list-option">
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-filter pr-1"></i>Construction</li>
+                                    <li><i class="fas fa-map-marker-alt pr-1"></i>9657 Bayport Dr. Cumming, GA 30040</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="candidate-list-favourite-time">
+                        <a class="candidate-list-favourite order-2" href="#"><i class="far fa-heart"></i></a>
+                        <span class="candidate-list-time order-1"><i class="far fa-clock pr-1"></i>1M ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="space-ptb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-lg-0 mb-4">
+                <div class="feature-info-01 p-4 p-md-5 primary-box">
+                    <div class="feature-info-icon mb-3 text-primary">
+                        <i class="flaticon-recruitment-1"></i>
+                    </div>
+                    <div class="feature-info-content pl-sm-4 pl-0">
+                        <h4>Ищете работу?</h4>
+                        <p>Разместите свое резюме и у вас будет шанс устроиться в одну из ведущих компаний страны</p>
+                        <a href="#">Заполнить анкету</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="feature-info-01 p-4 p-md-5 dark-box">
+                    <div class="feature-info-icon mb-3 text-dark">
+                        <i class="flaticon-interview-2"></i>
+                    </div>
+                    <div class="feature-info-content pl-sm-4 pl-0">
+                        <h4>Ищете сотрудника?</h4>
+                        <p>Пять миллионов резюме с возможностью поиска в одном месте.</p>
+                        <a class="text-dark" href="#">Разместить вакансию</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="space-ptb bg-holder bg-dark" style="background-image: url('{% static '/worklink/img/bg/01.png' %}');">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="section-title center">
+                    <h2 class="title"><span>Как это работает</span></h2>
+                    <p class="text-white">Дайте себе силу нести ответственность. Напомните себе, что единственное, что вас останавливает, - это вы сами.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4 mb-md-0">
+                <div class="feature-step text-center">
+                    <div class="feature-info-icon">
+                        <i class="flaticon-resume fa-6x text-primary"></i>
+                    </div>
+                    <div class="feature-info-content mt-3">
+                        <h4 class="text-white mb-3">Создайте аккаунт</h4>
+                        <p class="mb-0 text-white">Создайте учетную запись и получите доступ к сохраненным настройкам на любом устройстве.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4 mb-md-0">
+                <div class="feature-step text-center">
+                    <div class="feature-info-icon">
+                        <i class="flaticon-job fa-6x text-primary"></i>
+                    </div>
+                    <div class="feature-info-content mt-3">
+                        <h4 class="text-white mb-3">Найдите свою вакансию</h4>
+                        <p class="mb-0 text-white">Не просто находи. Будь найденным. Разместите свое резюме перед отличными работодателями.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-0">
+                <div class="feature-step text-center">
+                    <div class="feature-info-icon">
+                        <i class="flaticon-notification fa-6x text-primary"></i>
+                    </div>
+                    <div class="feature-info-content mt-3">
+                        <h4 class="text-white mb-3">Получите работу</h4>
+                        <p class="mb-0 text-white">Ваш следующий карьерный шаг начинается здесь. Выбирайте работу из тысяч компаний</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="space-ptb">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="section-title center">
+                    <h2 class="title"><span>Свежие посты из нашего блога</span></h2>
+                    <p>Тенденции и аналитические данные, советы работодателям, обновления продуктов и лучшие практики</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 mb-lg-0 mb-4">
+                <div class="blog-post">
+                    <div class="blog-post-image">
+                        <img class="img-fluid" src="{% static '/worklink/img/blog/03.jpg' %}" alt="">
+                    </div>
+                    <div class="blog-post-content">
+                        <div class="blog-post-details pb-0">
+                            <div class="blog-post-time">
+                                <a href="#">Февраль 4, 2020</a>
+                            </div>
+                            <div class="blog-post-title">
+                                <h5><a href="#">Как продать себя на собеседовании при приеме на работу</a></h5>
+                            </div>
+                            <a class="btn btn-link p-0" href="#">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-lg-0 mb-4">
+                <div class="blog-post">
+                    <div class="blog-post-image">
+                        <img class="img-fluid" src="{% static '/worklink/img/blog/04.jpg'%}" alt="">
+                    </div>
+                    <div class="blog-post-content">
+                        <div class="blog-post-details pb-0">
+                            <div class="blog-post-time">
+                                <a href="#">Март 10, 2020</a>
+                            </div>
+                            <div class="blog-post-title">
+                                <h5><a href="#">Шумиха или польза для рынка труда?</a></h5>
+                            </div>
+                            <a class="btn btn-link p-0" href="#">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="blog-post">
+                    <div class="blog-post-image">
+                        <img class="img-fluid" src="{% static '/worklink/img/blog/05.jpg' %}" alt="">
+                    </div>
+                    <div class="blog-post-content">
+                        <div class="blog-post-details pb-0">
+                            <div class="blog-post-time">
+                                <a href="#">Май 15, 2020</a>
+                            </div>
+                            <div class="blog-post-title">
+                                <h5><a href="#">Как стать менеджером по работе с клиентами</a></h5>
+                            </div>
+                            <a class="btn btn-link p-0" href="#">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
