@@ -38,12 +38,46 @@
             </a>
             <div class="navbar-collapse collapse justify-content-start">
                 <ul class="nav navbar-nav">
+                    <!-- меню для всех -->
                     <!--                        <li class="nav-item">-->
                     <!--                            <a class="nav-link" href="#">Резюме</a>-->
                     <!--                        </li>-->
                     <!--                        <li class="nav-item">-->
                     <!--                            <a class="nav-link" href="#">Вакансии</a>-->
                     <!--                        </li>-->
+
+                    <!-- соискатель -->
+                    {% if user.status == 'соискатель' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Мои резюме</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Профиль</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Вакансии</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Отклики</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Предложения</a>
+                        </li>
+                    {% endif %}
+
+                    <!-- компания -->
+                    {% if user.status == 'компания' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Карточка компании</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Вакансии компании</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Поиск сотрудников</a>
+                        </li>
+                    {% endif %}
+
                     <li class="nav-item">
                         <a class="nav-link" href="#">Партнеры</a>
                     </li>
@@ -53,25 +87,30 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Контакты</a>
                     </li>
+
+
+
                 </ul>
             </div>
             <div class="add-listing">
+                <!-- неавторизованный пользователь -->
                 {% if not user.is_authenticated %}
                 <div class="login d-inline-block mr-4">
                     <a class="nav-link" href="{% url 'authapp:login' %}">Войти <i class="fas fa-sign-in-alt"></i></a>
                 </div>
+                <a class="btn btn-primary btn-md" href="{% url 'auth:register' %}">Регистрация</a>
 <!--                 <li class="nav-item">-->
 <!--                    <a class="nav-link" href="{% url 'authapp:login' %}">Войти <i class="fas fa-sign-in-alt"></i></a>-->
 <!--                </li>-->
-                <a class="btn btn-primary btn-md" href="{% url 'auth:register' %}">Регистрация</a>
                 {% else %}
-                <li class="nav-item">
+                
+                <!-- авторизованный пользователь -->
+                <div class="login d-inline-block mr-4">
                     <div class="dropdown">
                         <a class="nav-link dropdown-toggle" href="" data-toggle="dropdown">
                             {{ user.username|default:'Пользователь' }}
                             <span class="caret"> </span>
                         </a>
-                        <a class="nav-link" href="{% url 'auth:logout' %}">Выйти <i class="fas fa-sign-out-alt"></i></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a class="nav-link text-dark" href="{% url 'auth:edit' %}">Профиль</a>
@@ -81,8 +120,10 @@
                             </li>
                         </ul>
                     </div>
-
-                </li>
+                </div>
+                <div class="login d-inline-block mr-4">
+                    <a class="nav-link" href="{% url 'auth:logout' %}">Выйти <i class="fas fa-sign-out-alt"></i></a>
+                </div>
                 {% endif %}
             </div>
         </div>
