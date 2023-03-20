@@ -11,3 +11,10 @@ class IndexView(TemplateView):
         return context
 
 
+class NewsView(TemplateView):
+    template_name = 'worklink/news.html'
+
+
+class ContactsView(TemplateView):
+    template_name = 'worklink/contacts.html'
+
