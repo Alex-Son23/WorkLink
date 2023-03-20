@@ -1,0 +1,190 @@
+{% extends 'worklink/base.html' %}
+{% load static %}
+{% load utils %}
+{% block content %}
+
+    <meta charset="utf-8">
+    <meta name="keywords" content="HTML5 Template" />
+    <meta name="description" content="Jobster - Job Board HTML5 Template" />
+    <meta name="author" content="potenzaglobalsolutions.com" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Jobster - Job Board HTML5 Template</title>
+
+    <!-- Favicon -->
+    <link href="{% static '/worklink/img/icon.png' %}" rel="shortcut icon" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700" rel="stylesheet">
+
+    <!-- CSS Global Compulsory (Do not remove)-->
+    <link rel="stylesheet" href="{% static '/worklink/css/font-awesome/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static '/worklink/css/flaticon/flaticon.css' %}" />
+    <link rel="stylesheet" href="{% static '/worklink/css/bootstrap/bootstrap.min.css' %}" />
+
+    <!-- Template Style -->
+    <link rel="stylesheet" href="{% static '/worklink/css/style.css' %}" />
+
+  </head>
+<body>
+
+<div class="header-inner bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="text-primary">Контакты</h2>
+        <ol class="breadcrumb mb-0 p-0">
+          <li class="breadcrumb-item"><a href="{% url 'index' %}"> Домой </a></li>
+          <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <span> Контакты </span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<!--=================================
+inner banner -->
+
+<!--=================================
+feature-info -->
+<section class="space-ptb">
+  <div class="container">
+    <div class="row">
+     <div class="col-xl-6">
+       <div class="row">
+          <div class="col-lg-12">
+            <div class="section-title">
+              <h2 class="title"><span> Свяжитесь с нами </span></h2>
+              <p>Мы сделали работу лучше для более чем 1000+ клиентов. Доверьте и вы нам свое резюме.</p>
+            </div>
+          </div>
+        </div>
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" id="Username" placeholder="Ваше имя">
+            </div>
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" id="email" placeholder="Тема">
+            </div>
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" id="Password" placeholder="Ваша электронная почта">
+            </div>
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" id="phone" placeholder="Ваш номер телефона">
+            </div>
+            <div class="form-group col-12 mb-0">
+              <textarea rows="5" class="form-control" id="sector" placeholder="Сообщение"></textarea>
+            </div>
+            <div class="col-12 mt-4">
+              <a class="btn btn-primary" href="#">Отправить сообщение</a>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-xl-6 mt-4 mt-xl-0">
+       <div class="row">
+          <div class="col-lg-12">
+            <div class="section-title">
+              <h2 class="title"><span> Контактная информация </span></h2>
+              <p>Как мы можем мотивировать себя? Одним из самых сложных аспектов достижения успеха является сохранение мотивации в течение длительного времени.</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-4">
+            <div class="border d-flex align-items-center p-4">
+              <i class="text-primary flaticon-placeholder mr-3 fa-3x"></i>
+              <div>
+                <h5 class="mb-2">Адрес</h5>
+                <span class="d-block">ул. Лермонтова, 5 офис 255 </span>
+                <span>Россия, Москва</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <div class="border d-flex align-items-center p-4">
+              <i class="text-primary flaticon-contact mr-3 fa-3x"></i>
+              <div>
+                <h5 class="mb-2">Телефон</h5>
+                <span class="d-block">+7(995)345-6789</span>
+                <span>+7(456)478-2589</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <div class="border d-flex align-items-center p-4">
+              <i class="text-primary flaticon-approval mr-3 fa-3x"></i>
+              <div>
+                <h5 class="mb-2">Email</h5>
+                <span class="d-block">support@worklink.ru</span>
+                <span>info@worklink.ru</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="border d-flex align-items-center p-4">
+              <i class="text-primary flaticon-contact mr-3 fa-3x"></i>
+              <div>
+                <h5 class="mb-2">Факс</h5>
+                <span class="d-block">+7(995)345-6789</span>
+                <span>+7(456)478-2589</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+</section>
+<!--=================================
+feature-info -->
+
+<!--=================================
+Let’s Get In Touch -->
+<section class="space-pb ">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 mb-4 mb-lg-0">
+        <div class="feature-info-02 text-left p-4 border">
+          <div class="feature-info-icon">
+            <i class="flaticon-hand-shake"></i>
+          </div>
+          <div class="feature-info-content pl-0 pl-sm-3">
+            <h5 class="title text-dark">Наш чат</h5>
+            <p class="mb-0">Если у вас есть вопросы, задайте их в чате.</p>
+            <a class="mt-2 mb-0 d-block" href="#">Войти в чат</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 mb-4 mb-lg-0">
+        <div class="feature-info-02 text-left p-4 border">
+          <div class="feature-info-icon">
+            <i class="flaticon-profiles"></i>
+          </div>
+          <div class="feature-info-content pl-0 pl-sm-3">
+            <h5>Позвоните нам</h5>
+            <p class="mb-0">Сотрудник колл-центра ответить на все ваши вопросы </p>
+            <h5 class="mt-2 mb-0">+7(456)478-2589</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="feature-info-02 text-left p-4 border">
+          <div class="feature-info-icon">
+            <i class="flaticon-conversation-1"></i>
+          </div>
+          <div class="feature-info-content pl-0 pl-sm-3">
+            <h5>Свежие новости</h5>
+            <p class="mb-0">Будьте в курсе - полистайте ленту новостей.</p>
+            <a class="mt-2 mb-0 d-block" href="{% url 'news' %}"> Читать новости </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+{% endblock %}

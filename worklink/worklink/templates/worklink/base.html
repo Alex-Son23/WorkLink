@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>{% block title %}{{ title|title }}{% endblock %}</title>
-    <link href="{% static '/worklink/img/favicon.ico' %}" rel="shortcut icon"/>
+    <link href="{% static '/worklink/img/icon.png' %}" rel="shortcut icon"/>
     {% block css %}
     <link rel="stylesheet" href="{% static 'worklink/css/font-awesome/all.min.css' %}"/>
     <link rel="stylesheet" href="{% static 'worklink/css/flaticon/flaticon.css' %}"/>
@@ -82,10 +82,10 @@
                         <a class="nav-link" href="#">Партнеры</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Новости</a>
+                        <a class="nav-link" href="{% url 'news' %}">Новости</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Контакты</a>
+                        <a class="nav-link" href="{% url 'contacts' %}">Контакты</a>
                     </li>
 
 
@@ -161,7 +161,7 @@
                 <div class="footer-link">
                     <h5 class="mb-4 text-white">Компаниям</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#">Блог</a></li>
+                        <li><a href="{% url 'news' %}">Новости</a></li>
                     </ul>
                 </div>
             </div>
@@ -186,7 +186,7 @@
                 <div class="col-lg-6 mb-4 mb-sm-5 mb-lg-0">
                     <div class="d-sm-flex">
                         <div class="align-self-center footer-top-logo">
-                            <img class="img-fluid" src="{% static '/worklink/img/logo-light.svg'%}" alt="">
+                            <img class="img-fluid" src="{% static '/worklink/img/wl_light_logo.svg'%}" alt="">
                         </div>
                         <div class="pl-sm-3 ml-sm-3 mt-3 mt-sm-0 border-sm-left text-white">Создайте бесплатную учетную
                             запись, чтобы найти тысячи вакансий, возможностей трудоустройства и карьерного роста вокруг
