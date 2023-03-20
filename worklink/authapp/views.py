@@ -10,24 +10,21 @@ from authapp.forms import UserRegisterForm, UserEditForm, UserLoginForm, \
 
 from authapp.models import CompanyProfile, JobFinderProfile
 
-
-# from models import ShopUser
-# from worklink import settings
-
-# '''
-# Функция ниже понадобится в будущем, функция отправки сообщения
-# '''
+from worklink import settings
+'''
+Функция ниже понадобится в будущем, функция отправки сообщения
+'''
 
 
-# def send_verify_mail(user):
-#     verify_link = reverse('auth:verify', args=[user.email, user.activation_key])
-#
-#     title = f'Подтверждени учётной записи {user.username}'
-#
-#     message = f'Для подтверждения учётной записи {user.username}' \
-#               f'на портале {settings.DOMAIN_NAME} перейдите по ссылке: \n{settings.DOMAIN_NAME}{verify_link}'
-#
-#     return send_mail(title, message, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+def send_verify_mail(user):
+    # verify_link = reverse('auth:verify', args=[user.email, user.activation_key])
+
+    title = f'Регистрация в WorkLink'
+
+    message = f'Вы успешно зарегестрированы {user.username}!' \
+              f'Наш сервис поможет вам найти работу!'
+
+    return send_mail(title, message, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
 
 
 # Аутентификация пользователя
@@ -72,19 +69,19 @@ def register(request):
         register_form = UserRegisterForm(request.POST, request.FILES)
 
         if register_form.is_valid():
-            register_form.save()
+            user = register_form.save()
             # перенаправление на страницу аутентификации
-            return HttpResponseRedirect(reverse('auth:login'))
+            # return HttpResponseRedirect(reverse('auth:login'))
 
             # '''
             # Функция ниже понадобится в будущем, функция отправки сообщения
             # '''
-            # if send_verify_mail(user):
-            #     print('сообщение подтверждения отрпавлено')
-            #     return HttpResponseRedirect(reverse('auth:login'))
-            # else:
-            #     print('ошибка отправки сообщения')
-            #     return HttpResponseRedirect(reverse('auth:login'))
+            if send_verify_mail(user):
+                print('сообщение подтверждения отрпавлено')
+                return HttpResponseRedirect(reverse('auth:login'))
+            else:
+                print('ошибка отправки сообщения')
+                return HttpResponseRedirect(reverse('auth:login'))
     else:
         register_form = UserRegisterForm()
 
