@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     #
     "worklink",
     "authapp",
+    'jobfinderapp',
+    'companyapp',
 ]
 
 MIDDLEWARE = [
