@@ -1,3 +1,21 @@
 from django.db import models
 
-# Create your models here.
+
+class Company(models.Model):
+    pass
+
+
+class Vacancy(models.Model):
+    title = models.CharField(max_length=256, verbose_name='название')
+    position = models.CharField(max_length=256, verbose_name='должность')
+    salary = models.PositiveIntegerField(verbose_name='зарплата')
+    remote = models.BooleanField(default=False, verbose_name='удаленная')
+    country = models.CharField(max_length=256, verbose_name='страна')
+    city = models.CharField(max_length=256, verbose_name='город')
+    is_closed = models.BooleanField(default=False, verbose_name='закрыто')
+    description = models.CharField(max_length=2048, verbose_name='описание')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='создано', editable=False)
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='отредактировано', editable=False)
+    company_id = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name='компания')
+
+
