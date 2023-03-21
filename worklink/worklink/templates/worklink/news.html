@@ -2,37 +2,6 @@
 {% load static %}
 {% load utils %}
 {% block content %}
-    <meta charset="utf-8">
-    <meta name="keywords" content="HTML5 Template" />
-    <meta name="description" content="Jobster - Job Board HTML5 Template" />
-    <meta name="author" content="potenzaglobalsolutions.com" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Jobster - Job Board HTML5 Template</title>
-    <!-- Favicon -->
-
-    <link href="{% static '/worklink/img/icon.png' %}" rel="shortcut icon" />
-    <!-- Google Font -->
-
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700" rel="stylesheet">
-
-    <!-- CSS Global Compulsory (Do not remove)-->
-    <link rel="stylesheet" href="{% static '/worklink/css/font-awesome/all.min.css' %}" />
-    <link rel="stylesheet" href="{% static '/worklink/css/flaticon/flaticon.css' %}" />
-    <link rel="stylesheet" href="{% static '/worklink/css/bootstrap/bootstrap.min.css' %}" />
-
-    <!-- Page CSS Implementing Plugins (Remove the plugin CSS here if site does not use that feature)-->
-    <link rel="stylesheet" href="{% static '/worklink/css/owl-carousel/owl.carousel.min.css' %}" />
-
-    <!-- Template Style -->
-    <link rel="stylesheet" href="{% static '/worklink/css/style.css' %}" />
-
-  </head>
-<body>
-
-<!--=================================
-
-<!--=================================
-inner banner -->
 <div class="header-inner bg-light">
   <div class="container">
     <div class="row">
@@ -46,152 +15,150 @@ inner banner -->
     </div>
   </div>
 </div>
-<!--=================================
-inner banner -->
 
-<!--=================================
-blog -->
 <section class="space-ptb">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8">
-        <div class="blog-post mb-4 mb-sm-5">
-          <div class="blog-post-image">
-            <img class="img-fluid" src="/static/images/blog/01.jpg" alt="">
-          </div>
-          <div class="blog-post-content">
-            <div class="blog-post-details">
-              <div class="blog-post-category">
-                <a class="mb-1" href="#">IT</a>
-              </div>
-               <h5 class="post-title"><a href="#">Python или Java</a></h5>
-              <p>Как определиться с языком программирования и не прогадать? Кто из разработчиков сейчас в тренде. Сильные и слабые стороны Питона.</p>
-            </div>
-            <div class="blog-post-footer">
-              <div class="blog-post-time">
-                <a href="#"><i class="far fa-clock"></i>20 января 2023</a>
-              </div>
-              <div class="blog-post-comment">
-                <a href="#"><i class="far fa-comment"></i>(4)</a>
-              </div>
-              <div class="blog-post-share">
-                <div class="share-box">
-                  <a href="#"> <i class="fas fa-share-alt"></i><span class="pl-2">Поделиться</span></a>
-                  <ul class="list-unstyled share-box-social">
-                    <li> <a href="#"><i class="fab fa-facebook-f"></i></a> </li>
-                    <li> <a href="#"><i class="fab fa-twitter"></i></a> </li>
-                    <li> <a href="#"><i class="fab fa-linkedin"></i></a> </li>
-                    <li> <a href="#"><i class="fab fa-instagram"></i></a> </li>
-                    <li> <a href="#"><i class="fab fa-pinterest"></i></a> </li>
-                  </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="blog-post mb-4 mb-sm-5">
+                    <div class="blog-post-image">
+                        <img class="img-fluid" src="/static/images/blog/01.jpg" alt="">
+                    </div>
+                    <div class="blog-post-content">
+                        <div class="blog-post-details">
+                            <div class="blog-post-category">
+                                <a class="mb-1" href="#">IT</a>
+                            </div>
+                            <h5 class="post-title"><a href="#">Python или Java</a></h5>
+                            <p>Как определиться с языком программирования и не прогадать? Кто из разработчиков сейчас в тренде. Сильные и слабые стороны Питона.</p>
+                        </div>
+                        <div class="blog-post-footer">
+                            <div class="blog-post-time">
+                                <a href="#"><i class="far fa-clock"></i>20 января 2023</a>
+                            </div>
+                            <div class="blog-post-comment">
+                                <a href="#"><i class="far fa-comment"></i>(4)</a>
+                            </div>
+                            <div class="blog-post-share">
+                                <div class="share-box">
+                                    <a href="#"> <i class="fas fa-share-alt"></i><span class="pl-2">Поделиться</span></a>
+                                    <ul class="list-unstyled share-box-social">
+                                        <li> <a href="#"><i class="fab fa-facebook-f"></i></a> </li>
+                                        <li> <a href="#"><i class="fab fa-twitter"></i></a> </li>
+                                        <li> <a href="#"><i class="fab fa-linkedin"></i></a> </li>
+                                        <li> <a href="#"><i class="fab fa-instagram"></i></a> </li>
+                                        <li> <a href="#"><i class="fab fa-pinterest"></i></a> </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="blog-post mb-4 mb-sm-5">
-          <div class="blog-post-image">
-            <img class="/static/img-fluid" src="images/blog/02.jpg" alt="">
-          </div>
-          <div class="blog-post-content">
-            <div class="blog-post-details">
-              <div class="blog-post-category">
-                <a class="mb-1" href="#">Рынок</a>
-              </div>
-               <h5 class="post-title"><a href="#">Как продать себя на собеседовании</a></h5>
-              <p>Мотивация — это не случайность или что-то еще, что может дать вам кто-то другой. Вы единственный, кто может себя мотивировать. Мотивация не может быть внешней силой, она должна исходить изнутри как естественный продукт вашего желания чего-то достичь и вашей веры в то, что вы способны добиться успеха в достижении своей цели.
-            <div class="blog-post-footer">
-              <div class="blog-post-time">
-                <a href="#"><i class="far fa-clock"></i>24 февраля 2023</a>
-              </div>
-              <div class="blog-post-comment">
-                <a href="#"><i class="far fa-comment"></i>(2)</a>
-              </div>
-              <div class="blog-post-share">
-                <div class="share-box">
-                  <a href="#"> <i class="fas fa-share-alt"></i><span class="pl-2">Поделиться</span></a>
-                  <ul class="list-unstyled share-box-social">
-                    <li> <a href="#"><i class="fab fa-facebook-f"></i></a> </li>
-                    <li> <a href="#"><i class="fab fa-twitter"></i></a> </li>
-                    <li> <a href="#"><i class="fab fa-linkedin"></i></a> </li>
-                    <li> <a href="#"><i class="fab fa-instagram"></i></a> </li>
-                    <li> <a href="#"><i class="fab fa-pinterest"></i></a> </li>
-                  </ul>
+                <div class="blog-post mb-4 mb-sm-5">
+                    <div class="blog-post-image">
+                        <img class="/static/img-fluid" src="images/blog/02.jpg" alt="">
+                    </div>
+                    <div class="blog-post-content">
+                        <div class="blog-post-details">
+                            <div class="blog-post-category">
+                                <a class="mb-1" href="#">Рынок</a>
+                            </div>
+                            <h5 class="post-title"><a href="#">Как продать себя на собеседовании</a></h5>
+                            <p>Мотивация — это не случайность или что-то еще, что может дать вам кто-то другой. Вы единственный, кто может себя мотивировать. Мотивация не может быть внешней силой, она должна исходить изнутри как естественный продукт вашего желания чего-то достичь и вашей веры в то, что вы способны добиться успеха в достижении своей цели.
+                            <div class="blog-post-footer">
+                                <div class="blog-post-time">
+                                    <a href="#"><i class="far fa-clock"></i>24 февраля 2023</a>
+                                </div>
+                                <div class="blog-post-comment">
+                                    <a href="#"><i class="far fa-comment"></i>(2)</a>
+                                </div>
+                                <div class="blog-post-share">
+                                    <div class="share-box">
+                                        <a href="#"> <i class="fas fa-share-alt"></i><span class="pl-2">Поделиться</span></a>
+                                        <ul class="list-unstyled share-box-social">
+                                            <li> <a href="#"><i class="fab fa-facebook-f"></i></a> </li>
+                                            <li> <a href="#"><i class="fab fa-twitter"></i></a> </li>
+                                            <li> <a href="#"><i class="fab fa-linkedin"></i></a> </li>
+                                            <li> <a href="#"><i class="fab fa-instagram"></i></a> </li>
+                                            <li> <a href="#"><i class="fab fa-pinterest"></i></a> </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog-post blog-post-quote mt-4 bg-primary">
+                        <div class="blog-post-content">
+                            <div class="blockquote text-center">
+                                <blockquote class="text-white mb-0">
+                                    <i class="fas fa-quote-right"></i>
+                                    <p>Мы знаем это нутром, но что мы можем с этим поделать? Как мы можем мотивировать себя? Одним из самых сложных аспектов достижения успеха является сохранение мотивации в течение длительного времени.</p>
+                                    <cite>– Даниель Пинк</cite>
+                                </blockquote>
+                            </div>
+                            <div class="blog-post-details text-center">
+                                <div class="blog-post-category">
+                                    <a class="mb-1" href="#">американский писатель и журналист</a>
+                                </div>
+                                <div class="blog-post-title mt-3">
+                                    <h5><a href="#"> О мотивации </a></h5>
+                                </div>
+                            </div>
+                            <div class="blog-post-footer mt-4 mt-md-5">
+                                <div class="blog-post-time">
+                                    <a href="#"><i class="far fa-clock"></i>25 марта 2023</a>
+                                </div>
+                                <div class="blog-post-comment">
+                                    <a href="#"><i class="far fa-comment"></i>(1)</a>
+                                </div>
+                                <div class="blog-post-share">
+                                    <div class="share-box share-dark-bg">
+                                        <a href="#"> <i class="fas fa-share-alt"></i><span class="pl-2">Поделиться</span></a>
+                                        <ul class="list-unstyled share-box-social">
+                                            <li> <a href="#"><i class="fab fa-facebook-f"></i></a> </li>
+                                            <li> <a href="#"><i class="fab fa-twitter"></i></a> </li>
+                                            <li> <a href="#"><i class="fab fa-linkedin"></i></a> </li>
+                                            <li> <a href="#"><i class="fab fa-instagram"></i></a> </li>
+                                            <li> <a href="#"><i class="fab fa-pinterest"></i></a> </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog-post post-without-image mt-4 mt-sm-5 text-center">
+                        <div class="blog-post-content pt-0">
+                            <div class="blog-post-details mt-4 mt-md-5">
+                                <div class="blog-post-category">
+                                    <a class="mb-1" href="#">Истории успеха</a>
+                                </div>
+                                <div class="blog-post-title">
+                                    <h4><a href="#">Успех не приходит сам по себе</a></h4>
+                                </div>
+                                <div class="blog-post-description">
+                                    <p class="mb-0">Первое, что нужно помнить об успехе, это то, что это процесс — ни больше, ни меньше. На самом деле в этом нет никакой магии, и это не предназначено только для избранных людей. Таким образом, успех на самом деле не имеет ничего общего с удачей, совпадением или судьбой. Это действительно сводится к пониманию шагов в процессе и последующему выполнению этих шагов.</p>
+                                </div>
+                            </div>
+                            <div class="blog-post-footer mt-4 mt-md-5">
+                                <div class="blog-post-time">
+                                    <a href="#"><i class="far fa-clock"></i>25 марта 2023</a>
+                                </div>
+                                <div class="blog-post-comment">
+                                    <a href="#"><i class="far fa-comment"></i>(3)</a>
+                                </div>
+                                <div class="blog-post-share">
+                                    <div class="share-box">
+                                        <a href="#"> <i class="fas fa-share-alt"></i><span class="pl-2">Поделиться</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-        <div class="blog-post blog-post-quote mt-4 bg-primary">
-          <div class="blog-post-content">
-            <div class="blockquote text-center">
-              <blockquote class="text-white mb-0">
-                <i class="fas fa-quote-right"></i>
-                <p>Мы знаем это нутром, но что мы можем с этим поделать? Как мы можем мотивировать себя? Одним из самых сложных аспектов достижения успеха является сохранение мотивации в течение длительного времени.</p>
-                <cite>– Даниель Пинк</cite>
-              </blockquote>
-            </div>
-            <div class="blog-post-details text-center">
-              <div class="blog-post-category">
-                <a class="mb-1" href="#">американский писатель и журналист</a>
-              </div>
-              <div class="blog-post-title mt-3">
-                <h5><a href="#"> О мотивации </a></h5>
-              </div>
-            </div>
-            <div class="blog-post-footer mt-4 mt-md-5">
-              <div class="blog-post-time">
-                <a href="#"><i class="far fa-clock"></i>25 марта 2023</a>
-              </div>
-              <div class="blog-post-comment">
-                <a href="#"><i class="far fa-comment"></i>(1)</a>
-              </div>
-              <div class="blog-post-share">
-                <div class="share-box share-dark-bg">
-                  <a href="#"> <i class="fas fa-share-alt"></i><span class="pl-2">Поделиться</span></a>
-                  <ul class="list-unstyled share-box-social">
-                    <li> <a href="#"><i class="fab fa-facebook-f"></i></a> </li>
-                    <li> <a href="#"><i class="fab fa-twitter"></i></a> </li>
-                    <li> <a href="#"><i class="fab fa-linkedin"></i></a> </li>
-                    <li> <a href="#"><i class="fab fa-instagram"></i></a> </li>
-                    <li> <a href="#"><i class="fab fa-pinterest"></i></a> </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="blog-post post-without-image mt-4 mt-sm-5 text-center">
-          <div class="blog-post-content pt-0">
-            <div class="blog-post-details mt-4 mt-md-5">
-              <div class="blog-post-category">
-                <a class="mb-1" href="#">Истории успеха</a>
-              </div>
-              <div class="blog-post-title">
-                <h4><a href="#">Успех не приходит сам по себе</a></h4>
-              </div>
-              <div class="blog-post-description">
-                <p class="mb-0">Первое, что нужно помнить об успехе, это то, что это процесс — ни больше, ни меньше. На самом деле в этом нет никакой магии, и это не предназначено только для избранных людей. Таким образом, успех на самом деле не имеет ничего общего с удачей, совпадением или судьбой. Это действительно сводится к пониманию шагов в процессе и последующему выполнению этих шагов.</p>
-              </div>
-            </div>
-            <div class="blog-post-footer mt-4 mt-md-5">
-              <div class="blog-post-time">
-                <a href="#"><i class="far fa-clock"></i>25 марта 2023</a>
-              </div>
-              <div class="blog-post-comment">
-                <a href="#"><i class="far fa-comment"></i>(3)</a>
-              </div>
-              <div class="blog-post-share">
-                <div class="share-box">
-                  <a href="#"> <i class="fas fa-share-alt"></i><span class="pl-2">Поделиться</span></a>
-
-
-          </div>
-
-
+    </div>
 </section>
-
-
 
 {% endblock %}

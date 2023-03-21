@@ -480,7 +480,7 @@
    * Retrieve the computed style for an element, parsed as a float.
    * @param {Element} element Element to get style for.
    * @param {string} style Style property.
-   * @param {CSSStyleDeclaration} [styles] Optionally include clean styles to
+   * @param {CSSStyleDeclaration} [styles] Optionally includes clean styles to
    *     use instead of asking for them again.
    * @return {number} The parsed computed value or zero if that fails because IE
    *     will return 'auto' when the element doesn't have margins instead of
@@ -2035,13 +2035,13 @@
        *   - This value stays the same regardless of the elements transform property,
        *   however, it does not return subpixel values.
        * 3. getComputedStyle()
-       *   - This works great Chrome, Firefox, Safari, but IE<=11 does not include
+       *   - This works great Chrome, Firefox, Safari, but IE<=11 does not includes
        *   padding and border when box-sizing: border-box is set, requiring a feature
        *   test and extra work to add the padding back for IE and other browsers which
        *   follow the W3C spec here.
        *
        * @param {Element} element The element.
-       * @param {boolean} [includeMargins=false] Whether to include margins.
+       * @param {boolean} [includeMargins=false] Whether to includes margins.
        * @return {{width: number, height: number}} The width and height.
        */
 

@@ -1,0 +1,24 @@
+<ul class="nav navbar-nav">
+    {% if user.status == 'соискатель' %}
+        <li class="nav-item">
+            <a class="nav-link" href="#">Вакансии</a>
+        </li>
+    {% endif %}
+
+    <!-- компания -->
+    {% if user.status == 'компания' %}
+        <li class="nav-item">
+            <a class="nav-link" href="#">Поиск сотрудников</a>
+        </li>
+    {% endif %}
+
+    <li class="nav-item">
+        <a class="nav-link" href="#">Партнеры</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'news' %}">Новости</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'contacts' %}">Контакты</a>
+    </li>
+</ul>
