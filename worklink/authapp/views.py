@@ -114,7 +114,6 @@ def edit(request):
         # profile_form = UserProfileForm(request.POST,
         #                                instance=request.user.userprofile)
         if edit_form.is_valid() and profile_form.is_valid():
-            print('HUI')
             edit_form.save()
             profile_form.save()
             return HttpResponseRedirect(reverse('auth:edit'))
