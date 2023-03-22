@@ -121,18 +121,18 @@ def edit(request):
         edit_form = UserEditForm(instance=request.user)
         if request.user.status == 'соискатель':
             profile = JobFinderProfile.objects.filter(user=request.user)[0]
-            end_form = UserProfileForm(
+            profile_form = UserProfileForm(
                 instance=profile)
         elif request.user.status == 'компания':
             company = CompanyProfile.objects.filter(user=request.user)[0]
-            end_form = CompanyProfileForm(
+            profile_form = CompanyProfileForm(
                 instance=company
             )
 
     content = {
         'title': title,
         'edit_form': edit_form,
-        'profile_form': end_form,
+        'profile_form': profile_form,
     }
 
     return render(request, 'authapp/edit.html', content)
