@@ -1,8 +1,5 @@
 from django.db import models
-
-
-class Company(models.Model):
-    name = models.CharField(max_length=256, verbose_name='название')
+from authapp.models import CompanyProfile
 
 
 class Vacancy(models.Model):
@@ -16,6 +13,4 @@ class Vacancy(models.Model):
     description = models.CharField(max_length=2048, verbose_name='описание')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='создано', editable=False)
     updated_at = models.DateTimeField(auto_now=True, verbose_name='отредактировано', editable=False)
-    company_id = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name='компания')
-
-
+    company_id = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE, verbose_name='компания')
