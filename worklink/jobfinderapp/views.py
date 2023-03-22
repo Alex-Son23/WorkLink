@@ -10,4 +10,10 @@ class JobListingView(ListView):
     def get_queryset(self):
         return super().get_queryset().filter(is_closed=False)
     
+    def get_context_data(self, **kwargs):
+        companies = {el['id']: el['name'] for el in companyapp_models.Company.objects.values()}
+        context = super().get_context_data(**kwargs)
+        context['companies'] =  companies
+        return context
+    
     

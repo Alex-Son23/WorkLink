@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Company(models.Model):
-    pass
+    name = models.CharField(max_length=256, verbose_name='название')
 
 
 class Vacancy(models.Model):

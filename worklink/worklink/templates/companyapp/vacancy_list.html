@@ -1,0 +1,30 @@
+{% extends 'worklink/base.html' %}
+{% load static %}
+{% load utils %}
+{% block content %}
+
+<div>
+
+    {% for item in object_list %}
+    <div>
+        
+        <h5 class="card-title">{{ item.title }}</h5>
+            {% with id=item.company_id_id %}
+        <p><b>{{ companies|keyvalue:id}}</p></b>
+            {% endwith %} 
+        <ul>
+            <li>Зарплата: {{ item.salary}}</li>
+            <li>Страна: {{ item.country}}</li>
+            <li>Город: {{ item.city}}</li>
+            <li>Удалённая работа: {% if item.remote == 1 %} да {% else %} нет {% endif %}
+
+            </li>            
+        </ul>
+        <p class="card-text">{{ item.description }}</p>
+    </div> 
+              
+    {% endfor %}
+
+  </div>
+
+{% endblock content %}

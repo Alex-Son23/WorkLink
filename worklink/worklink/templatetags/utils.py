@@ -30,3 +30,10 @@ def media_folder_users(string):
 register.filter('media_folder_products', media_folder_products)
 
 register.filter('price_format', utils.get_price_format)
+
+@register.filter
+def keyvalue(d, key):
+    """
+    Дает возможность использовать выражение типа {{dictionary|keyvalue:key_variable}} в шаблонах
+    """
+    return d[key]
