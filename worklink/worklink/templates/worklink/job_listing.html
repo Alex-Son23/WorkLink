@@ -1,0 +1,68 @@
+{% extends 'worklink/base.html' %}
+{% load static %}
+{% load utils %}
+{% block content %}
+
+
+    {% for job_item in object_list %}
+    <div class="card my-2">
+      <div class="card-body">
+        <h4 class="card-title">{{ job_item.title }}</h4>
+        <h6 class="card-subtitle mb-2 text-muted">{{ job_item.date|date:'d.m.Y' }}</h6>
+        <p class="card-text">{{ job_item.celery }}</p>
+        <a href="#" class="card-link">Описание вакансии</a>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+
+    <!-- Favicon -->
+    <link href="images/icon.png" rel="shortcut icon" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700" rel="stylesheet">
+
+    <!-- CSS Global Compulsory (Do not remove)-->
+    <link rel="stylesheet" href="{% static '/worklink/css/font-awesome/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static '/worklink/css/flaticon/flaticon.css' %}" />
+    <link rel="stylesheet" href="{% static '/worklink/css/bootstrap/bootstrap.min.css' %}" />
+
+    <!-- Page CSS Implementing Plugins (Remove the plugin CSS here if site does not use that feature)-->
+    <link rel="stylesheet" href="{% static '/worklink/css/select2/select2.css' %}" />
+
+    <!-- Template Style -->
+    <link rel="stylesheet" href="{% static '/worklink/css/style.css' %}" />
+
+  </head>
+
+
+</div>
+ <div class="container" style="margin-top: 50px; margin-bottom: 30px">
+        <div class="login">
+            <form class="form-horizontal"
+                  action="{% url 'auth:job_form' %}" method="post"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ job_form.as_p }}
+                <br>
+                <input class="form-control"
+                       type="submit" value="Добавить вакансию">
+            </form>
+        </div>
+    </div>
+
+<div class="row justify-content-center align-items-center mt-3 mb-n3">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link" href="#">Предыдущая</a></li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item"><a class="page-link" href="#">Следующая</a></li>
+    </ul>
+  </nav>
+</div>
+
+
+{% endblock %}

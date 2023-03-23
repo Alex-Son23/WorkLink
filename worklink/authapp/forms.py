@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, \
 from django import forms
 from django.contrib.auth.models import User
 
-from authapp.models import WorkLinkUser, JobFinderProfile, CompanyProfile
+from authapp.models import WorkLinkUser, JobFinderProfile, CompanyProfile, JobList
 
 
 # форма для регистрации нового пользователя
@@ -109,3 +109,19 @@ class CompanyProfileForm(forms.ModelForm):
 
 class DateInput(forms.DateInput):
     input_type = 'date'
+
+
+# Форма для новой вакансии
+class JobForm(forms.ModelForm):
+    class Meta:
+        model = JobList
+        # экранная форма на основе модели User с полями
+        fields = ('title', 'celery', 'body',)
+
+    # Метод для обеспечения стилизации элементов управления формы
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            field.help_text = ''
