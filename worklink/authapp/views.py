@@ -6,10 +6,9 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from authapp.forms import UserRegisterForm, UserEditForm, UserLoginForm, \
-    UserProfileForm, CompanyProfileForm, JobForm
+    UserProfileForm, CompanyProfileForm
 
-from authapp.models import CompanyProfile, JobFinderProfile
-
+from authapp.models import JobFinderProfile, CompanyProfile
 
 from worklink import settings
 '''
@@ -158,18 +157,18 @@ def edit(request):
 #         return HttpResponseRedirect(reverse('index'))
 
 
-# Добавление новой вакансии
-def new_vacancy(request):
-    title = 'Добавление вакансии'
-
-    if request.method == 'POST':
-        job_form = JobForm(request.POST, request.FILES)
-
-        if job_form.is_valid():
-            vacancy = job_form.save()
-
-    content = {
-        'title': title,
-        'job_form': job_form
-    }
-    return render(request, 'mainapp/job_form.html', content)
+# # Добавление новой вакансии
+# def new_vacancy(request):
+#     title = 'Добавление вакансии'
+#
+#     if request.method == 'POST':
+#         job_form = JobForm(request.POST)
+#
+#         if job_form.is_valid():
+#             vacancy = job_form.save()
+#
+#     content = {
+#         'title': title,
+#         'job_form': job_form
+#     }
+#     return render(request, 'worklink/job_form.html', content)

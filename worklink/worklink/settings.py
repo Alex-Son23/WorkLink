@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'crispy_forms',
     #
     "worklink",
     "authapp",
@@ -133,3 +135,5 @@ EMAIL_HOST = env.str('EMAIL_HOST')
 EMAIL_HOST_USER = env.str('EMAIL_LOGIN')
 EMAIL_HOST_PASSWORD = env.str('EMAIL_PASSWORD')
 EMAIL_PORT = 465
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -6,11 +6,13 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, \
 from django import forms
 from django.contrib.auth.models import User
 
-from authapp.models import WorkLinkUser, JobFinderProfile, CompanyProfile, JobList
+from authapp.models import WorkLinkUser, JobFinderProfile
+from authapp.models import CompanyProfile, JobList
 
 
 # форма для регистрации нового пользователя
 class UserRegisterForm(UserCreationForm):
+
     class Meta:
         model = WorkLinkUser
         # экранная форма на основе модели User с полями
@@ -47,6 +49,7 @@ class UserRegisterForm(UserCreationForm):
 
 # форма для редактирования введенных пользователем регистрационных данных
 class UserEditForm(UserChangeForm):
+
     class Meta:
         model = WorkLinkUser
         fields = ('username', 'email', 'avatar',
@@ -66,6 +69,7 @@ class UserEditForm(UserChangeForm):
 
 # форма аутентификации пользователя
 class UserLoginForm(AuthenticationForm):
+
     class Meta:
         model = User
         fields = ('username', 'password')
@@ -78,6 +82,7 @@ class UserLoginForm(AuthenticationForm):
 
 # форма для редактирования подробного профиля пользователя
 class UserProfileForm(forms.ModelForm):
+
     class Meta:
         model = JobFinderProfile
         fields = ('first_name', 'last_name', 'age', 'phone', 'gender', 'birthday', 'country', 'city',)
@@ -113,15 +118,13 @@ class DateInput(forms.DateInput):
 
 # Форма для новой вакансии
 class JobForm(forms.ModelForm):
+
     class Meta:
         model = JobList
-        # экранная форма на основе модели User с полями
         fields = ('title', 'celery', 'body',)
 
-    # Метод для обеспечения стилизации элементов управления формы
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
+        super(JobForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
+            print(field_name, field)
             field.widget.attrs['class'] = 'form-control'
-            field.help_text = ''

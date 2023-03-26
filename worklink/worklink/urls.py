@@ -13,8 +13,11 @@ urlpatterns = [
     path('auth/', include('authapp.urls', namespace='auth')),
     path('news/', views.NewsView.as_view(), name='news'),
     path('contacts/', views.ContactsView.as_view(), name='contacts'),
-    path('job_listing/', views.JobListing.as_view(), name='job_listing'),
-    path('job_form/', views.JobListing.as_view(), name='job_listing'),
+
+    # Вакансии
+    path('job_list/', views.JobListView.as_view(), name='job_list'),
+    path('job_form/', views.JobFormView.as_view(), name='job_form'),
+    path('job_list/<int:pk>/', views.JobDetailView.as_view(), name='job_detail'),
 ]
 
 if settings.DEBUG:
