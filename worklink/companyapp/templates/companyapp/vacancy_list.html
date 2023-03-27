@@ -1,0 +1,83 @@
+{% extends 'worklink/base.html' %}
+{% load static %}
+{% load utils %}
+{% block content %}
+
+<div>
+
+    {% for item in object_list %}
+<!--    <div>-->
+<!--        -->
+<!--        <h5 class="card-title">{{ item.title }}</h5>-->
+<!--&lt;!&ndash;            {% with id=item.company_id_id %}&ndash;&gt;-->
+<!--        <p><b>{{ item.company_id.name }}</p></b>-->
+<!--&lt;!&ndash;            {% endwith %} &ndash;&gt;-->
+<!--        <ul>-->
+<!--            <li>Зарплата: {{ item.salary}}</li>-->
+<!--            <li>Страна: {{ item.country}}</li>-->
+<!--            <li>Город: {{ item.city}}</li>-->
+<!--            <li>Удалённая работа: {% if item.remote == 1 %} да {% else %} нет {% endif %}-->
+
+<!--            </li>            -->
+<!--        </ul>-->
+<!--        <p class="card-text">{{ item.description }}</p>-->
+<!--    </div>-->
+
+    <div class="col-12">
+        <div class="job-list border-bottom">
+          <div class="job-list-logo">
+            <img class="img-fluid" src="/media/{{ item.company_id.user.avatar | default:'avatar.png' }}" alt="">
+          </div>
+          <div class="job-list-details">
+            <div class="job-list-info">
+              <div class="job-list-title">
+                <h5 class="mb-0"><a href="{% url 'company:vacancy' item.id %}">{{ item.title }}</a></h5>
+                <span class="freelance">Зарплата: {{ item.salary}}</span>
+              </div>
+              <div class="job-list-option">
+                <ul class="list-unstyled">
+                  <li> <span>Компания: </span> <a href="{% url 'company:company' item.company_id.id %}">{{ item.company_id.name }}</a> </li>
+                  <li><i class="fas fa-map-marker-alt pr-1"></i>{{ item.country}} - {{ item.city}}</li>
+<!--                  <li><i class="fas fa-filter pr-1"></i>Город: {{ item.city}}</li>-->
+                </ul>
+                
+                <div class=""> <a href="{% url 'company:respond_to_vacancy' item.pk %}">Откликнуться</a> </div> 
+              </div>
+              
+            </div>
+          </div>          
+          <div class="job-list-favourite-time"> <a class="job-list-favourite order-2" href="#"><i class="far fa-heart"></i></a> <span class="job-list-time order-1"><i class="far fa-clock pr-1"></i>1M ago</span> </div>
+          
+        </div>
+        
+    </div>
+              
+    {% endfor %}
+
+    {% if is_paginated %}
+<nav aria-label="Page navigation example" class="nav-pagination">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+    {% else %}
+      <li class="disabled"><span>Previous</span></li>
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+    {% else %}
+      <li class="disabled"><span>Next</span></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+
+</div>
+
+{% endblock content %}
