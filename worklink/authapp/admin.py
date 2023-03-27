@@ -1,7 +1,7 @@
 from django.contrib import admin
 from authapp.models import WorkLinkUser, JobFinderProfile
 from authapp.models import CompanyProfile
-from companyapp.models import JobList
+from companyapp.models import VacancyListModel
 
 admin.site.register(WorkLinkUser)
 admin.site.register(JobFinderProfile)
@@ -9,7 +9,7 @@ admin.site.register(CompanyProfile)
 
 
 # Более информативный вывод новостей в админке
-@admin.register(JobList)
+@admin.register(VacancyListModel)
 class JobsAdmin(admin.ModelAdmin):
     # Отображение
     list_display = ('pk', 'title', 'deleted',)

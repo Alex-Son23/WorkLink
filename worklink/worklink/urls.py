@@ -1,4 +1,4 @@
-from companyapp.views import JobListView, JobFormView, JobDetailView, JobUpdateView
+from companyapp.views import VacancyListView, VacancyFormView, VacancyDetailView, VacancyUpdateView
 from worklink import views
 from django.urls import path, include
 from django.contrib import admin
@@ -16,10 +16,10 @@ urlpatterns = [
     path('contacts/', views.ContactsView.as_view(), name='contacts'),
 
     # Вакансии
-    path('vacancies/', JobListView.as_view(), name='vacancies'),
-    path('vacancies/add/', JobFormView.as_view(), name='vacancy_add'),
-    path('vacancies/<int:pk>/', JobDetailView.as_view(), name='vacancy_detail'),
-    path('vacancies/<int:pk>/edit/', JobUpdateView.as_view(), name='vacancy_edit'),
+    path('vacancies/', VacancyListView.as_view(), name='vacancies'),
+    path('vacancies/add/', VacancyFormView.as_view(), name='vacancy_add'),
+    path('vacancies/<int:pk>/', VacancyDetailView.as_view(), name='vacancy_detail'),
+    path('vacancies/<int:pk>/edit/', VacancyUpdateView.as_view(), name='vacancy_edit'),
 ]
 
 if settings.DEBUG:

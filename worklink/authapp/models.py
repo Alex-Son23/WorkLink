@@ -72,28 +72,3 @@ def create_user_profile(sender, instance, created, **kwargs):
     elif created and instance.status == 'компания':
         company = CompanyProfile.objects.create(user=user)
         company.save()
-
-
-# Базовая модель
-class BaseModel(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
-    updated_at = models.DateTimeField(auto_now=True, verbose_name='дата последнего изменения')
-    deleted = models.BooleanField(default=False, verbose_name='удалено')
-
-    class Meta:
-        abstract = True
-        ordering = ('-created_at',)
-
-    def delete(self, *args, **kwargs):
-        self.deleted = True
-        self.save()
-
-
-# Менеджер объекта
-class JobsManager(models.Manager):
-
-    def delete(self):
-        pass
-
-    def get_queryset(self):
-        return super().get_queryset().filter(deleted=False)
