@@ -7,7 +7,7 @@ from django import forms
 from django.contrib.auth.models import User
 
 from authapp.models import WorkLinkUser, JobFinderProfile
-from authapp.models import CompanyProfile, JobList
+from authapp.models import CompanyProfile
 
 
 # форма для регистрации нового пользователя
@@ -114,17 +114,3 @@ class CompanyProfileForm(forms.ModelForm):
 
 class DateInput(forms.DateInput):
     input_type = 'date'
-
-
-# Форма для новой вакансии
-class JobForm(forms.ModelForm):
-
-    class Meta:
-        model = JobList
-        fields = ('title', 'celery', 'body',)
-
-    def __init__(self, *args, **kwargs):
-        super(JobForm, self).__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            print(field_name, field)
-            field.widget.attrs['class'] = 'form-control'

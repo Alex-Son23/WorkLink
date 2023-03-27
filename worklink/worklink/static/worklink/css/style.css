@@ -4178,14 +4178,6 @@ iframe {
   margin: 0 auto 10px auto;
 }
 
-form p{
-  width: 500px;
-}
-.form-control{
-  width: 500px;
-  margin: 0 auto;
-}
-
 .btn-register {
   display: block !important;
   margin: 15px auto 0 auto !important;

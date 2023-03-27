@@ -171,4 +171,4 @@ def edit(request):
 #         'title': title,
 #         'job_form': job_form
 #     }
-#     return render(request, 'worklink/job_form.html', content)
+#     return render(request, 'worklink/vacancy_add.html', content)

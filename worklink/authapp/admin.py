@@ -1,7 +1,7 @@
 from django.contrib import admin
 from authapp.models import WorkLinkUser, JobFinderProfile
-from authapp.models import CompanyProfile, JobList
-
+from authapp.models import CompanyProfile
+from companyapp.models import JobList
 
 admin.site.register(WorkLinkUser)
 admin.site.register(JobFinderProfile)
