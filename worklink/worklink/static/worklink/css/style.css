@@ -4487,6 +4487,31 @@ form p{
   right: -25px;
   left: auto; }
 
+.nav-pagination {
+  width: 200px;
+  margin: 0 auto;
+  margin-top: 20px;
+  font-weight: bold;
+  outline-width: 10px;
+  font-size: 15px;
+}
+
+.nav-pagination .pagination {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.nav-pagination .pagination li{
+  text-align: center;
+  display: inline-block;
+  min-width: 30px;
+}
+
+.nav-pagination .pagination a{
+  display: inline-block;
+  width: 100%;
+}
+
 /* Job Filter */
 .job-filter-tag {
   display: -webkit-box;

@@ -5,9 +5,11 @@ from companyapp import models as companyapp_models
 from authapp.models import CompanyProfile
 from companyapp.forms import ResponseForm
 
+
 class VacancyView(ListView):
     model = companyapp_models.Vacancy
-    # paginate = 5
+
+    paginate_by = 3
 
     def get_queryset(self):
         return super().get_queryset().filter(is_closed=False)

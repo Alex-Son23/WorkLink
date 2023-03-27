@@ -14,3 +14,10 @@ class Vacancy(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='создано', editable=False)
     updated_at = models.DateTimeField(auto_now=True, verbose_name='отредактировано', editable=False)
     company_id = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE, verbose_name='компания')
+
+    class Meta:
+        verbose_name = 'Вакансия'
+        verbose_name_plural = 'Вакансии'
+
+    def __str__(self):
+        return f'{self.title} - {self.company_id}'
