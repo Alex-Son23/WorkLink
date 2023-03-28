@@ -1,7 +1,5 @@
-
 # Форма для новой вакансии
 from django import forms
-
 from companyapp.models import Vacancy
 
 

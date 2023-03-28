@@ -21,6 +21,7 @@ class WorkLinkUser(AbstractUser):
     def get_company(self):
         return CompanyProfile.objects.filter(user=self).first()
 
+
 # модель профиля пользователя
 class JobFinderProfile(models.Model):
     MALE = 'M'

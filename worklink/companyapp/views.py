@@ -1,8 +1,6 @@
-from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
-from authapp.models import CompanyProfile
 from companyapp.forms import VacancyForm
 from companyapp.models import Vacancy
 
@@ -24,18 +22,18 @@ class VacancyListView(ListView):
         return context
 
 
+# Контроллер детальное описание вакансии
 class VacancyDetailView(DetailView):
     template_name = 'companyapp/vacancy_detail.html'
     model = Vacancy
 
     def get_context_data(self, **kwargs):
-        self.request.user.get_company()
         context = super(VacancyDetailView, self).get_context_data(**kwargs)
         context['title'] = self.object.title
-
         return context
 
 
+# Контроллер добавления вакансии
 class VacancyCreateView(CreateView):
     template_name = 'companyapp/vacancy_form.html'
     model = Vacancy
