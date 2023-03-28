@@ -20,5 +20,5 @@ class Vacancy(models.Model):
         verbose_name = 'Вакансия'
         verbose_name_plural = 'Вакансии'
 
-    def str(self):
+    def __str__(self):
         return f'{self.title} - {self.company_id}'

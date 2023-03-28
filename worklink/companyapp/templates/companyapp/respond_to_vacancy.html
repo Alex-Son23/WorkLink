@@ -1,0 +1,15 @@
+{% extends 'worklink/base.html' %}
+
+{% block content %}
+
+<h2>Отклик на вакансию "{{ vacancy.title }}"</h2>
+
+
+<!-- TODO action! -->
+<form method="post" action=""> 
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Отправить отклик</button>
+</form>
+
+{% endblock %}

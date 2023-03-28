@@ -38,7 +38,9 @@
                 <img class="img-fluid" src="{% static 'worklink/icons/black_logo.svg' %}" alt="Work link">
             </a>
             <div class="navbar-collapse collapse justify-content-start">
+
                 {% include 'worklink/includes/top_menu.html' %}
+
             </div>
             <div class="add-listing">
                 {% include 'worklink/includes/user_menu.html' %}
@@ -68,7 +70,7 @@
                 <div class="footer-link">
                     <h5 class="mb-4 text-white">Работа</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#">Вакансии</a></li>
+                        <li><a href="{% url 'company:vacancies' %}">Вакансии</a></li>
                         <li><a href="#">Категории</a></li>
                         <li><a href="#">Резюме</a></li>
                     </ul>
