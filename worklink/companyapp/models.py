@@ -1,3 +1,4 @@
+# Модель списка вакансий
 from django.db import models
 from authapp.models import CompanyProfile
 

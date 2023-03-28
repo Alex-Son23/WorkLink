@@ -1,11 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from datetime import timedelta
 
 from django.dispatch import receiver
 from django.db.models.signals import post_save
-
-from django.utils.timezone import now
 
 
 # шаблон абстрактного пользователя
@@ -20,6 +17,9 @@ class WorkLinkUser(AbstractUser):
 
     avatar = models.ImageField(upload_to='users_avatars', blank=True)
     status = models.CharField(verbose_name='статус пользователя', choices=STATUS_CHOICES, blank=False, max_length=16)
+
+    def get_company(self):
+        return CompanyProfile.objects.filter(user=self).first()
 
 
 # модель профиля пользователя

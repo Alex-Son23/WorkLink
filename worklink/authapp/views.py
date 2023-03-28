@@ -8,7 +8,7 @@ from django.urls import reverse
 from authapp.forms import UserRegisterForm, UserEditForm, UserLoginForm, \
     UserProfileForm, CompanyProfileForm
 
-from authapp.models import CompanyProfile, JobFinderProfile
+from authapp.models import JobFinderProfile, CompanyProfile
 
 from worklink import settings
 '''
@@ -77,7 +77,7 @@ def register(request):
             # Функция ниже понадобится в будущем, функция отправки сообщения
             # '''
             if send_verify_mail(user):
-                print('сообщение подтверждения отрпавлено')
+                print('сообщение подтверждения отправлено')
                 return HttpResponseRedirect(reverse('auth:login'))
             else:
                 print('ошибка отправки сообщения')
@@ -155,3 +155,20 @@ def edit(request):
 #     except Exception as e:
 #         print(f'error activation user: {e.args}')
 #         return HttpResponseRedirect(reverse('index'))
+
+
+# # Добавление новой вакансии
+# def new_vacancy(request):
+#     title = 'Добавление вакансии'
+#
+#     if request.method == 'POST':
+#         job_form = JobForm(request.POST)
+#
+#         if job_form.is_valid():
+#             vacancy = job_form.save()
+#
+#     content = {
+#         'title': title,
+#         'job_form': job_form
+#     }
+#     return render(request, 'worklink/vacancy_form.html', content)
