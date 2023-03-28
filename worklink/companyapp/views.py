@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 from companyapp import models as companyapp_models
 from authapp.models import CompanyProfile
-from companyapp.forms import ResponseForm
+# from companyapp.forms import ResponseForm
 
 
 class VacancyView(ListView):
@@ -46,12 +46,12 @@ def company(request, pk):
     return render(request, 'companyapp/company.html', context=context)
 
 
-def respond_to_vacancy(request, pk):
-    vacancy = get_object_or_404(companyapp_models.Vacancy, pk=pk)
-    if request.method == 'POST':
-        form = ResponseForm(request.POST)
-        if form.is_valid():
-            return render(request, 'companyapp/response_success.html')
-    else:
-        form = ResponseForm()
-    return render(request, 'companyapp/respond_to_vacancy.html', {'form': form, 'vacancy': vacancy})
+# def respond_to_vacancy(request, pk):
+#     vacancy = get_object_or_404(companyapp_models.Vacancy, pk=pk)
+#     if request.method == 'POST':
+#         form = ResponseForm(request.POST)
+#         if form.is_valid():
+#             return render(request, 'companyapp/response_success.html')
+#     else:
+#         form = ResponseForm()
+#     return render(request, 'companyapp/respond_to_vacancy.html', {'form': form, 'vacancy': vacancy})
