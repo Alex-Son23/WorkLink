@@ -2,15 +2,20 @@
 # Форма для новой вакансии
 from django import forms
 
-from companyapp.models import JobList
+from companyapp.models import Vacancy
 
 
-class JobForm(forms.ModelForm):
+class VacancyForm(forms.ModelForm):
     class Meta:
-        model = JobList
-        fields = ('title', 'celery', 'body',)
+        model = Vacancy
+        fields = '__all__'
+        exclude = ('is_closed', 'created_at', 'updated_at', 'company_id', )
 
     def __init__(self, *args, **kwargs):
-        super(JobForm, self).__init__(*args, **kwargs)
+        super(VacancyForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+            if field.widget.input_type == 'checkbox':
+                field.widget.attrs['class'] = 'custom-control-input'
+                field.label_suffix = ''
+            else:
+                field.widget.attrs['class'] = 'form-control'

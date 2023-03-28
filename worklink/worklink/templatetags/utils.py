@@ -1,5 +1,6 @@
 from django import template
 from worklink import settings, utils
+from django.forms import CheckboxInput
 
 register = template.Library()
 
@@ -27,6 +28,17 @@ def media_folder_users(string):
     return f'{settings.MEDIA_URL}{string}'
 
 
+@register.filter(name='is_checkbox')
+def is_checkbox(field):
+    return field.field.widget.__class__.__name__ == CheckboxInput().__class__.__name__
+
+
+@register.filter(is_safe=True)
+def label_with_classes(value, arg):
+    return value.label_tag(attrs={'class': arg})
+
+
 register.filter('media_folder_products', media_folder_products)
 
 register.filter('price_format', utils.get_price_format)
+

@@ -1,81 +1,81 @@
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
-from companyapp.forms import JobForm
-from companyapp.models import JobList
+from authapp.models import CompanyProfile
+from companyapp.forms import VacancyForm
+from companyapp.models import Vacancy
 
 
-class JobListView(ListView):
+class VacancyListView(ListView):
     template_name = 'companyapp/vacancies.html'
-    model = JobList
+    model = Vacancy
     paginate_by = 3
+    ordering = ['-created_at']
 
     def get_queryset(self):
-        return super().get_queryset().filter(deleted=False)
+        return super().get_queryset().filter(is_closed=False,
+                                             company_id=self.request.user.get_company())
 
     def get_context_data(self, **kwargs):
-        context = super(JobListView, self).get_context_data(**kwargs)
+        context = super(VacancyListView, self).get_context_data(**kwargs)
         context['title'] = 'Вакансии компании'
 
         return context
 
 
-class JobDetailView(DetailView):
+class VacancyDetailView(DetailView):
     template_name = 'companyapp/vacancy_detail.html'
-    model = JobList
+    model = Vacancy
 
     def get_context_data(self, **kwargs):
-        context = super(JobDetailView, self).get_context_data(**kwargs)
+        self.request.user.get_company()
+        context = super(VacancyDetailView, self).get_context_data(**kwargs)
         context['title'] = self.object.title
 
         return context
 
 
-class JobFormView(CreateView):
-    template_name = 'companyapp/vacancy_add.html'
-    model = JobList
-    form_class = JobForm
-    success_url = '/vacancies/add/?ADDED=Y'
+class VacancyCreateView(CreateView):
+    template_name = 'companyapp/vacancy_form.html'
+    model = Vacancy
+    form_class = VacancyForm
+
+    def get_success_url(self):
+        return reverse_lazy('company:vacancy_add') + '?ADDED=Y'
+
+    def form_valid(self, form):
+        form.instance.company_id = self.request.user.get_company()
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-        context = super(JobFormView, self).get_context_data(**kwargs)
+        context = super(VacancyCreateView, self).get_context_data(**kwargs)
         context['title'] = 'Добавление вакансии'
-
-        if self.request.method == 'POST':
-            new_form = JobForm(self.request.POST)
-
-            if new_form.is_valid():
-                result = new_form.save()
-
-                return HttpResponseRedirect(reverse_lazy('vacancy_add') + '?ADDED=Y')
-
+        context['success_message'] = 'Вакансия добавлена'
+        context['submit_title'] = 'Добавить'
+        context['form_action'] = reverse_lazy('company:vacancy_add')
         context['success'] = self.request.GET.get('ADDED') == 'Y'
         return context
 
 
-class JobUpdateView(UpdateView):
-    template_name = 'companyapp/vacancy_edit.html'
-    model = JobList
-    form_class = JobForm
+class VacancyUpdateView(UpdateView):
+    template_name = 'companyapp/vacancy_form.html'
+    model = Vacancy
+    form_class = VacancyForm
+
+    def form_valid(self, form):
+        form.instance.company_id = self.request.user.get_company()
+        return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('vacancy_edit',
+        return reverse_lazy('company:vacancy_edit',
                             kwargs={'pk': self.object.pk}) + '?SAVED=Y'
 
     def get_context_data(self, **kwargs):
-        context = super(JobUpdateView, self).get_context_data(**kwargs)
+        context = super(VacancyUpdateView, self).get_context_data(**kwargs)
         context['title'] = self.object.title
-
-        if self.request.method == 'POST':
-            new_form = JobForm(self.request.POST)
-
-            if new_form.is_valid():
-                result = new_form.save()
-
-                return HttpResponseRedirect(reverse_lazy('vacancy_edit',
-                                             kwargs={'pk': self.object.pk}) + '?SAVED=Y')
-
+        context['success_message'] = 'Изменения сохранены'
+        context['submit_title'] = 'Сохранить'
+        context['form_action'] = reverse_lazy('company:vacancy_edit', kwargs={'pk': self.object.pk})
         context['success'] = self.request.GET.get('SAVED') == 'Y'
         return context

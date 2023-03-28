@@ -11,13 +11,13 @@
                     <li class="breadcrumb-item"><a href="{% url 'index' %}">Домой</a></li>
                     <li class="breadcrumb-item active">
                         <i class="fas fa-chevron-right"></i>
-                        <a href="{% url 'vacancies' %}">Вакансии компании</a>
+                        <a href="{% url 'company:vacancies' %}">Вакансии компании</a>
                     </li>
                     <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <span>{{ title }}</span></li>
                 </ol>
             </div>
             <div class="col-lg-3 col-md-12 mt-md-4 text-right">
-                <a href="{% url 'vacancies' %}" class="btn btn-outline-success">Назад</a>
+                <a href="{% url 'company:vacancies' %}" class="btn btn-outline-success">Назад</a>
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@
                                 <i class="font-xll text-primary align-self-center flaticon-debit-card"></i>
                                 <div class="feature-info-content pl-3">
                                     <label class="mb-1">Зарплата</label>
-                                    <span class="mb-0 font-weight-bold d-block text-dark">{{ object.celery|price_format }}</span>
+                                    <span class="mb-0 font-weight-bold d-block text-dark">{{ object.salary|price_format }}</span>
                                 </div>
                             </div>
                         </div>
@@ -74,11 +74,11 @@
 {#                                </div>#}
 {#                            </div>#}
 {#                        </div>#}
-{#                    </div>#}
+                    </div>
                 </div>
                 <div class="my-4 my-lg-5">
                     <h5 class="mb-3 mb-md-4">Описание</h5>
-                    {{ object.body }}
+                    {{ object.description }}
                 </div>
             </div>
         </div>

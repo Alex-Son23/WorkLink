@@ -1,11 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from datetime import timedelta
 
 from django.dispatch import receiver
 from django.db.models.signals import post_save
-
-from django.utils.timezone import now
 
 
 # шаблон абстрактного пользователя
@@ -21,6 +18,8 @@ class WorkLinkUser(AbstractUser):
     avatar = models.ImageField(upload_to='users_avatars', blank=True)
     status = models.CharField(verbose_name='статус пользователя', choices=STATUS_CHOICES, blank=False, max_length=16)
 
+    def get_company(self):
+        return CompanyProfile.objects.filter(user=self).first()
 
 # модель профиля пользователя
 class JobFinderProfile(models.Model):
@@ -72,28 +71,3 @@ def create_user_profile(sender, instance, created, **kwargs):
     elif created and instance.status == 'компания':
         company = CompanyProfile.objects.create(user=user)
         company.save()
-
-
-# Базовая модель
-class BaseModel(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
-    updated_at = models.DateTimeField(auto_now=True, verbose_name='дата последнего изменения')
-    deleted = models.BooleanField(default=False, verbose_name='удалено')
-
-    class Meta:
-        abstract = True
-        ordering = ('-created_at',)
-
-    def delete(self, *args, **kwargs):
-        self.deleted = True
-        self.save()
-
-
-# Менеджер объекта
-class JobsManager(models.Manager):
-
-    def delete(self):
-        pass
-
-    def get_queryset(self):
-        return super().get_queryset().filter(deleted=False)
