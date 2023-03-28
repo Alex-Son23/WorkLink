@@ -8,7 +8,6 @@ from companyapp.models import Vacancy
 
 from django.shortcuts import render, get_object_or_404
 
-from django.views.generic import ListView
 from companyapp import models as companyapp_models
 from authapp.models import CompanyProfile
 # from companyapp.forms import ResponseForm
@@ -86,7 +85,6 @@ class VacancyUpdateView(UpdateView):
         context['form_action'] = reverse_lazy('company:vacancy_edit', kwargs={'pk': self.object.pk})
         context['success'] = self.request.GET.get('SAVED') == 'Y'
         return context
-=======
 
 
 class VacancyView(ListView):
