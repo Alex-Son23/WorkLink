@@ -1,3 +1,6 @@
 from django.contrib import admin
+from jobfinderapp.models import Resume, Experience
 
-# Register your models here.
+admin.site.register(Resume)
+admin.site.register(Experience)
+

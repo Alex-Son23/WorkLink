@@ -1,0 +1,16 @@
+<div class="header-inner bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-12">
+                <h2 class="text-primary">{{ title }}</h2>
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}">Домой</a></li>
+                    <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <span>{{ title }}</span></li>
+                </ol>
+            </div>
+            <div class="col-lg-3 col-md-12 mt-md-4 text-right">
+                <a href="{% url 'jobfinder:resume_add' %}" class="btn btn-success">Создать резюме</a>
+            </div>
+        </div>
+    </div>
+</div>
