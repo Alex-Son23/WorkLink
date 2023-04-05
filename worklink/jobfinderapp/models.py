@@ -19,6 +19,7 @@ class Resume(models.Model):
         auto_now=True, verbose_name='отредактировано', editable=False)
     user_id = models.ForeignKey(WorkLinkUser, on_delete=models.CASCADE, verbose_name='пользователь')
 
+    
     class Meta:
         verbose_name = 'Резюме'
         verbose_name_plural = 'Резюме'
@@ -43,3 +44,6 @@ class Experience(models.Model):
     description = models.CharField(max_length=2048, verbose_name='описание')
     start_date = models.DateField()
     end_date = models.DateField()
+
+    def get_company_name(self):
+        return CompanyProfile.objects.get(id=self.company_id.id).name
