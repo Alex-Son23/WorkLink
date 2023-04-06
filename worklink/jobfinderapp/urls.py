@@ -1,5 +1,5 @@
 from django.urls import path
-from jobfinderapp.views import ResumeListView, ResumeUpdateView, ResumeCreateView, ResumeDeleteView, delete_resume
+from jobfinderapp.views import ResumeListView, ResumeUpdateView, ResumeCreateView, delete_resume
 
 
 app_name = "jobfinderapp"

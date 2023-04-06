@@ -22,10 +22,9 @@ class ResumeListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(ResumeListView, self).get_context_data(**kwargs)
         context['title'] = 'Мои резюме'
-        
 
         return context
-    
+
 
 # Контроллер добавления резюме*
 class ResumeCreateView(CreateView):
@@ -50,7 +49,7 @@ class ResumeCreateView(CreateView):
 
         if exp_form.is_valid():
             exp_form.save()
-        
+
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -69,16 +68,14 @@ class ResumeUpdateView(UpdateView):
     template_name = 'jobfinderapp/resume_form.html'
     model = Resume
     form_class = ResumeForm
-    
 
     def form_valid(self, form, **kwargs):
-       
         exp_form = ExperienceFormSet(
             form.data, instance=self.get_object())
-      
+
         if exp_form.is_valid():
             exp_form.save()
-       
+
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -92,12 +89,12 @@ class ResumeUpdateView(UpdateView):
         context['submit_title'] = 'Сохранить'
         context['form_action'] = reverse_lazy('jobfinder:resume_edit', kwargs={'pk': self.object.pk})
         context['success'] = self.request.GET.get('SAVED') == 'Y'
-        
-        # context['experience_form'] = [ExperienceForm(instance=exp) for exp in Experience.objects.filter(resume_id=self.object.pk)]
+
+        # context['experience_form'] = [ExperienceForm(instance=exp) for exp in Experience.objects.filter(
+        # resume_id=self.object.pk)]
         context['experience_form'] = ExperienceFormSet(instance=self.get_form().instance)
 
         return context
-    
 
 
 # Контроллер удаления резюме
