@@ -2,14 +2,14 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
-from jobfinderapp.forms import ResumeForm, ExperienceFormSet
+from jobfinderapp.forms import ResumeForm, ExperienceFormSet, ExperienceFormSetCreate
 from jobfinderapp.models import Experience, Resume
 from companyapp.models import CompanyProfile
 from django.forms.models import inlineformset_factory
 from django.forms import ValidationError
 
 
-
+# Контроллер списка резюме
 class ResumeListView(ListView):
     template_name = 'jobfinderapp/resume_list.html'
     model = Resume
@@ -27,14 +27,14 @@ class ResumeListView(ListView):
         return context
     
 
-# Контроллер добавления вакансии*
+# Контроллер добавления резюме*
 class ResumeCreateView(CreateView):
     template_name = 'jobfinderapp/resume_form.html'
     model = Resume
     form_class = ResumeForm
 
-    def get_form(self):
-        return self.form_class(initial={'visible': True})
+    # def get_form(self):
+    #     return self.form_class(initial={'visible': True})
 
     def get_success_url(self):
         return reverse_lazy('jobfinder:resume_add') + '?ADDED=Y'
@@ -44,16 +44,12 @@ class ResumeCreateView(CreateView):
         form.instance.user_id = self.request.user
 
         if form.is_valid():
-            res = form.save(commit=False)
-        else:
-            raise ValidationError(message=f'Ошибка при сохранении резюме: {form.non_form_errors()} {form.errors}')
+            res = form.save()
 
         exp_form.instance.resume_id = res
 
         if exp_form.is_valid():
-            exp_form.save(commit=False)
-        else:
-            raise ValidationError(message=f'Ошибка при сохранении опыта работы: {exp_form.non_form_errors()} {exp_form.errors}')
+            exp_form.save()
         
         return super().form_valid(form)
 
@@ -64,10 +60,11 @@ class ResumeCreateView(CreateView):
         context['submit_title'] = 'Добавить'
         context['form_action'] = reverse_lazy('jobfinder:resume_add')
         context['success'] = self.request.GET.get('ADDED') == 'Y'
-        context['experience_form'] = ExperienceFormSet()
+        context['experience_form'] = ExperienceFormSetCreate()
         return context
 
 
+# Контроллер редактирования резюме*
 class ResumeUpdateView(UpdateView):
     template_name = 'jobfinderapp/resume_form.html'
     model = Resume
@@ -102,18 +99,8 @@ class ResumeUpdateView(UpdateView):
         return context
     
 
-class ResumeDeleteView(DeleteView):
-    model = Resume
-    
 
-    def post(self, request, *args, **kwargs):
-        self.model.objects.get(id=self.get_context_data().get('pk')).delete()
-        return HttpResponseRedirect(self.get_success_url)
-
-    def get_success_url(self):
-        return reverse_lazy('jobfinder:my-resumes')
-
-
+# Контроллер удаления резюме
 def delete_resume(request, pk):
     resume_obj = Resume.objects.filter(id=pk).first()
     resume_obj.delete()
