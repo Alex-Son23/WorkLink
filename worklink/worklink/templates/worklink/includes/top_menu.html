@@ -1,7 +1,7 @@
 <ul class="nav navbar-nav">
     {% if user.status == 'соискатель' %}
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'companyapp:vacancies' %}">Вакансии</a>
+            <a class="nav-link" href="{% url 'mainapp:vacancies' %}">Вакансии</a>
         </li>
     {% endif %}
 

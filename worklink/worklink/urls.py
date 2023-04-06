@@ -11,8 +11,8 @@ urlpatterns = [
 
     path('', views.IndexView.as_view(), name='index'),
     path('auth/', include('authapp.urls', namespace='auth')),
-    path('company/', include('companyapp.urls', namespace='company')),
-    path('jobfinder/', include('jobfinderapp.urls', namespace='jobfinder')),
+    path('company/', include('mainapp.urls', namespace='company')),
+    path('jobfinder/', include('mainapp.urls', namespace='jobfinder')),
 
     path('news/', views.NewsView.as_view(), name='news'),
     path('contacts/', views.ContactsView.as_view(), name='contacts'),

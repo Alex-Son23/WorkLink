@@ -36,8 +36,8 @@ INSTALLED_APPS = [
     #
     "worklink",
     "authapp",
-    'jobfinderapp',
-    'companyapp',
+    'mainapp',
+    # 'companyapp',
     
 ]
 

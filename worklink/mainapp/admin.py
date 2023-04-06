@@ -1,5 +1,9 @@
 from django.contrib import admin
-from companyapp.models import Vacancy
+from mainapp.models import Resume, Experience, Vacancy
+
+admin.site.register(Resume)
+admin.site.register(Experience)
+
 
 @admin.register(Vacancy)
 class VacancyAdmin(admin.ModelAdmin):
