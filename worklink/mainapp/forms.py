@@ -1,6 +1,6 @@
 # Форма для новой вакансии
 from django import forms
-from mainapp.models import Resume, Experience, Vacancy
+from mainapp.models import Resume, Experience, Vacancy, Response
 
 
 
@@ -82,11 +82,22 @@ class VacancyForm(forms.ModelForm):
             else:
                 field.widget.attrs['class'] = 'form-control'
 
-# class ResponseForm(forms.ModelForm):
-#     # ЗАГЛУШКА для проверки! Нужно заменить Vacancy на модель Resume, когда она появится!
-#     resume = forms.Select(choices=Vacancy.objects.values())
-#
-#     class Meta:
-#         model = Vacancy
-#         fields = ('title', 'salary')
+class ApplyForm(forms.ModelForm):
+    user_id = 0
+    resume = forms.ModelChoiceField(queryset=Resume.objects.all()) # Тут надо сделать фильтр по user_id, но его еще надо сначала получить из вьюхи
+    cover = forms.TextInput()
+    
+    class Meta:
+        model = Response
+        fields = ['cover_letter']
+
+    def __init__(self, *args, **kwargs):
+        print(kwargs)
+        # ApplyForm.user_id = kwargs.pop('user_id')
+        super().__init__(*args, **kwargs)
+        
+        
+
+    def save(self):
+        ApplyForm.user_id = self.user_id
 

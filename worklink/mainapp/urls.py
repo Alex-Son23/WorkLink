@@ -1,6 +1,6 @@
 from django.urls import path
 from mainapp.views import ResumeListView, ResumeUpdateView, ResumeCreateView, delete_resume, VacancyListView, \
-    VacancyCreateView, VacancyDetailView, VacancyUpdateView, VacancyView, vacancy, company
+    VacancyCreateView, VacancyDetailView, VacancyUpdateView, VacancyView, vacancy, company, apply_to_vacancy
 
 app_name = "mainapp"
 
@@ -16,5 +16,7 @@ urlpatterns = [
     path('my-vacancies/<int:pk>/edit/', VacancyUpdateView.as_view(), name='vacancy_edit'),
     path('vacancies/', VacancyView.as_view(), name='vacancies'),
     path('vacancy/<int:pk>/', vacancy, name='vacancy'),
+    path('vacancy/<int:pk>/apply/', apply_to_vacancy, name='apply_to_vacancy'),
     path('<int:pk>/', company, name='company'),
+    
 ]

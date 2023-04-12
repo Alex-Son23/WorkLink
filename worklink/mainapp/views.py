@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
@@ -9,8 +10,8 @@ from django.shortcuts import render, get_object_or_404
 
 from mainapp import models as companyapp_models
 from authapp.models import CompanyProfile
-from mainapp.forms import ResumeForm, ExperienceFormSet, ExperienceFormSetCreate
-from mainapp.models import Experience, Resume
+from mainapp.forms import ResumeForm, ExperienceFormSet, ExperienceFormSetCreate, ApplyForm
+from mainapp.models import Experience, Resume,Response
 
 
 # Create your views here.
@@ -128,15 +129,20 @@ def company(request, pk):
     return render(request, 'mainapp/company.html', context=context)
 
 
-# def respond_to_vacancy(request, pk):
-#     vacancy = get_object_or_404(companyapp_models.Vacancy, pk=pk)
-#     if request.method == 'POST':
-#         form = ResponseForm(request.POST)
-#         if form.is_valid():
-#             return render(request, 'mainapp/response_success.html')
-#     else:
-#         form = ResponseForm()
-#     return render(request, 'mainapp/respond_to_vacancy.html', {'form': form, 'vacancy': vacancy})
+def apply_to_vacancy(request, pk):
+    vacancy = get_object_or_404(Vacancy, pk=pk)
+    user_id = request.user.id
+    if request.method == 'POST':
+        form = ApplyForm(request.POST, user_id=user_id)
+        print(request.POST)
+        if form.is_valid():
+            form.save()
+            resume_id = form.cleaned_data['resume'].id
+            Response.objects.create(resume_id_id=resume_id, vacancy_id_id=pk, status_id_id=6,date=datetime.now()) #добавить запись в столбец cover_letter
+            return render(request, 'mainapp/apply_vacancy_success.html')
+    else:
+        form = ApplyForm()
+    return render(request, 'mainapp/apply_to_vacancy.html', {'form': form, 'vacancy': vacancy})
 
 
 class ResumeListView(ListView):
