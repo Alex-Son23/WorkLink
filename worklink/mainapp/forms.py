@@ -3,7 +3,6 @@ from django import forms
 from mainapp.models import Resume, Experience, Vacancy, Response
 
 
-
 class ResumeForm(forms.ModelForm):
     class Meta:
         model = Resume
@@ -66,7 +65,6 @@ ExperienceFormSetCreate = forms.inlineformset_factory(
 )
 
 
-
 class VacancyForm(forms.ModelForm):
     class Meta:
         model = Vacancy
@@ -82,11 +80,13 @@ class VacancyForm(forms.ModelForm):
             else:
                 field.widget.attrs['class'] = 'form-control'
 
+
 class ApplyForm(forms.ModelForm):
     user_id = 0
-    resume = forms.ModelChoiceField(queryset=Resume.objects.all()) # Тут надо сделать фильтр по user_id, но его еще надо сначала получить из вьюхи
+    resume = forms.ModelChoiceField(
+        queryset=Resume.objects.all())  # Тут надо сделать фильтр по user_id, но его еще надо сначала получить из вьюхи
     cover = forms.TextInput()
-    
+
     class Meta:
         model = Response
         fields = ['cover_letter']
@@ -95,9 +95,6 @@ class ApplyForm(forms.ModelForm):
         print(kwargs)
         # ApplyForm.user_id = kwargs.pop('user_id')
         super().__init__(*args, **kwargs)
-        
-        
 
     def save(self):
         ApplyForm.user_id = self.user_id
-

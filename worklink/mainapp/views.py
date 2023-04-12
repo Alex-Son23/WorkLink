@@ -11,7 +11,7 @@ from django.shortcuts import render, get_object_or_404
 from mainapp import models as companyapp_models
 from authapp.models import CompanyProfile
 from mainapp.forms import ResumeForm, ExperienceFormSet, ExperienceFormSetCreate, ApplyForm
-from mainapp.models import Experience, Resume,Response
+from mainapp.models import Experience, Resume, Response
 
 
 # Create your views here.
@@ -133,12 +133,15 @@ def apply_to_vacancy(request, pk):
     vacancy = get_object_or_404(Vacancy, pk=pk)
     user_id = request.user.id
     if request.method == 'POST':
-        form = ApplyForm(request.POST, user_id=user_id)
+        # request.POST['resume'] = int(request.POST['resume'])
+        # form = ApplyForm({'cover_letter': ['privet medved'], 'resume': [1]})
+        form = ApplyForm(request.POST)
+        form.user_id = user_id
         print(request.POST)
         if form.is_valid():
             form.save()
             resume_id = form.cleaned_data['resume'].id
-            Response.objects.create(resume_id_id=resume_id, vacancy_id_id=pk, status_id_id=6,date=datetime.now()) #добавить запись в столбец cover_letter
+            Response.objects.create(resume_id=Resume.objects.get(pk=resume_id), vacancy_id=Vacancy.objects.get(pk=pk), cover_letter=request.POST['cover_letter'], date=datetime.now())  # добавить запись в столбец cover_letter
             return render(request, 'mainapp/apply_vacancy_success.html')
     else:
         form = ApplyForm()

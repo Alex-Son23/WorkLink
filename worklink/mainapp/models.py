@@ -70,7 +70,6 @@ class Vacancy(models.Model):
         return f'{self.title} - {self.company_id}'
 
 
-
 class Status(models.Model):
     WAITING = 'ожидание ответа'
     NOT_INTERESTED = 'не интересует'
@@ -80,7 +79,7 @@ class Status(models.Model):
     INTERESTED = 'заинтересован'
 
     STATUS_CHOISES = (
-        (WAITING,'Ожидание ответа'),
+        (WAITING, 'Ожидание ответа'),
         (NOT_INTERESTED, 'Не интересует'),
         (CALL_SOON, 'Свяжусь в ближайшее время'),
         (CALL_WEEK, 'Готов дать ответ через неделю'),
@@ -91,20 +90,17 @@ class Status(models.Model):
     title = models.CharField(choices=STATUS_CHOISES, default=WAITING, max_length=128, verbose_name='статус')
 
 
-
 class Offer(models.Model):
     resume_id = models.ForeignKey(Resume, on_delete=models.CASCADE, verbose_name='резюме')
     vacancy_id = models.ForeignKey(Vacancy, on_delete=models.CASCADE, verbose_name='вакансия')
     status_id = models.ForeignKey(Status, on_delete=models.CASCADE, verbose_name='статус')
-    cover_letter =models.TextField(verbose_name='сопроводительное письмо')
+    cover_letter = models.TextField(verbose_name='сопроводительное письмо')
     date = models.DateTimeField(models.DateTimeField(auto_now_add=True, verbose_name='дата'))
 
 
 class Response(models.Model):
     resume_id = models.ForeignKey(Resume, on_delete=models.CASCADE, verbose_name='резюме')
     vacancy_id = models.ForeignKey(Vacancy, on_delete=models.CASCADE, verbose_name='вакансия')
-    status_id = models.ForeignKey(Status, on_delete=models.CASCADE, verbose_name='статус')
-    cover_letter =models.TextField(verbose_name='сопроводительное письмо')
-    date = models.DateTimeField(models.DateTimeField(auto_now_add=True, verbose_name='дата'))
-    
-
+    status_id = models.ForeignKey(Status, on_delete=models.CASCADE, verbose_name='статус', null=True)
+    cover_letter = models.TextField(verbose_name='сопроводительное письмо')
+    date = models.DateTimeField(auto_now_add=True, verbose_name='дата', null=True)
