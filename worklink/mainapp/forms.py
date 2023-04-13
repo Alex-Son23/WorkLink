@@ -7,7 +7,7 @@ class ResumeForm(forms.ModelForm):
     class Meta:
         model = Resume
         fields = '__all__'
-        exclude = ('is_closed', 'created_at', 'updated_at', 'user_id')
+        exclude = ('is_closed', 'created_at', 'updated_at', 'user')
 
     def is_valid(self) -> bool:
         return super().is_valid()
@@ -29,7 +29,7 @@ class ExperienceForm(forms.ModelForm):
     class Meta:
         model = Experience
         fields = '__all__'
-        exclude = ('resume_id',)
+        exclude = ('resume',)
 
     def __init__(self, *args, **kwargs):
         super(ExperienceForm, self).__init__(*args, **kwargs)
@@ -69,7 +69,7 @@ class VacancyForm(forms.ModelForm):
     class Meta:
         model = Vacancy
         fields = '__all__'
-        exclude = ('is_closed', 'created_at', 'updated_at', 'company_id',)
+        exclude = ('is_closed', 'created_at', 'updated_at', 'company',)
 
     def __init__(self, *args, **kwargs):
         super(VacancyForm, self).__init__(*args, **kwargs)
@@ -82,19 +82,21 @@ class VacancyForm(forms.ModelForm):
 
 
 class ApplyForm(forms.ModelForm):
+    resume = forms.ModelChoiceField(
+        queryset=None,  # фильтр не работает
+        label='Резюме',
+        empty_label='Выберите резюме')
+
     class Meta:
         model = Response
-        fields = ('cover_letter', 'resume_id', )
+        fields = ('cover_letter',)
 
-
-    def __init__(self, *args, **kwargs):
-        self.user_id = kwargs.pop('user_id')
-        self.resume = forms.ModelChoiceField(
-            queryset=Resume.objects.filter(user_id_id=self.user_id),  #фильтр не работает
-            label='Резюме',
-            empty_label='Выберите резюме')
+    def __init__(self, user_id=0, *args, **kwargs):
+        print(user_id)
         super().__init__(*args, **kwargs)
-    
+        print(Resume.objects.filter(user_id=user_id))
+        self.fields['resume'].queryset = Resume.objects.filter(user_id=user_id)
+
     # user_id = None
     # def save(self):
     #     setattr(ApplyForm,)

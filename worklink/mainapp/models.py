@@ -18,14 +18,14 @@ class Resume(models.Model):
         auto_now_add=True, verbose_name='создано', editable=False)
     updated_at = models.DateTimeField(
         auto_now=True, verbose_name='отредактировано', editable=False)
-    user_id = models.ForeignKey(WorkLinkUser, on_delete=models.CASCADE, verbose_name='пользователь')
+    user = models.ForeignKey(WorkLinkUser, on_delete=models.CASCADE, verbose_name='пользователь')
 
     class Meta:
         verbose_name = 'Резюме'
         verbose_name_plural = 'Резюме'
 
     def get_experience(self):
-        return Experience.objects.filter(resume_id=self)
+        return Experience.objects.filter(resume=self)
 
     def __str__(self):
         return f'{self.title}'
@@ -36,9 +36,9 @@ class Experience(models.Model):
         verbose_name = 'Опыт работы'
         verbose_name_plural = 'Опыт работы'
 
-    resume_id = models.ForeignKey(
+    resume = models.ForeignKey(
         Resume, on_delete=models.CASCADE, verbose_name='резюме')
-    company_id = models.ForeignKey(
+    company = models.ForeignKey(
         CompanyProfile, on_delete=models.CASCADE, verbose_name='компания')
     position = models.CharField(max_length=256, verbose_name='должность')
     description = models.CharField(max_length=2048, verbose_name='описание')
@@ -46,7 +46,7 @@ class Experience(models.Model):
     end_date = models.DateField()
 
     def get_company_name(self):
-        return CompanyProfile.objects.get(id=self.company_id.id).name
+        return CompanyProfile.objects.get(id=self.company.id).name
 
 
 class Vacancy(models.Model):
@@ -60,14 +60,14 @@ class Vacancy(models.Model):
     description = models.CharField(max_length=2048, verbose_name='описание')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='создано', editable=False)
     updated_at = models.DateTimeField(auto_now=True, verbose_name='отредактировано', editable=False)
-    company_id = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE, verbose_name='компания')
+    company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE, verbose_name='компания')
 
     class Meta:
         verbose_name = 'Вакансия'
         verbose_name_plural = 'Вакансии'
 
     def __str__(self):
-        return f'{self.title} - {self.company_id}'
+        return f'{self.title} - {self.company}'
 
 
 class Status(models.Model):
@@ -91,16 +91,16 @@ class Status(models.Model):
 
 
 class Offer(models.Model):
-    resume_id = models.ForeignKey(Resume, on_delete=models.CASCADE, verbose_name='резюме')
-    vacancy_id = models.ForeignKey(Vacancy, on_delete=models.CASCADE, verbose_name='вакансия')
-    status_id = models.ForeignKey(Status, on_delete=models.CASCADE, verbose_name='статус')
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, verbose_name='резюме')
+    vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE, verbose_name='вакансия')
+    status = models.ForeignKey(Status, on_delete=models.CASCADE, verbose_name='статус')
     cover_letter = models.TextField(verbose_name='сопроводительное письмо')
     date = models.DateTimeField(models.DateTimeField(auto_now_add=True, verbose_name='дата'))
 
 
 class Response(models.Model):
-    resume_id = models.ForeignKey(Resume, on_delete=models.CASCADE, verbose_name='резюме')
-    vacancy_id = models.ForeignKey(Vacancy, on_delete=models.CASCADE, verbose_name='вакансия')
-    status_id = models.ForeignKey(Status, on_delete=models.CASCADE, verbose_name='статус', null=True)
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, verbose_name='резюме')
+    vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE, verbose_name='вакансия')
+    status = models.ForeignKey(Status, on_delete=models.CASCADE, verbose_name='статус', null=True)
     cover_letter = models.TextField(verbose_name='сопроводительное письмо')
     date = models.DateTimeField(auto_now_add=True, verbose_name='дата', null=True)

@@ -23,7 +23,7 @@ class VacancyListView(ListView):
 
     def get_queryset(self):
         return super().get_queryset().filter(is_closed=False,
-                                             company_id=self.request.user.get_company())
+                                             company=self.request.user.get_company())
 
     def get_context_data(self, **kwargs):
         context = super(VacancyListView, self).get_context_data(**kwargs)
@@ -53,7 +53,7 @@ class VacancyCreateView(CreateView):
         return reverse_lazy('company:vacancy_add') + '?ADDED=Y'
 
     def form_valid(self, form):
-        form.instance.company_id = self.request.user.get_company()
+        form.instance.company = self.request.user.get_company()
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -72,7 +72,7 @@ class VacancyUpdateView(UpdateView):
     form_class = VacancyForm
 
     def form_valid(self, form):
-        form.instance.company_id = self.request.user.get_company()
+        form.instance.company = self.request.user.get_company()
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -133,15 +133,12 @@ def apply_to_vacancy(request, pk):
     vacancy = get_object_or_404(Vacancy, pk=pk)
     user_id = request.user.id
     if request.method == 'POST':
-        # request.POST['resume'] = int(request.POST['resume'])
-        # form = ApplyForm({'cover_letter': ['privet medved'], 'resume': [1]})
-        form = ApplyForm(request.POST, user_id=user_id)
-        form.user_id = user_id
-        print(request.POST)
+        form = ApplyForm(user_id=user_id, data=request.POST)
         if form.is_valid():
             # form.save()
-            resume_id = form.cleaned_data['resume_id'].id
-            Response.objects.create(resume_id=Resume.objects.get(pk=resume_id), vacancy_id=Vacancy.objects.get(pk=pk), cover_letter=request.POST['cover_letter'], date=datetime.now())  # добавить запись в столбец cover_letter
+            print(form.cleaned_data)
+            resume_id = form.cleaned_data['resume'].id
+            Response.objects.create(resume=Resume.objects.get(pk=resume_id), vacancy=Vacancy.objects.get(pk=pk), cover_letter=request.POST['cover_letter'], date=datetime.now())  # добавить запись в столбец cover_letter
             return render(request, 'mainapp/apply_vacancy_success.html')
     else:
         form = ApplyForm(user_id=user_id)
@@ -156,7 +153,7 @@ class ResumeListView(ListView):
     ordering = ['id']
 
     def get_queryset(self):
-        return super().get_queryset().filter(user_id=self.request.user)
+        return super().get_queryset().filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super(ResumeListView, self).get_context_data(**kwargs)
@@ -179,12 +176,12 @@ class ResumeCreateView(CreateView):
 
     def form_valid(self, form):
         exp_form = ExperienceFormSet(form.data)
-        form.instance.user_id = self.request.user
+        form.instance.user = self.request.user
 
         if form.is_valid():
             res = form.save()
 
-        exp_form.instance.resume_id = res
+        exp_form.instance.resume = res
 
         if exp_form.is_valid():
             exp_form.save()
