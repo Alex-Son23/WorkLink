@@ -82,19 +82,19 @@ class VacancyForm(forms.ModelForm):
 
 
 class ApplyForm(forms.ModelForm):
-    user_id = 0
-    resume = forms.ModelChoiceField(
-        queryset=Resume.objects.all())  # Тут надо сделать фильтр по user_id, но его еще надо сначала получить из вьюхи
-    cover = forms.TextInput()
-
     class Meta:
         model = Response
-        fields = ['cover_letter']
+        fields = ('cover_letter', 'resume_id', )
+
 
     def __init__(self, *args, **kwargs):
-        print(kwargs)
-        # ApplyForm.user_id = kwargs.pop('user_id')
+        self.user_id = kwargs.pop('user_id')
+        self.resume = forms.ModelChoiceField(
+            queryset=Resume.objects.filter(user_id_id=self.user_id),  #фильтр не работает
+            label='Резюме',
+            empty_label='Выберите резюме')
         super().__init__(*args, **kwargs)
-
-    def save(self):
-        ApplyForm.user_id = self.user_id
+    
+    # user_id = None
+    # def save(self):
+    #     setattr(ApplyForm,)
