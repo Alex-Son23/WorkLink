@@ -135,14 +135,11 @@ def apply_to_vacancy(request, pk):
     if request.method == 'POST':
         form = ApplyForm(user_id=user_id, data=request.POST)
         if form.is_valid():
-            # form.save()
-            print(form.cleaned_data)
             resume_id = form.cleaned_data['resume'].id
-            Response.objects.create(resume=Resume.objects.get(pk=resume_id), vacancy=Vacancy.objects.get(pk=pk), cover_letter=request.POST['cover_letter'], date=datetime.now())  # добавить запись в столбец cover_letter
-            return render(request, 'mainapp/apply_vacancy_success.html')
+            Response.objects.create(resume=Resume.objects.get(pk=resume_id), vacancy=Vacancy.objects.get(pk=pk), cover_letter=request.POST['cover_letter'], date=datetime.now())
+            return render(request, 'mainapp/apply_vacancy_success.html', {'vacancy': vacancy})
     else:
         form = ApplyForm(user_id=user_id)
-        # form.save()
     return render(request, 'mainapp/apply_to_vacancy.html', {'form': form, 'vacancy': vacancy})
 
 

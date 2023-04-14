@@ -83,20 +83,16 @@ class VacancyForm(forms.ModelForm):
 
 class ApplyForm(forms.ModelForm):
     resume = forms.ModelChoiceField(
-        queryset=None,  # фильтр не работает
+        queryset=None,  
         label='Резюме',
         empty_label='Выберите резюме')
+    cover_letter = forms.CharField(label='Сопроводительное письмо')
+    cover_letter.widget = forms.Textarea(attrs={'class': "container mt-2 mb-3", 'rows':10, 'cols':12})
 
     class Meta:
         model = Response
         fields = ('cover_letter',)
 
     def __init__(self, user_id=0, *args, **kwargs):
-        print(user_id)
         super().__init__(*args, **kwargs)
-        print(Resume.objects.filter(user_id=user_id))
         self.fields['resume'].queryset = Resume.objects.filter(user_id=user_id)
-
-    # user_id = None
-    # def save(self):
-    #     setattr(ApplyForm,)
