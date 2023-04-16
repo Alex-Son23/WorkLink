@@ -1,14 +1,13 @@
 # Форма для новой вакансии
 from django import forms
-from mainapp.models import Resume, Experience, Vacancy
-
+from mainapp.models import Resume, Experience, Vacancy, Response
 
 
 class ResumeForm(forms.ModelForm):
     class Meta:
         model = Resume
         fields = '__all__'
-        exclude = ('is_closed', 'created_at', 'updated_at', 'user_id')
+        exclude = ('is_closed', 'created_at', 'updated_at', 'user')
 
     def is_valid(self) -> bool:
         return super().is_valid()
@@ -30,7 +29,7 @@ class ExperienceForm(forms.ModelForm):
     class Meta:
         model = Experience
         fields = '__all__'
-        exclude = ('resume_id',)
+        exclude = ('resume',)
 
     def __init__(self, *args, **kwargs):
         super(ExperienceForm, self).__init__(*args, **kwargs)
@@ -66,12 +65,11 @@ ExperienceFormSetCreate = forms.inlineformset_factory(
 )
 
 
-
 class VacancyForm(forms.ModelForm):
     class Meta:
         model = Vacancy
         fields = '__all__'
-        exclude = ('is_closed', 'created_at', 'updated_at', 'company_id',)
+        exclude = ('is_closed', 'created_at', 'updated_at', 'company',)
 
     def __init__(self, *args, **kwargs):
         super(VacancyForm, self).__init__(*args, **kwargs)
@@ -82,11 +80,19 @@ class VacancyForm(forms.ModelForm):
             else:
                 field.widget.attrs['class'] = 'form-control'
 
-# class ResponseForm(forms.ModelForm):
-#     # ЗАГЛУШКА для проверки! Нужно заменить Vacancy на модель Resume, когда она появится!
-#     resume = forms.Select(choices=Vacancy.objects.values())
-#
-#     class Meta:
-#         model = Vacancy
-#         fields = ('title', 'salary')
 
+class ApplyForm(forms.ModelForm):
+    resume = forms.ModelChoiceField(
+        queryset=None,  
+        label='Резюме',
+        empty_label='Выберите резюме')
+    cover_letter = forms.CharField(label='Сопроводительное письмо')
+    cover_letter.widget = forms.Textarea(attrs={'class': "container mt-2 mb-3", 'rows':10, 'cols':12})
+
+    class Meta:
+        model = Response
+        fields = ('cover_letter',)
+
+    def __init__(self, user_id=0, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['resume'].queryset = Resume.objects.filter(user_id=user_id)

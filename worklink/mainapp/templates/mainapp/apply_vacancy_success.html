@@ -1,0 +1,12 @@
+{% extends 'worklink/base.html' %}
+
+{% block content %}
+
+<div class="mb-5 mt-5">
+    <h3 class="h3 ml-2">Ваш отклик на вакансию "{{ vacancy.title }}" успешно отправлен!</h3>
+</div>
+<div class="mb-5 mt-5">
+    <a class="ml-2" href="{% url 'company:vacancies' %}" >Вернуться к списку вакансий<a>
+</div>
+
+{% endblock %}

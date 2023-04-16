@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
@@ -9,8 +10,8 @@ from django.shortcuts import render, get_object_or_404
 
 from mainapp import models as companyapp_models
 from authapp.models import CompanyProfile
-from mainapp.forms import ResumeForm, ExperienceFormSet, ExperienceFormSetCreate
-from mainapp.models import Experience, Resume
+from mainapp.forms import ResumeForm, ExperienceFormSet, ExperienceFormSetCreate, ApplyForm
+from mainapp.models import Experience, Resume, Response
 
 
 # Create your views here.
@@ -22,7 +23,7 @@ class VacancyListView(ListView):
 
     def get_queryset(self):
         return super().get_queryset().filter(is_closed=False,
-                                             company_id=self.request.user.get_company())
+                                             company=self.request.user.get_company())
 
     def get_context_data(self, **kwargs):
         context = super(VacancyListView, self).get_context_data(**kwargs)
@@ -52,7 +53,7 @@ class VacancyCreateView(CreateView):
         return reverse_lazy('company:vacancy_add') + '?ADDED=Y'
 
     def form_valid(self, form):
-        form.instance.company_id = self.request.user.get_company()
+        form.instance.company = self.request.user.get_company()
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -71,7 +72,7 @@ class VacancyUpdateView(UpdateView):
     form_class = VacancyForm
 
     def form_valid(self, form):
-        form.instance.company_id = self.request.user.get_company()
+        form.instance.company = self.request.user.get_company()
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -128,15 +129,18 @@ def company(request, pk):
     return render(request, 'mainapp/company.html', context=context)
 
 
-# def respond_to_vacancy(request, pk):
-#     vacancy = get_object_or_404(companyapp_models.Vacancy, pk=pk)
-#     if request.method == 'POST':
-#         form = ResponseForm(request.POST)
-#         if form.is_valid():
-#             return render(request, 'mainapp/response_success.html')
-#     else:
-#         form = ResponseForm()
-#     return render(request, 'mainapp/respond_to_vacancy.html', {'form': form, 'vacancy': vacancy})
+def apply_to_vacancy(request, pk):
+    vacancy = get_object_or_404(Vacancy, pk=pk)
+    user_id = request.user.id
+    if request.method == 'POST':
+        form = ApplyForm(user_id=user_id, data=request.POST)
+        if form.is_valid():
+            resume_id = form.cleaned_data['resume'].id
+            Response.objects.create(resume=Resume.objects.get(pk=resume_id), vacancy=Vacancy.objects.get(pk=pk), cover_letter=request.POST['cover_letter'], date=datetime.now())
+            return render(request, 'mainapp/apply_vacancy_success.html', {'vacancy': vacancy})
+    else:
+        form = ApplyForm(user_id=user_id)
+    return render(request, 'mainapp/apply_to_vacancy.html', {'form': form, 'vacancy': vacancy})
 
 
 class ResumeListView(ListView):
@@ -146,7 +150,7 @@ class ResumeListView(ListView):
     ordering = ['id']
 
     def get_queryset(self):
-        return super().get_queryset().filter(user_id=self.request.user)
+        return super().get_queryset().filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super(ResumeListView, self).get_context_data(**kwargs)
@@ -169,12 +173,12 @@ class ResumeCreateView(CreateView):
 
     def form_valid(self, form):
         exp_form = ExperienceFormSet(form.data)
-        form.instance.user_id = self.request.user
+        form.instance.user = self.request.user
 
         if form.is_valid():
             res = form.save()
 
-        exp_form.instance.resume_id = res
+        exp_form.instance.resume = res
 
         if exp_form.is_valid():
             exp_form.save()
