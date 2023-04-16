@@ -136,7 +136,8 @@ def apply_to_vacancy(request, pk):
         form = ApplyForm(user_id=user_id, data=request.POST)
         if form.is_valid():
             resume_id = form.cleaned_data['resume'].id
-            Response.objects.create(resume=Resume.objects.get(pk=resume_id), vacancy=Vacancy.objects.get(pk=pk), cover_letter=request.POST['cover_letter'], date=datetime.now())
+            Response.objects.create(resume=Resume.objects.get(pk=resume_id), vacancy=Vacancy.objects.get(pk=pk),
+                                    cover_letter=request.POST['cover_letter'], date=datetime.now())
             return render(request, 'mainapp/apply_vacancy_success.html', {'vacancy': vacancy})
     else:
         form = ApplyForm(user_id=user_id)
@@ -236,3 +237,20 @@ def delete_resume(request, pk):
     resume_obj.delete()
 
     return HttpResponseRedirect(reverse_lazy('jobfinder:my-resumes'))
+
+
+class ResponseListView(ListView):
+    template_name = 'mainapp/response_list.html'
+    model = Response
+    paginate_by = 10
+    ordering = ['id']
+
+    def get_queryset(self):
+        return super().get_queryset().filter(resume__user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super(ResponseListView, self).get_context_data(**kwargs)
+        context['title'] = 'Мои отклики'
+        context['company'] = context['object_list'][0].vacancy
+        # context['status'] = context['object_list'][0].status  # ????
+        return context
