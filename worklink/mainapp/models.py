@@ -89,6 +89,14 @@ class Status(models.Model):
 
     title = models.CharField(choices=STATUS_CHOISES, default=WAITING, max_length=128, verbose_name='статус')
 
+    @staticmethod
+    def get_status_waiting():
+        try:
+            return Status.objects.get(title=Status.WAITING)
+        except Status.DoesNotExist:
+            return Status.objects.create(title=Status.WAITING)
+
+
 
 class Offer(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE, verbose_name='резюме')
