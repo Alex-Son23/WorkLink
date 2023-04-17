@@ -67,7 +67,7 @@ class Vacancy(models.Model):
         verbose_name_plural = 'Вакансии'
 
     def __str__(self):
-        return f'{self.title} - {self.company}'
+        return f'{self.company}'  #  return f'{self.title} - {self.company}'
 
 
 class Status(models.Model):
@@ -88,6 +88,14 @@ class Status(models.Model):
     )
 
     title = models.CharField(choices=STATUS_CHOISES, default=WAITING, max_length=128, verbose_name='статус')
+
+    @staticmethod
+    def get_status_waiting():
+        try:
+            return Status.objects.get(title=Status.WAITING)
+        except Status.DoesNotExist:
+            return Status.objects.create(title=Status.WAITING)
+
 
 
 class Offer(models.Model):

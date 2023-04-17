@@ -1,0 +1,17 @@
+{% load static %}
+{% load utils %}
+
+<div class="card my-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-10">
+                <h4 class="dashboard-resume-title">
+                    <a href="#">{{ item.vacancy.company.name }}</a>
+                </h4>
+                <h6 class="card-subtitle mb-2 text-muted">{{ item.vacancy.title }}</h6>
+                <p class="card-text">Дата {{ item.date|date:'d.m.Y' }} </p>
+                <p class="card-text" style="color: #094ecd">{{ item.status.title}} </p>
+            </div>
+        </div>
+    </div>
+</div>
