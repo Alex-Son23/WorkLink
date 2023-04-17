@@ -6,11 +6,13 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, \
 from django import forms
 from django.contrib.auth.models import User
 
-from authapp.models import WorkLinkUser, JobFinderProfile, CompanyProfile
+from authapp.models import WorkLinkUser, JobFinderProfile
+from authapp.models import CompanyProfile
 
 
 # форма для регистрации нового пользователя
 class UserRegisterForm(UserCreationForm):
+
     class Meta:
         model = WorkLinkUser
         # экранная форма на основе модели User с полями
@@ -47,6 +49,7 @@ class UserRegisterForm(UserCreationForm):
 
 # форма для редактирования введенных пользователем регистрационных данных
 class UserEditForm(UserChangeForm):
+
     class Meta:
         model = WorkLinkUser
         fields = ('username', 'email', 'avatar',
@@ -66,6 +69,7 @@ class UserEditForm(UserChangeForm):
 
 # форма аутентификации пользователя
 class UserLoginForm(AuthenticationForm):
+
     class Meta:
         model = User
         fields = ('username', 'password')
@@ -78,6 +82,7 @@ class UserLoginForm(AuthenticationForm):
 
 # форма для редактирования подробного профиля пользователя
 class UserProfileForm(forms.ModelForm):
+
     class Meta:
         model = JobFinderProfile
         fields = ('first_name', 'last_name', 'age', 'phone', 'gender', 'birthday', 'country', 'city',)

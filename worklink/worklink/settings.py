@@ -1,16 +1,23 @@
 import os
+import environ
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "w84kb(^%gr9hs2q&h-$&gx8$y(+=f=!xfolfw-e@8u8y38)yai"
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = [
     '127.0.0.1'
@@ -25,9 +32,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     #
     "worklink",
     "authapp",
+    'mainapp',
+    # 'companyapp',
+    
 ]
 
 MIDDLEWARE = [
@@ -117,3 +128,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # ссылка на нашу модель
 AUTH_USER_MODEL = 'authapp.WorkLinkUser'
+
+
+EMAIL_USE_SSL = True
+EMAIL_HOST = env.str('EMAIL_HOST')
+EMAIL_HOST_USER = env.str('EMAIL_LOGIN')
+EMAIL_HOST_PASSWORD = env.str('EMAIL_PASSWORD')
+EMAIL_PORT = 465

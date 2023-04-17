@@ -8,26 +8,23 @@ from django.urls import reverse
 from authapp.forms import UserRegisterForm, UserEditForm, UserLoginForm, \
     UserProfileForm, CompanyProfileForm
 
-from authapp.models import CompanyProfile, JobFinderProfile
+from authapp.models import JobFinderProfile, CompanyProfile
+
+from worklink import settings
+'''
+Функция ниже понадобится в будущем, функция отправки сообщения
+'''
 
 
-# from models import ShopUser
-# from worklink import settings
+def send_verify_mail(user):
+    # verify_link = reverse('auth:verify', args=[user.email, user.activation_key])
 
-# '''
-# Функция ниже понадобится в будущем, функция отправки сообщения
-# '''
+    title = f'Регистрация в WorkLink'
 
+    message = f'Вы успешно зарегестрированы {user.username}!' \
+              f'Наш сервис поможет вам найти работу!'
 
-# def send_verify_mail(user):
-#     verify_link = reverse('auth:verify', args=[user.email, user.activation_key])
-#
-#     title = f'Подтверждени учётной записи {user.username}'
-#
-#     message = f'Для подтверждения учётной записи {user.username}' \
-#               f'на портале {settings.DOMAIN_NAME} перейдите по ссылке: \n{settings.DOMAIN_NAME}{verify_link}'
-#
-#     return send_mail(title, message, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+    return send_mail(title, message, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
 
 
 # Аутентификация пользователя
@@ -72,19 +69,19 @@ def register(request):
         register_form = UserRegisterForm(request.POST, request.FILES)
 
         if register_form.is_valid():
-            register_form.save()
+            user = register_form.save()
             # перенаправление на страницу аутентификации
-            return HttpResponseRedirect(reverse('auth:login'))
+            # return HttpResponseRedirect(reverse('auth:login'))
 
             # '''
             # Функция ниже понадобится в будущем, функция отправки сообщения
             # '''
-            # if send_verify_mail(user):
-            #     print('сообщение подтверждения отрпавлено')
-            #     return HttpResponseRedirect(reverse('auth:login'))
-            # else:
-            #     print('ошибка отправки сообщения')
-            #     return HttpResponseRedirect(reverse('auth:login'))
+            if send_verify_mail(user):
+                print('сообщение подтверждения отправлено')
+                return HttpResponseRedirect(reverse('auth:login'))
+            else:
+                print('ошибка отправки сообщения')
+                return HttpResponseRedirect(reverse('auth:login'))
     else:
         register_form = UserRegisterForm()
 
@@ -117,7 +114,6 @@ def edit(request):
         # profile_form = UserProfileForm(request.POST,
         #                                instance=request.user.userprofile)
         if edit_form.is_valid() and profile_form.is_valid():
-            print('HUI')
             edit_form.save()
             profile_form.save()
             return HttpResponseRedirect(reverse('auth:edit'))
@@ -125,18 +121,18 @@ def edit(request):
         edit_form = UserEditForm(instance=request.user)
         if request.user.status == 'соискатель':
             profile = JobFinderProfile.objects.filter(user=request.user)[0]
-            end_form = UserProfileForm(
+            profile_form = UserProfileForm(
                 instance=profile)
         elif request.user.status == 'компания':
             company = CompanyProfile.objects.filter(user=request.user)[0]
-            end_form = CompanyProfileForm(
+            profile_form = CompanyProfileForm(
                 instance=company
             )
 
     content = {
         'title': title,
         'edit_form': edit_form,
-        'profile_form': end_form,
+        'profile_form': profile_form,
     }
 
     return render(request, 'authapp/edit.html', content)
@@ -159,3 +155,20 @@ def edit(request):
 #     except Exception as e:
 #         print(f'error activation user: {e.args}')
 #         return HttpResponseRedirect(reverse('index'))
+
+
+# # Добавление новой вакансии
+# def new_vacancy(request):
+#     title = 'Добавление вакансии'
+#
+#     if request.method == 'POST':
+#         job_form = JobForm(request.POST)
+#
+#         if job_form.is_valid():
+#             vacancy = job_form.save()
+#
+#     content = {
+#         'title': title,
+#         'job_form': job_form
+#     }
+#     return render(request, 'worklink/vacancy_form.html', content)

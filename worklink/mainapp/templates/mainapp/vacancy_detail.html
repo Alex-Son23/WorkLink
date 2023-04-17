@@ -1,0 +1,88 @@
+{% extends 'worklink/base.html' %}
+{% load static %}
+{% load utils %}
+{% block content %}
+<div class="header-inner bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-12">
+                <h2 class="text-primary">{{ title }}</h2>
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}">Домой</a></li>
+                    <li class="breadcrumb-item active">
+                        <i class="fas fa-chevron-right"></i>
+                        <a href="{% url 'company:my-vacancies' %}">Вакансии компании</a>
+                    </li>
+                    <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <span>{{ title }}</span></li>
+                </ol>
+            </div>
+            <div class="col-lg-3 col-md-12 mt-md-4 text-right">
+                <a href="{% url 'company:my-vacancies' %}" class="btn btn-outline-success">Назад</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="mt-5 mb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="border p-4">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 mb-4">
+                            <div class="d-flex">
+                                <i class="font-xll text-primary align-self-center flaticon-debit-card"></i>
+                                <div class="feature-info-content pl-3">
+                                    <label class="mb-1">Зарплата</label>
+                                    <span class="mb-0 font-weight-bold d-block text-dark">{{ object.salary|price_format }}</span>
+                                </div>
+                            </div>
+                        </div>
+{#                        <div class="col-md-4 col-sm-6 mb-4">#}
+{#                            <div class="d-flex">#}
+{#                                <i class="font-xll text-primary align-self-center flaticon-love"></i>#}
+{#                                <div class="feature-info-content pl-3">#}
+{#                                    <label class="mb-1">Gender</label>#}
+{#                                    <span class="mb-0 font-weight-bold d-block text-dark">Female</span>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-md-4 col-sm-6 mb-md-0 mb-4">#}
+{#                            <div class="d-flex">#}
+{#                                <i class="font-xll text-primary align-self-center flaticon-apartment"></i>#}
+{#                                <div class="feature-info-content pl-3">#}
+{#                                    <label class="mb-1">Industry</label>#}
+{#                                    <span class="mb-0 font-weight-bold d-block text-dark">Management</span>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-md-4 col-sm-6 mb-sm-0 mb-4">#}
+{#                            <div class="d-flex">#}
+{#                                <i class="font-xll text-primary align-self-center flaticon-medal"></i>#}
+{#                                <div class="feature-info-content pl-3">#}
+{#                                    <label class="mb-1">Experience</label>#}
+{#                                    <span class="mb-0 font-weight-bold d-block text-dark">2 Years</span>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-md-4 col-sm-6">#}
+{#                            <div class="d-flex">#}
+{#                                <i class="font-xll text-primary align-self-center flaticon-mortarboard"></i>#}
+{#                                <div class="feature-info-content pl-3">#}
+{#                                    <label class="mb-1">Qualification</label>#}
+{#                                    <span class="mb-0 font-weight-bold d-block text-dark">Bachelor Degree</span>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+                    </div>
+                </div>
+                <div class="my-4 my-lg-5">
+                    <h5 class="mb-3 mb-md-4">Описание</h5>
+                    {{ object.description }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

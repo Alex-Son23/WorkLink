@@ -1,0 +1,56 @@
+{% extends 'worklink/base.html' %}
+{% load static %}
+{% load utils %}
+{% block content %}
+<div class="header-inner bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-12">
+                <h2 class="text-primary">{{ title }}</h2>
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}"> Домой </a></li>
+                    <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <span>{{ title }}</span></li>
+                </ol>
+            </div>
+            <div class="col-lg-3 col-md-12 mt-md-4 text-right">
+                <a href="{% url 'company:vacancy_add' %}" class="btn btn-success">Добавить вакансию</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="mt-5 mb-5">
+    <div class="container">
+    {% if object_list %}
+        {% for vacancy in object_list %}
+        <div class="card my-2">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-10">
+                        <h4 class="card-title">
+                            <a href="{% url 'company:vacancy_detail' vacancy.id %}">{{ vacancy.title }}</a>
+                        </h4>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ vacancy.date|date:'d.m.Y' }}</h6>
+                        <p class="card-text">{{ vacancy.salary|price_format }} <span>руб.</span></p>
+                        <a href="{% url 'company:vacancy_detail' vacancy.id %}" class="card-link">Подробнее</a>
+                    </div>
+                    <div class="col-2 text-right">
+                         <a href="{% url 'company:vacancy_edit' vacancy.id %}" class="card-link" title="Редактировать">
+                             <i class="fas fa-pencil-alt text-info mr-2"></i>
+                         </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-warning">Список вакансий пуст</div>
+    {% endif %}
+
+    {% if object_list %}
+        {% include 'mainapp/includes/inc_pagination.html' %}
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}
