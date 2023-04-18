@@ -33,6 +33,16 @@
                         <h6 class="card-subtitle mb-2 text-muted">{{ vacancy.date|date:'d.m.Y' }}</h6>
                         <p class="card-text">{{ vacancy.salary|price_format }} <span>руб.</span></p>
                         <a href="{% url 'company:vacancy_detail' vacancy.id %}" class="card-link">Подробнее</a>
+                        {% if vacancy.response_count %}
+                        <a href="{% url 'company:vacancy_responses' vacancy.id %}" class="card-link text-warning">Отклики ({{ vacancy.response_count }})</a>
+                        {% else %}
+                            <span class="text-muted opacity-50 card-link">Отклики (0)</span>
+                        {% endif %}
+                        {% if vacancy.offers_count %}
+                            <a href="{% url 'company:vacancy_offers' vacancy.id %}" class="card-link text-success">Предложения ({{ vacancy.offers_count }})</a>
+                        {% else %}
+                            <span class="text-muted opacity-50 card-link">Предложения (0)</span>
+                        {% endif %}
                     </div>
                     <div class="col-2 text-right">
                          <a href="{% url 'company:vacancy_edit' vacancy.id %}" class="card-link" title="Редактировать">

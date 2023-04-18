@@ -30,9 +30,6 @@
                         {% endif %}
                         {% if user.status == 'компания' %}
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Карточка компании</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="{% url 'company:my-vacancies' %}">Вакансии компании</a>
                             </li>
                         {% endif %}

@@ -38,9 +38,7 @@
                 <img class="img-fluid" src="{% static 'worklink/icons/black_logo.svg' %}" alt="Work link">
             </a>
             <div class="navbar-collapse collapse justify-content-start">
-
                 {% include 'worklink/includes/top_menu.html' %}
-
             </div>
             <div class="add-listing">
                 {% include 'worklink/includes/user_menu.html' %}
@@ -66,24 +64,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-link">
-                    <h5 class="mb-4 text-white">Работа</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="{% url 'company:vacancies' %}">Вакансии</a></li>
-                        <li><a href="#">Категории</a></li>
-                        <li><a href="#">Резюме</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
-                <div class="footer-link">
-                    <h5 class="mb-4 text-white">Компаниям</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="{% url 'news' %}">Новости</a></li>
-                    </ul>
-                </div>
-            </div>
+            {% include 'worklink/includes/footer_menu.html' %}
             <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
                 <h5 class="mb-4 text-white">Подпишитесь на обновления</h5>
                 <div class="footer-subscribe">
@@ -180,131 +161,131 @@
     <i class="fas fa-angle-up"></i>
 </div>
 
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header p-4">
-                <h4 class="mb-0 text-center">Войти</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="login-register">
-                    <fieldset>
-                        <legend class="px-2">Тип аккаунта</legend>
-                        <ul class="nav nav-tabs nav-tabs-border d-flex" role="tablist">
-                            <li class="nav-item mr-4">
-                                <a class="nav-link active" data-toggle="tab" href="#candidate" role="tab"
-                                   aria-selected="false">
-                                    <div class="d-flex">
-                                        <div class="tab-icon">
-                                            <i class="flaticon-users"></i>
-                                        </div>
-                                        <div class="ml-3">
-                                            <h6 class="mb-0">Кандидат</h6>
-                                            <p class="mb-0">Войти как кандидат</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#employer" role="tab" aria-selected="false">
-                                    <div class="d-flex">
-                                        <div class="tab-icon">
-                                            <i class="flaticon-suitcase"></i>
-                                        </div>
-                                        <div class="ml-3">
-                                            <h6 class="mb-0">Работодатель</h6>
-                                            <p class="mb-0">Войти как работодатель</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </fieldset>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="candidate" role="tabpanel">
-                            <form class="mt-4">
-                                <div class="form-row">
-                                    <div class="form-group col-12">
-                                        <label for="Email2">Логин / E-mail:</label>
-                                        <input type="text" class="form-control" id="Email22">
-                                    </div>
-                                    <div class="form-group col-12">
-                                        <label for="password2">Пароль *</label>
-                                        <input type="password" class="form-control" id="password32">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-md-6">
-                                        <a class="btn btn-primary btn-block" href="#">Войти</a>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="ml-md-3 mt-3 mt-md-0 forgot-pass">
-                                            <a href="#">Забыли пароль?</a>
-                                            <p class="mt-1">Нет аккаунта? <a href="#">Зарегистрируйтесь</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="tab-pane fade" id="employer" role="tabpanel">
-                            <form class="mt-4">
-                                <div class="form-row">
-                                    <div class="form-group col-12">
-                                        <label for="Email2">Логин / E-mail:</label>
-                                        <input type="text" class="form-control" id="Email2">
-                                    </div>
-                                    <div class="form-group col-12">
-                                        <label for="password2">Пароль *</label>
-                                        <input type="password" class="form-control" id="password2">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-md-6">
-                                        <a class="btn btn-primary btn-block" href="#">Войти</a>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="ml-md-3 mt-3 mt-md-0">
-                                            <a href="#">Забыли пароль?</a>
-                                            <div class="custom-control custom-checkbox mt-2">
-                                                <input type="checkbox" class="custom-control-input" id="Remember-02">
-                                                <label class="custom-control-label" for="Remember-02">Запомнить
-                                                    пароль</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <fieldset>
-                            <legend class="px-2">Войдите или зарегистрируйтесь с помощью</legend>
-                            <div class="social-login">
-                                <ul class="list-unstyled d-flex mb-0">
-                                    <li class="facebook text-center">
-                                        <a href="#"> <i class="fab fa-facebook-f mr-3 mr-md-4"></i>Войти через Facebook</a>
-                                    </li>
-                                    <li class="twitter text-center">
-                                        <a href="#"> <i class="fab fa-twitter mr-3 mr-md-4"></i>Войти через Twitter</a>
-                                    </li>
-                                    <li class="google text-center">
-                                        <a href="#"> <i class="fab fa-google mr-3 mr-md-4"></i>Войти через Google</a>
-                                    </li>
-                                    <li class="linkedin text-center">
-                                        <a href="#"> <i class="fab fa-linkedin-in mr-3 mr-md-4"></i>Войти через Linkedin</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </fieldset>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{#<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">#}
+{#    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">#}
+{#        <div class="modal-content">#}
+{#            <div class="modal-header p-4">#}
+{#                <h4 class="mb-0 text-center">Войти</h4>#}
+{#                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">#}
+{#                    <span aria-hidden="true">&times;</span>#}
+{#                </button>#}
+{#            </div>#}
+{#            <div class="modal-body">#}
+{#                <div class="login-register">#}
+{#                    <fieldset>#}
+{#                        <legend class="px-2">Тип аккаунта</legend>#}
+{#                        <ul class="nav nav-tabs nav-tabs-border d-flex" role="tablist">#}
+{#                            <li class="nav-item mr-4">#}
+{#                                <a class="nav-link active" data-toggle="tab" href="#candidate" role="tab"#}
+{#                                   aria-selected="false">#}
+{#                                    <div class="d-flex">#}
+{#                                        <div class="tab-icon">#}
+{#                                            <i class="flaticon-users"></i>#}
+{#                                        </div>#}
+{#                                        <div class="ml-3">#}
+{#                                            <h6 class="mb-0">Кандидат</h6>#}
+{#                                            <p class="mb-0">Войти как кандидат</p>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </a>#}
+{#                            </li>#}
+{#                            <li class="nav-item">#}
+{#                                <a class="nav-link" data-toggle="tab" href="#employer" role="tab" aria-selected="false">#}
+{#                                    <div class="d-flex">#}
+{#                                        <div class="tab-icon">#}
+{#                                            <i class="flaticon-suitcase"></i>#}
+{#                                        </div>#}
+{#                                        <div class="ml-3">#}
+{#                                            <h6 class="mb-0">Работодатель</h6>#}
+{#                                            <p class="mb-0">Войти как работодатель</p>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </a>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                    </fieldset>#}
+{#                    <div class="tab-content">#}
+{#                        <div class="tab-pane active" id="candidate" role="tabpanel">#}
+{#                            <form class="mt-4">#}
+{#                                <div class="form-row">#}
+{#                                    <div class="form-group col-12">#}
+{#                                        <label for="Email2">Логин / E-mail:</label>#}
+{#                                        <input type="text" class="form-control" id="Email22">#}
+{#                                    </div>#}
+{#                                    <div class="form-group col-12">#}
+{#                                        <label for="password2">Пароль *</label>#}
+{#                                        <input type="password" class="form-control" id="password32">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="form-row">#}
+{#                                    <div class="col-md-6">#}
+{#                                        <a class="btn btn-primary btn-block" href="#">Войти</a>#}
+{#                                    </div>#}
+{#                                    <div class="col-md-6">#}
+{#                                        <div class="ml-md-3 mt-3 mt-md-0 forgot-pass">#}
+{#                                            <a href="#">Забыли пароль?</a>#}
+{#                                            <p class="mt-1">Нет аккаунта? <a href="#">Зарегистрируйтесь</a></p>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </form>#}
+{#                        </div>#}
+{#                        <div class="tab-pane fade" id="employer" role="tabpanel">#}
+{#                            <form class="mt-4">#}
+{#                                <div class="form-row">#}
+{#                                    <div class="form-group col-12">#}
+{#                                        <label for="Email2">Логин / E-mail:</label>#}
+{#                                        <input type="text" class="form-control" id="Email2">#}
+{#                                    </div>#}
+{#                                    <div class="form-group col-12">#}
+{#                                        <label for="password2">Пароль *</label>#}
+{#                                        <input type="password" class="form-control" id="password2">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="form-row">#}
+{#                                    <div class="col-md-6">#}
+{#                                        <a class="btn btn-primary btn-block" href="#">Войти</a>#}
+{#                                    </div>#}
+{#                                    <div class="col-md-6">#}
+{#                                        <div class="ml-md-3 mt-3 mt-md-0">#}
+{#                                            <a href="#">Забыли пароль?</a>#}
+{#                                            <div class="custom-control custom-checkbox mt-2">#}
+{#                                                <input type="checkbox" class="custom-control-input" id="Remember-02">#}
+{#                                                <label class="custom-control-label" for="Remember-02">Запомнить#}
+{#                                                    пароль</label>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </form>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="mt-4">#}
+{#                        <fieldset>#}
+{#                            <legend class="px-2">Войдите или зарегистрируйтесь с помощью</legend>#}
+{#                            <div class="social-login">#}
+{#                                <ul class="list-unstyled d-flex mb-0">#}
+{#                                    <li class="facebook text-center">#}
+{#                                        <a href="#"> <i class="fab fa-facebook-f mr-3 mr-md-4"></i>Войти через Facebook</a>#}
+{#                                    </li>#}
+{#                                    <li class="twitter text-center">#}
+{#                                        <a href="#"> <i class="fab fa-twitter mr-3 mr-md-4"></i>Войти через Twitter</a>#}
+{#                                    </li>#}
+{#                                    <li class="google text-center">#}
+{#                                        <a href="#"> <i class="fab fa-google mr-3 mr-md-4"></i>Войти через Google</a>#}
+{#                                    </li>#}
+{#                                    <li class="linkedin text-center">#}
+{#                                        <a href="#"> <i class="fab fa-linkedin-in mr-3 mr-md-4"></i>Войти через Linkedin</a>#}
+{#                                    </li>#}
+{#                                </ul>#}
+{#                            </div>#}
+{#                        </fieldset>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
 {% endblock %}
 
 

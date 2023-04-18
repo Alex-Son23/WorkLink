@@ -81,6 +81,28 @@ class VacancyForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-control'
 
 
+class ResponseForm(forms.ModelForm):
+    class Meta:
+        model = Response
+        fields = ('status', )
+
+    def __init__(self, *args, **kwargs):
+        super(ResponseForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
+
+class OfferForm(forms.ModelForm):
+    class Meta:
+        model = Response
+        fields = ('status', )
+
+    def __init__(self, *args, **kwargs):
+        super(OfferForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
+
 class ApplyForm(forms.ModelForm):
     resume = forms.ModelChoiceField(
         queryset=None,  

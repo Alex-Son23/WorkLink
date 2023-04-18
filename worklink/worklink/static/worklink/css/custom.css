@@ -1,3 +1,9 @@
 .user-login{max-width: 170px;overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;}
+.opacity-100{opacity: 1}
+.opacity-90{opacity: .9}
+.opacity-80{opacity: .8}
+.opacity-70{opacity: .7}
+.opacity-60{opacity: .6}
+.opacity-50{opacity: .5}
