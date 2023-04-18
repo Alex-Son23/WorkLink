@@ -3,13 +3,6 @@
 from django.db import migrations
 
 
-def populate_statuses(apps, schema_editor):
-    Status = apps.get_model('mainapp', 'Status')
-    statuses = (item.title for item in Status.objects.all())
-    for item, _ in Status.title.field.choices:
-        if item not in statuses:
-            Status.objects.create(title=item)
-
 
 class Migration(migrations.Migration):
 
@@ -17,4 +10,4 @@ class Migration(migrations.Migration):
         ('mainapp', '0001_initial'),
     ]
 
-    operations = [migrations.RunPython(populate_statuses)]
+    operations = []
