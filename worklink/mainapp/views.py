@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
-from mainapp.forms import VacancyForm
+from mainapp.forms import VacancyForm, ResponseForm, OfferForm
 from mainapp.models import Vacancy
 
 from django.shortcuts import render, get_object_or_404
@@ -11,17 +11,13 @@ from django.shortcuts import render, get_object_or_404
 from mainapp import models as companyapp_models
 from authapp.models import CompanyProfile
 from mainapp.forms import ResumeForm, ExperienceFormSet, ExperienceFormSetCreate, ApplyForm
-from mainapp.models import Experience, Resume, Response, Status
-
-
-# Create your views here.
-
+from mainapp.models import Experience, Resume, Response, Status, Offer
 
 
 class VacancyListView(ListView):
     template_name = 'mainapp/vacancies.html'
     model = Vacancy
-    paginate_by = 3
+    paginate_by = 5
     ordering = ['-created_at']
 
     def get_queryset(self):
@@ -103,6 +99,84 @@ class VacancyView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Вакансии'
+        return context
+
+
+class VacancyResponsesListView(ListView):
+    model = Response
+    template_name = 'mainapp/vacancy_responses.html'
+
+    def get_queryset(self):
+        return super().get_queryset().filter(vacancy=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        vacancy = get_object_or_404(Vacancy, pk=self.kwargs['pk'])
+        context['title'] = f'Отклики на вакансию "{vacancy.title}"'
+        return context
+
+
+class VacancyOffersListView(ListView):
+    model = Offer
+    template_name = 'mainapp/vacancy_offers.html'
+
+    def get_queryset(self):
+        return super().get_queryset().filter(vacancy=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        vacancy = get_object_or_404(Vacancy, pk=self.kwargs['pk'])
+        context['title'] = f'Предложения по вакансии "{vacancy.title}"'
+        return context
+
+
+class VacancyResponseUpdateView(UpdateView):
+    template_name = 'mainapp/vacancy_response_form.html'
+    model = Response
+    form_class = ResponseForm
+
+    def get_success_url(self):
+        return reverse_lazy('company:vacancy_response_update', kwargs={
+            'vacancy_id': self.object.vacancy.pk,
+            'pk': self.object.pk,
+        }) + '?SAVED=Y'
+
+    def get_context_data(self, **kwargs):
+        context = super(VacancyResponseUpdateView, self).get_context_data(**kwargs)
+        context['title'] = self.object.vacancy.title
+        context['sub_title'] = 'Отклики'
+        context['success_message'] = 'Изменения сохранены'
+        context['submit_title'] = 'Сохранить'
+        context['form_action'] = reverse_lazy('company:vacancy_response_update', kwargs={
+            'vacancy_id': self.object.vacancy.pk,
+            'pk': self.object.pk,
+        })
+        context['success'] = self.request.GET.get('SAVED') == 'Y'
+        return context
+
+
+class VacancyOfferUpdateView(UpdateView):
+    template_name = 'mainapp/vacancy_offer_form.html'
+    model = Offer
+    form_class = OfferForm
+
+    def get_success_url(self):
+        return reverse_lazy('company:vacancy_offer_update', kwargs={
+            'vacancy_id': self.object.vacancy.pk,
+            'pk': self.object.pk,
+        }) + '?SAVED=Y'
+
+    def get_context_data(self, **kwargs):
+        context = super(VacancyResponseUpdateView, self).get_context_data(**kwargs)
+        context['title'] = self.object.vacancy.title
+        context['sub_title'] = 'Предложения'
+        context['success_message'] = 'Изменения сохранены'
+        context['submit_title'] = 'Сохранить'
+        context['form_action'] = reverse_lazy('company:vacancy_offer_update', kwargs={
+            'vacancy_id': self.object.vacancy.pk,
+            'pk': self.object.pk,
+        })
+        context['success'] = self.request.GET.get('SAVED') == 'Y'
         return context
 
 

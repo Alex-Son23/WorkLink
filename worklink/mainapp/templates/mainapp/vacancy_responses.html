@@ -1,0 +1,52 @@
+{% extends 'worklink/base.html' %}
+{% load static %}
+{% load utils %}
+{% block content %}
+<div class="header-inner bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-12">
+                <h2 class="text-primary">{{ title }}</h2>
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}"> Домой </a></li>
+                    <li class="breadcrumb-item active">
+                        <i class="fas fa-chevron-right"></i>
+                        <a href="{% url 'company:my-vacancies' %}">Вакансии</a>
+                    </li>
+                    <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <span>{{ title }}</span></li>
+                </ol>
+            </div>
+            <div class="col-lg-3 col-md-12 mt-md-4 text-right">
+                <a href="{% url 'company:my-vacancies' %}" class="btn btn-success">К списку</a>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="mt-5 mb-5">
+    <div class="container">
+    {% if object_list %}
+        {% for vacancy_response in object_list %}
+        <div class="card my-2">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-10">
+                        <h4 class="card-title">{{ vacancy_response.resume }} ({{ vacancy_response.resume.user }})</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ vacancy_response.date|date:'d.m.Y H:i:s' }}</h6>
+                        <p><strong>Статус:</strong> <span class="text-info">{{ vacancy_response.status }}</span></p>
+                        <a class="text-info card-link" href="{%  url 'company:vacancy_response_update' vacancy_response.vacancy_id vacancy_response.pk %}">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-warning">На вакансию пока никто не откликнулся</div>
+    {% endif %}
+
+    {% if object_list %}
+        {% include 'mainapp/includes/inc_pagination.html' %}
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% if user.is_authenticated %}
+<div class="col-lg-3 col-md-6">
+    <div class="footer-link">
+        <h5 class="mb-4 text-white">Работа</h5>
+        <ul class="list-unstyled">
+            {% if user.status == 'компания' %}
+            <li><a href="{% url 'company:my-vacancies' %}">Вакансии</a></li>
+            {% endif %}
+            {% if user.status == 'соискатель' %}
+            <li><a href="{% url 'company:my-resumes' %}">Резюме</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% else %}
+    <div class="col-lg-3 col-md-6"></div>
+{% endif %}
+<div class="col-lg-3 col-md-6 mt-4 mt-md-0">
+    <div class="footer-link">
+        <h5 class="mb-4 text-white">Компаниям</h5>
+        <ul class="list-unstyled">
+            <li><a href="{% url 'news' %}">Новости</a></li>
+        </ul>
+    </div>
+</div>

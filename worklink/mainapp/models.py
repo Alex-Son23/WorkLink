@@ -69,6 +69,12 @@ class Vacancy(models.Model):
     def __str__(self):
         return f'{self.company}'  #  return f'{self.title} - {self.company}'
 
+    def responses(self):
+        return Response.objects.filter(vacancy=self).all()
+
+    def response_count(self):
+        return len(self.responses())
+
 
 class Status(models.Model):
     WAITING = 'ожидание ответа'
@@ -95,6 +101,9 @@ class Status(models.Model):
             return Status.objects.get(title=Status.WAITING)
         except Status.DoesNotExist:
             return Status.objects.create(title=Status.WAITING)
+
+    def __str__(self):
+        return f'{self.title}'
 
 
 
