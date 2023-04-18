@@ -1,7 +1,9 @@
 from django.db import models
 
 from authapp.models import CompanyProfile
+from django.dispatch import receiver
 from authapp.models import WorkLinkUser
+from django.db.models.signals import post_save
 
 
 class Resume(models.Model):
@@ -67,7 +69,7 @@ class Vacancy(models.Model):
         verbose_name_plural = 'Вакансии'
 
     def __str__(self):
-        return f'{self.company}'  #  return f'{self.title} - {self.company}'
+        return f'{self.company}'  # return f'{self.title} - {self.company}'
 
     def responses(self):
         return Response.objects.filter(vacancy=self).all()
@@ -78,19 +80,13 @@ class Vacancy(models.Model):
 
 class Status(models.Model):
     WAITING = 'ожидание ответа'
-    NOT_INTERESTED = 'не интересует'
-    CALL_SOON = 'свяжусь в ближайшее время'
-    CALL_WEEK = 'готов дать ответ через неделю'
-    CALL_MONTH = 'готов дать ответ через месяц'
-    INTERESTED = 'заинтересован'
+    REFUSAL = 'отказ'
+    ACCEPT = 'принято'
 
     STATUS_CHOISES = (
         (WAITING, 'Ожидание ответа'),
-        (NOT_INTERESTED, 'Не интересует'),
-        (CALL_SOON, 'Свяжусь в ближайшее время'),
-        (CALL_WEEK, 'Готов дать ответ через неделю'),
-        (CALL_MONTH, 'Готов дать ответ через месяц'),
-        (INTERESTED, 'Заинтересован'),
+        (ACCEPT, 'Приглашение'),
+        (REFUSAL, 'Отказ'),
     )
 
     title = models.CharField(choices=STATUS_CHOISES, default=WAITING, max_length=128, verbose_name='статус')
@@ -104,7 +100,6 @@ class Status(models.Model):
 
     def __str__(self):
         return f'{self.title}'
-
 
 
 class Offer(models.Model):
@@ -121,3 +116,9 @@ class Response(models.Model):
     status = models.ForeignKey(Status, on_delete=models.CASCADE, verbose_name='статус', null=True)
     cover_letter = models.TextField(verbose_name='сопроводительное письмо')
     date = models.DateTimeField(auto_now_add=True, verbose_name='дата', null=True)
+
+
+# @receiver(post_save, sender=Response)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     instance.status = Status.objects.get(title='Ожидание ответа')
+
