@@ -36,7 +36,7 @@
                         {% if vacancy.response_count %}
                         <a href="{% url 'company:vacancy_responses' vacancy.id %}" class="card-link text-warning">Отклики ({{ vacancy.response_count }})</a>
                         {% else %}
-                            <span class="text-muted opacity-50 card-link">Отклики (0)</span>
+                            <span class="text-muted opacity-50 card-link">Отклики ({{ vacancy.response_count }})</span>
                         {% endif %}
                         {% if vacancy.offers_count %}
                             <a href="{% url 'company:vacancy_offers' vacancy.id %}" class="card-link text-success">Предложения ({{ vacancy.offers_count }})</a>

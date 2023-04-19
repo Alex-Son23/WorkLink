@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
@@ -10,7 +11,7 @@ from django.shortcuts import render, get_object_or_404
 
 from mainapp import models as companyapp_models
 from authapp.models import CompanyProfile
-from mainapp.forms import ResumeForm, ExperienceFormSet, ExperienceFormSetCreate, ApplyForm
+from mainapp.forms import ResumeForm, ExperienceFormSet, ExperienceFormSetCreate, ApplyForm, OfferApplyForm
 from mainapp.models import Experience, Resume, Response, Status, Offer
 
 
@@ -65,6 +66,7 @@ class VacancyCreateView(CreateView):
         return context
 
 
+# Контроллер редактирования вакансии
 class VacancyUpdateView(UpdateView):
     template_name = 'mainapp/vacancy_form.html'
     model = Vacancy
@@ -88,6 +90,7 @@ class VacancyUpdateView(UpdateView):
         return context
 
 
+# Список вакансий
 class VacancyView(ListView):
     model = companyapp_models.Vacancy
 
@@ -102,6 +105,7 @@ class VacancyView(ListView):
         return context
 
 
+# Контроллер для откликов к вакансии
 class VacancyResponsesListView(ListView):
     model = Response
     template_name = 'mainapp/vacancy_responses.html'
@@ -116,6 +120,7 @@ class VacancyResponsesListView(ListView):
         return context
 
 
+# Контроллер для предложений по вакансии
 class VacancyOffersListView(ListView):
     model = Offer
     template_name = 'mainapp/vacancy_offers.html'
@@ -331,3 +336,31 @@ class ResponseListView(ListView):
         context['title'] = 'Мои отклики'
 
         return context
+    
+
+# Контроллер для списка предложений
+class OfferListView(ListView):
+    template_name = 'mainapp/offer_list.html'
+    model = Offer
+    paginate_by = 10
+    ordering = ['id']
+
+    def get_queryset(self):
+        return super().get_queryset().filter(resume__user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super(OfferListView, self).get_context_data(**kwargs)
+        context['title'] = 'Мои предложения'
+        context['status_form'] = OfferApplyForm
+        context['success_message'] = 'Изменения сохранены'
+        context['submit_title'] = 'Сохранить'
+        return context
+
+
+# Изменение статуса предложения
+def offer_response(request, pk):
+    offer_obj = Offer.objects.filter(id=pk).first()
+    form = OfferApplyForm(request.POST, instance=offer_obj)
+    if form.is_valid():
+        form.save()
+    return HttpResponseRedirect(reverse_lazy('jobfinder:my-offer'))

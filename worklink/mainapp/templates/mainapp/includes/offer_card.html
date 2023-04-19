@@ -1,0 +1,35 @@
+{% load static %}
+{% load utils %}
+
+<div class="card my-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-10">
+                <h4 class="dashboard-resume-title">
+                    <a href="#">{{ item.vacancy.company.name }}</a>
+                </h4>
+                <h6 class="card-subtitle mb-2 text-muted">{{ item.vacancy.title }}</h6>
+                <p class="card-text">Дата {{ item.date|date:'d.m.Y' }} </p>
+                <p class="card-text" style="color: #094ecd">Статус: {{ item.status.title}} </p>
+                {{form_action}}
+                <form action="{% url 'jobfinder:offer-edit' item.id %}" method="post">
+                    {% csrf_token %}
+                    {% for hidden in status_form.hidden_fields %}
+                    {{ hidden }}
+                    {% endfor %}
+                    <div class="form-row">
+                        {% for field in status_form.visible_fields %}
+                            <div class="form-group col-12">
+                                {{ field.errors }}
+                                {{ field.label_tag }} {{ field }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="input-group">
+                        <button type="submit" class="btn btn-success btn-block">{{ submit_title }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

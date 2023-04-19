@@ -1,6 +1,6 @@
 # Форма для новой вакансии
 from django import forms
-from mainapp.models import Resume, Experience, Vacancy, Response
+from mainapp.models import Resume, Experience, Vacancy, Response, Offer
 
 
 class ResumeForm(forms.ModelForm):
@@ -118,3 +118,14 @@ class ApplyForm(forms.ModelForm):
     def __init__(self, user_id=0, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['resume'].queryset = Resume.objects.filter(user_id=user_id)
+
+
+class OfferApplyForm(forms.ModelForm):
+    class Meta:
+        model = Offer
+        fields = ('status', )
+
+    def __init__(self, *args, **kwargs):
+        super(OfferApplyForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
