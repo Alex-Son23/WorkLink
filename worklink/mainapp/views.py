@@ -227,6 +227,7 @@ def apply_to_vacancy(request, pk):
         form = ApplyForm(user_id=user_id)
     return render(request, 'mainapp/apply_to_vacancy.html', {'form': form, 'vacancy': vacancy})
 
+
 # Контроллер для списка резюме
 class ResumeListView(ListView):
     template_name = 'mainapp/resume_list.html'
