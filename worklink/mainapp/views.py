@@ -15,6 +15,7 @@ from mainapp.forms import ResumeForm, ExperienceFormSet, ExperienceFormSetCreate
 from mainapp.models import Experience, Resume, Response, Status, Offer
 
 
+# Контроллер списка вакансий
 class VacancyListView(ListView):
     template_name = 'mainapp/vacancies.html'
     model = Vacancy
@@ -226,7 +227,7 @@ def apply_to_vacancy(request, pk):
         form = ApplyForm(user_id=user_id)
     return render(request, 'mainapp/apply_to_vacancy.html', {'form': form, 'vacancy': vacancy})
 
-
+# Контроллер для списка резюме
 class ResumeListView(ListView):
     template_name = 'mainapp/resume_list.html'
     model = Resume
@@ -322,6 +323,7 @@ def delete_resume(request, pk):
     return HttpResponseRedirect(reverse_lazy('jobfinder:my-resumes'))
 
 
+# Контроллер для спика откликов
 class ResponseListView(ListView):
     template_name = 'mainapp/response_list.html'
     model = Response
@@ -358,9 +360,24 @@ class OfferListView(ListView):
 
 
 # Изменение статуса предложения
-def offer_response(request, pk):
-    offer_obj = Offer.objects.filter(id=pk).first()
-    form = OfferApplyForm(request.POST, instance=offer_obj)
-    if form.is_valid():
-        form.save()
-    return HttpResponseRedirect(reverse_lazy('jobfinder:my-offer'))
+class OfferApplyView(UpdateView):
+    template_name = 'mainapp/offer_response_form.html'
+    model = Offer
+    form_class = OfferForm
+
+    def get_success_url(self):
+        return reverse_lazy('jobfinder:offer-edit', kwargs={
+            'pk': self.object.pk,
+        }) + '?SAVED=Y'
+
+    def get_context_data(self, **kwargs):
+        context = super(OfferApplyView, self).get_context_data(**kwargs)
+        context['title'] = self.object.vacancy.title
+        context['sub_title'] = 'Предложения'
+        context['success_message'] = 'Изменения сохранены'
+        context['submit_title'] = 'Сохранить'
+        context['form_action'] = reverse_lazy('jobfinder:offer-edit', kwargs={
+            'pk': self.object.pk,
+        })
+        context['success'] = self.request.GET.get('SAVED') == 'Y'
+        return context

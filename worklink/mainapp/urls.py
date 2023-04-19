@@ -28,7 +28,7 @@ urlpatterns = [
 
     # offer
     path('my-offers/', OfferListView.as_view(), name='my-offer'),
-    path('my-offers/<int:pk>/edit', offer_response, name='offer-edit'),
+    path('my-offers/<int:pk>/edit', OfferApplyView.as_view(), name='offer-edit'),
 
 
 ]

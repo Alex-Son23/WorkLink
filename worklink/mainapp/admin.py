@@ -1,12 +1,11 @@
 from django.contrib import admin
-from mainapp.models import Resume, Experience, Vacancy, Response, Offer, Status, OfferStatus
+from mainapp.models import Resume, Experience, Vacancy, Response, Offer, Status
 
 admin.site.register(Resume)
 admin.site.register(Experience)
 admin.site.register(Response)
 admin.site.register(Offer)
 admin.site.register(Status)
-admin.site.register(OfferStatus)
 
 
 @admin.register(Vacancy)

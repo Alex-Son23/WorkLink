@@ -91,6 +91,10 @@ class Status(models.Model):
     REFUSAL = 'отказ'
     ACCEPT = 'принято'
 
+    class Meta:
+        verbose_name = 'Статус'
+        verbose_name_plural = 'Статусы'
+
     STATUS_CHOISES = (
         (WAITING, 'Ожидание ответа'),
         (ACCEPT, 'Приглашение'),
@@ -110,36 +114,17 @@ class Status(models.Model):
         return f'{self.title}'
     
 
-class OfferStatus(models.Model):
-    WAITING = 'ожидание ответа'
-    REFUSAL = 'отказ'
-    ACCEPT = 'принято'
-    SOON = 'cвяжусь в ближайшее время'
-    WEEK = 'готов дать ответ через неделю'
-    MONTH = 'готов дать ответ через меся'
-
-    STATUS_CHOISES = (
-        (WAITING , 'ожидание ответа'),
-        (REFUSAL , 'отказ'),
-        (ACCEPT , 'принято'),
-        (SOON , 'cвяжусь в ближайшее время'),
-        (WEEK , 'готов дать ответ через неделю'),
-        (MONTH , 'готов дать ответ через меся'),
-    )
-
-    title = models.CharField(choices=STATUS_CHOISES, default=WAITING, max_length=128, verbose_name='статус')
-
-    def __str__(self):
-        return f'{self.title}'
-
 
 class Offer(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE, verbose_name='резюме')
     vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE, verbose_name='вакансия')
-    status = models.ForeignKey(OfferStatus, on_delete=models.CASCADE, verbose_name='статус')
+    status = models.ForeignKey(Status, on_delete=models.CASCADE, verbose_name='статус')
     cover_letter = models.TextField(verbose_name='сопроводительное письмо')
     date = models.DateTimeField(models.DateTimeField(auto_now_add=True, verbose_name='дата'))
 
+    class Meta:
+        verbose_name = 'Предложение'
+        verbose_name_plural = 'Предложения'
 
 class Response(models.Model):
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE, verbose_name='резюме')
