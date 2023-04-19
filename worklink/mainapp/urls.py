@@ -25,4 +25,10 @@ urlpatterns = [
 
     # response
     path('my-response/', ResponseListView.as_view(), name='my-response'),
+
+    # offer
+    path('my-offers/', OfferListView.as_view(), name='my-offer'),
+    path('my-offers/<int:pk>/edit', OfferApplyView.as_view(), name='offer-edit'),
+
+
 ]

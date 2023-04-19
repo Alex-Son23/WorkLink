@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
@@ -10,10 +11,11 @@ from django.shortcuts import render, get_object_or_404
 
 from mainapp import models as companyapp_models
 from authapp.models import CompanyProfile
-from mainapp.forms import ResumeForm, ExperienceFormSet, ExperienceFormSetCreate, ApplyForm
+from mainapp.forms import ResumeForm, ExperienceFormSet, ExperienceFormSetCreate, ApplyForm, OfferApplyForm
 from mainapp.models import Experience, Resume, Response, Status, Offer
 
 
+# Контроллер списка вакансий
 class VacancyListView(ListView):
     template_name = 'mainapp/vacancies.html'
     model = Vacancy
@@ -65,6 +67,7 @@ class VacancyCreateView(CreateView):
         return context
 
 
+# Контроллер редактирования вакансии
 class VacancyUpdateView(UpdateView):
     template_name = 'mainapp/vacancy_form.html'
     model = Vacancy
@@ -88,6 +91,7 @@ class VacancyUpdateView(UpdateView):
         return context
 
 
+# Список вакансий
 class VacancyView(ListView):
     model = companyapp_models.Vacancy
 
@@ -102,6 +106,7 @@ class VacancyView(ListView):
         return context
 
 
+# Контроллер для откликов к вакансии
 class VacancyResponsesListView(ListView):
     model = Response
     template_name = 'mainapp/vacancy_responses.html'
@@ -116,6 +121,7 @@ class VacancyResponsesListView(ListView):
         return context
 
 
+# Контроллер для предложений по вакансии
 class VacancyOffersListView(ListView):
     model = Offer
     template_name = 'mainapp/vacancy_offers.html'
@@ -222,6 +228,7 @@ def apply_to_vacancy(request, pk):
     return render(request, 'mainapp/apply_to_vacancy.html', {'form': form, 'vacancy': vacancy})
 
 
+# Контроллер для списка резюме
 class ResumeListView(ListView):
     template_name = 'mainapp/resume_list.html'
     model = Resume
@@ -317,6 +324,7 @@ def delete_resume(request, pk):
     return HttpResponseRedirect(reverse_lazy('jobfinder:my-resumes'))
 
 
+# Контроллер для спика откликов
 class ResponseListView(ListView):
     template_name = 'mainapp/response_list.html'
     model = Response
@@ -330,4 +338,47 @@ class ResponseListView(ListView):
         context = super(ResponseListView, self).get_context_data(**kwargs)
         context['title'] = 'Мои отклики'
 
+        return context
+    
+
+# Контроллер для списка предложений
+class OfferListView(ListView):
+    template_name = 'mainapp/offer_list.html'
+    model = Offer
+    paginate_by = 10
+    ordering = ['id']
+
+    def get_queryset(self):
+        return super().get_queryset().filter(resume__user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super(OfferListView, self).get_context_data(**kwargs)
+        context['title'] = 'Мои предложения'
+        context['status_form'] = OfferApplyForm
+        context['success_message'] = 'Изменения сохранены'
+        context['submit_title'] = 'Сохранить'
+        return context
+
+
+# Изменение статуса предложения
+class OfferApplyView(UpdateView):
+    template_name = 'mainapp/offer_response_form.html'
+    model = Offer
+    form_class = OfferForm
+
+    def get_success_url(self):
+        return reverse_lazy('jobfinder:offer-edit', kwargs={
+            'pk': self.object.pk,
+        }) + '?SAVED=Y'
+
+    def get_context_data(self, **kwargs):
+        context = super(OfferApplyView, self).get_context_data(**kwargs)
+        context['title'] = self.object.vacancy.title
+        context['sub_title'] = 'Предложения'
+        context['success_message'] = 'Изменения сохранены'
+        context['submit_title'] = 'Сохранить'
+        context['form_action'] = reverse_lazy('jobfinder:offer-edit', kwargs={
+            'pk': self.object.pk,
+        })
+        context['success'] = self.request.GET.get('SAVED') == 'Y'
         return context

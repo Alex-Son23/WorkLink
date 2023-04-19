@@ -25,7 +25,7 @@
                                 <a class="nav-link" href="{% url 'jobfinder:my-response' %}">Отклики</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Предложения</a>
+                                <a class="nav-link" href="{% url 'jobfinder:my-offer' %}">Предложения</a>
                             </li>
                         {% endif %}
                         {% if user.status == 'компания' %}

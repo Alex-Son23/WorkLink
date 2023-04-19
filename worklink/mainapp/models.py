@@ -74,14 +74,24 @@ class Vacancy(models.Model):
     def responses(self):
         return Response.objects.filter(vacancy=self).all()
 
+    def offers(self):
+        return Offer.objects.filter(vacancy=self)
+
     def response_count(self):
         return len(self.responses())
+
+    def offers_count(self):
+        return len(self.offers())
 
 
 class Status(models.Model):
     WAITING = 'ожидание ответа'
     REFUSAL = 'отказ'
     ACCEPT = 'принято'
+
+    class Meta:
+        verbose_name = 'Статус'
+        verbose_name_plural = 'Статусы'
 
     STATUS_CHOISES = (
         (WAITING, 'Ожидание ответа'),
@@ -107,7 +117,11 @@ class Offer(models.Model):
     vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE, verbose_name='вакансия')
     status = models.ForeignKey(Status, on_delete=models.CASCADE, verbose_name='статус')
     cover_letter = models.TextField(verbose_name='сопроводительное письмо')
-    date = models.DateTimeField(models.DateTimeField(auto_now_add=True, verbose_name='дата'))
+    date = models.DateTimeField(auto_now_add=True, verbose_name='дата')
+
+    class Meta:
+        verbose_name = 'Предложение'
+        verbose_name_plural = 'Предложения'
 
 
 class Response(models.Model):
@@ -117,8 +131,6 @@ class Response(models.Model):
     cover_letter = models.TextField(verbose_name='сопроводительное письмо')
     date = models.DateTimeField(auto_now_add=True, verbose_name='дата', null=True)
 
-
 # @receiver(post_save, sender=Response)
 # def create_user_profile(sender, instance, created, **kwargs):
 #     instance.status = Status.objects.get(title='Ожидание ответа')
-

@@ -1,0 +1,199 @@
+{% load static %}
+
+<div class="col-lg-6 mb-4 mb-lg-0">
+    {% for candidate in new_candidates|slice:":3" %}
+        <div class="candidate-list border mb-5">
+            <div class="candidate-list-image">
+                <img class="img-fluid" src="/media/{{ candidate.user.avatar }}" alt="" >
+            </div>
+            <div class="candidate-list-details">
+                <div class="candidate-list-info">
+                    <div class="candidate-list-title">
+                        <h5 class="mb-0">
+                            <a href="candidate-detail.html">{{candidate.first_name}} {{candidate.last_name}}</a>
+                        </h5>
+                    </div>
+                    <div class="candidate-list-option">
+                        <ul class="list-unstyled">
+                            <!-- <li><i class="fas fa-filter pr-1"></i>IT Contractor</li> -->
+                            <li><i class="fas fa-map-marker-alt pr-1"></i>{{candidate.city}}, {{candidate.country}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="candidate-list-favourite-time">
+                <a class="candidate-list-favourite order-2" href="#"><i class="far fa-heart"></i></a>
+                <span class="candidate-list-time order-1"><i class="far fa-clock pr-1"></i>{{candidate.}} ago</span>
+            </div> -->
+        </div>
+    {% endfor %}
+</div>
+<div class="col-lg-6">
+    {% for candidate in new_candidates|slice:"3:" %}
+        <div class="candidate-list border mb-5">
+            <div class="candidate-list-image">
+                <img class="img-fluid" src="/media/{{ candidate.user.avatar }}" alt="" >
+            </div>
+            <div class="candidate-list-details">
+                <div class="candidate-list-info">
+                    <div class="candidate-list-title">
+                        <h5 class="mb-0">
+                            <a href="candidate-detail.html">{{candidate.first_name}} {{candidate.last_name}}</a>
+                        </h5>
+                    </div>
+                    <div class="candidate-list-option">
+                        <ul class="list-unstyled">
+                            <!-- <li><i class="fas fa-filter pr-1"></i>IT Contractor</li> -->
+                            <li><i class="fas fa-map-marker-alt pr-1"></i>{{candidate.city}}, {{candidate.country}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="candidate-list-favourite-time">
+                <a class="candidate-list-favourite order-2" href="#"><i class="far fa-heart"></i></a>
+                <span class="candidate-list-time order-1"><i class="far fa-clock pr-1"></i>{{candidate.}} ago</span>
+            </div> -->
+        </div>
+    {% endfor %}
+</div>
+
+<!-- Старая версия блока новые кандидаты на случай, если нужно будет все вернуть -->
+
+<!-- <div class="col-lg-6 mb-4 mb-lg-0">
+    <div class="candidate-list border mb-5">
+        <div class="candidate-list-image">
+            <img class="img-fluid" src="{% static '/worklink/img/avatar/04.jpg'%} " alt="" >
+        </div>
+        <div class="candidate-list-details">
+            <div class="candidate-list-info">
+                <div class="candidate-list-title">
+                    <h5 class="mb-0">
+                        <a href="candidate-detail.html">Nichole Haynes</a>
+                    </h5>
+                </div>
+                <div class="candidate-list-option">
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-filter pr-1"></i>IT Contractor</li>
+                        <li><i class="fas fa-map-marker-alt pr-1"></i>Botchergate, Carlisle</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="candidate-list-favourite-time">
+            <a class="candidate-list-favourite order-2" href="#"><i class="far fa-heart"></i></a>
+            <span class="candidate-list-time order-1"><i class="far fa-clock pr-1"></i>6D ago</span>
+        </div>
+    </div>
+    <div class="candidate-list border mb-5 mt-n3">
+        <div class="candidate-list-image">
+            <img class="img-fluid" src="{% static '/worklink/img/avatar/01.jpg' %}" alt="" >
+        </div>
+        <div class="candidate-list-details">
+            <div class="candidate-list-info">
+                <div class="candidate-list-title">
+                    <h5 class="mb-0"><a href="candidate-detail.html">Ronald Bradley</a></h5>
+                </div>
+                <div class="candidate-list-option">
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-filter pr-1"></i>General Insurance</li>
+                        <li><i class="fas fa-map-marker-alt pr-1"></i>Monroe Township, NJ 08831</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="candidate-list-favourite-time">
+            <a class="candidate-list-favourite order-2" href="#"><i class="far fa-heart"></i></a>
+            <span class="candidate-list-time order-1"><i class="far fa-clock pr-1"></i>3D ago</span>
+        </div>
+    </div>
+    <div class="candidate-list border mt-n3">
+        <div class="candidate-list-image">
+            <img class="img-fluid" src="{% static '/worklink/img/avatar/05.jpg'%}" alt="" >
+        </div>
+        <div class="candidate-list-details">
+            <div class="candidate-list-info">
+                <div class="candidate-list-title">
+                    <h5 class="mb-0"><a href="candidate-detail.html">Vickie Meyer</a></h5>
+                </div>
+                <div class="candidate-list-option">
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-filter pr-1"></i>Graphic Design</li>
+                        <li><i class="fas fa-map-marker-alt pr-1"></i>Saint Louis, MO 63109</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="candidate-list-favourite-time">
+            <a class="candidate-list-favourite order-2" href="#"><i class="far fa-heart"></i></a>
+            <span class="candidate-list-time order-1"><i class="far fa-clock pr-1"></i>2D ago</span>
+        </div>
+    </div>
+</div>
+<div class="col-lg-6">
+    <div class="candidate-list border mb-5">
+        <div class="candidate-list-image">
+            <img class="img-fluid" src="{% static '/worklink/img/avatar/08.jpg' %}" alt="" >
+        </div>
+        <div class="candidate-list-details">
+            <div class="candidate-list-info">
+                <div class="candidate-list-title">
+                    <h5 class="mb-0"><a href="#">Rafael Briggs</a></h5>
+                </div>
+                <div class="candidate-list-option">
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-filter pr-1"></i>Clinical Psychology</li>
+                        <li><i class="fas fa-map-marker-alt pr-1"></i>Battle Ground, WA 98604</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="candidate-list-favourite-time">
+            <a class="candidate-list-favourite order-2" href="#"><i class="far fa-heart"></i></a>
+            <span class="candidate-list-time order-1"><i class="far fa-clock pr-1"></i>2W ago</span>
+        </div>
+    </div>
+    <div class="candidate-list border mb-5 mt-n3">
+        <div class="candidate-list-image">
+            <img class="img-fluid" src="{% static '/worklink/img/avatar/06.jpg' %}" alt="" >
+        </div>
+        <div class="candidate-list-details">
+            <div class="candidate-list-info">
+                <div class="candidate-list-title">
+                    <h5 class="mb-0"><a href="#">Brooke Kelly</a></h5>
+                </div>
+                <div class="candidate-list-option">
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-filter pr-1"></i>Information Technology</li>
+                        <li><i class="fas fa-map-marker-alt pr-1"></i>Rolling Meadows, IL 60008</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="candidate-list-favourite-time">
+            <a class="candidate-list-favourite order-2" href="#"><i class="far fa-heart"></i></a>
+            <span class="candidate-list-time order-1"><i class="far fa-clock pr-1"></i>3W ago</span>
+        </div>
+    </div>
+    <div class="candidate-list border mt-n3">
+        <div class="candidate-list-image">
+            <img class="img-fluid" src="{% static '/worklink/img/avatar/02.jpg' %}" alt="" >
+        </div>
+        <div class="candidate-list-details">
+            <div class="candidate-list-info">
+                <div class="candidate-list-title">
+                    <h5 class="mb-0"><a href="#">Roderick Moss</a></h5>
+                </div>
+                <div class="candidate-list-option">
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-filter pr-1"></i>Construction</li>
+                        <li><i class="fas fa-map-marker-alt pr-1"></i>9657 Bayport Dr. Cumming, GA 30040</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="candidate-list-favourite-time">
+            <a class="candidate-list-favourite order-2" href="#"><i class="far fa-heart"></i></a>
+            <span class="candidate-list-time order-1"><i class="far fa-clock pr-1"></i>1M ago</span>
+        </div>
+    </div>
+</div> -->
