@@ -10,7 +10,7 @@ from mainapp.models import Vacancy
 from django.shortcuts import render, get_object_or_404
 
 from mainapp import models as companyapp_models
-from authapp.models import CompanyProfile
+from authapp.models import CompanyProfile, JobFinderProfile
 from mainapp.forms import ResumeForm, ExperienceFormSet, ExperienceFormSetCreate, ApplyForm, OfferApplyForm
 from mainapp.models import Experience, Resume, Response, Status, Offer
 
@@ -322,6 +322,43 @@ def delete_resume(request, pk):
     resume_obj.delete()
 
     return HttpResponseRedirect(reverse_lazy('jobfinder:my-resumes'))
+
+# Контроллер отображения всех видимых резюме
+
+class ResumesAllListView(ListView):
+    template_name = 'mainapp/all_resumes_list.html'
+    model = Resume
+    paginate_by = 10
+
+
+    def get_queryset(self):
+        return super().get_queryset().filter(visible=True)
+
+    def get_context_data(self, **kwargs):
+        context = super(ResumesAllListView, self).get_context_data(**kwargs)
+        context['title'] = 'Кандидаты'
+
+        return context
+
+
+class ResumeDetailView(DetailView):
+    template_name = 'mainapp/resume_detail.html'
+    model = Resume
+
+
+    def get_context_data(self, **kwargs):
+        context = super(ResumeDetailView, self).get_context_data(**kwargs)
+        context['title'] = "Просмотр резюме"
+        context['first_name'] = JobFinderProfile.objects.filter(user=self.object.user.id).first().first_name
+        context['last_name'] = JobFinderProfile.objects.filter(user=self.object.user.id).first().last_name
+        context['age'] = JobFinderProfile.objects.filter(user=self.object.user.id).first().age
+        context['phone'] = JobFinderProfile.objects.filter(user=self.object.user.id).first().phone
+        context['country'] = JobFinderProfile.objects.filter(user=self.object.user.id).first().country
+        context['city'] = JobFinderProfile.objects.filter(user=self.object.user.id).first().city
+        context['experience'] = Experience.objects.filter(resume=self.object.pk)
+        # print(context)
+        return context
+
 
 
 # Контроллер для спика откликов

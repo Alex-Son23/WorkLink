@@ -23,6 +23,9 @@ urlpatterns = [
     path('vacancy/<int:pk>/apply/', apply_to_vacancy, name='apply_to_vacancy'),
     path('<int:pk>/', company, name='company'),
 
+    path('resumes/', ResumesAllListView.as_view(), name='resumes'),
+    path('resume/<int:pk>/detail', ResumeDetailView.as_view(), name='resume_detail'),
+
     # response
     path('my-response/', ResponseListView.as_view(), name='my-response'),
 

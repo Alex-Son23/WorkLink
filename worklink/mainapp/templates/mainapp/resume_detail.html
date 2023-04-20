@@ -1,0 +1,92 @@
+{% extends 'worklink/base.html' %}
+{% load static %}
+{% load utils %}
+{% block content %}
+
+
+<section class="space-ptb">
+
+	<div class="col-lg-12">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="job-list border">
+					<div class=" job-list-logo">
+						<img class="img-fluid" src="/media/{{ resume.user.avatar }}" alt="">
+					</div>
+					<div class="job-list-details">
+						<div>
+							<div class="job-list-title">
+								<h5 class="mb-0">{{ object.user.username }} - пользователь</h5>
+							</div>
+						</div>
+						<div class="job-list-info">
+							<div class="job-list-title">
+								<h7 class="mb-0">Имя: {{ first_name }} </h7>
+							</div>
+							<div class="job-list-title">
+								<h7 class="mb-0">Фамилия: {{ last_name }},</h7>
+							</div>
+							<div class="job-list-title">
+								<h7 class="mb-0">Возраст: {{ age }} </h7>
+							</div>
+							<div class="job-list-title">
+								<h7 class="mb-0">Cтрана: {{ country }} </h7>
+							</div>
+							<div class="job-list-title">
+								<h7 class="mb-0">Город: {{ city }}</h7>
+							</div>
+							<div class="job-list-title">
+								<h7 class="mb-0">Телефон: {{ phone }} </h7>
+							</div>
+							<div class="job-list-option">
+								<ul class="list-unstyled">
+									<li><i class="fas fa-map-marker-alt pr-1"></i>{{ object.position }} - {{ object.salary }}
+									</li>
+									<!--                      <li><i class="fas fa-phone fa-flip-horizontal fa-fw"></i><span class="pl-2">(123) 345-6789</span></li>-->
+								</ul>
+								<div class=""><a href="#">Сделать предложение</a></div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="border p-4 mt-4 mt-lg-5">
+			<div class="row">
+				<div class="col-md-4 col-sm-6 mb-4">
+					<div class="d-flex">
+						<i class="font-xll text-primary align-self-center flaticon-debit-card"></i>
+						<div class="feature-info-content pl-3">
+							<label class="mb-1">Заработная плата</label>
+							<span class="mb-0 font-weight-bold d-block text-dark">{{ object.salary }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="border p-4 mt-4 mt-lg-5">
+			<div class="row">
+				<div class="col-md-4 col-sm-6 mb-4">
+					<div class="d-flex">
+						<div class="feature-info-content pl-3">
+							<label class="mb-1">Описание</label>
+							<span class="mb-0 font-weight-bold d-block text-dark">{{ object.description }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="border p-4 mt-4 mt-lg-5">
+			<div class="row">
+				<div class="col-md-4 col-sm-6 mb-4">
+					<div class="d-flex">
+						<div class="feature-info-content pl-3">
+							<label class="mb-1">Опыт</label>
+							<span class="mb-0 font-weight-bold d-block text-dark">{{ object.experience }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endblock %}
