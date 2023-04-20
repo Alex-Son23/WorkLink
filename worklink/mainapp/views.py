@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
-from mainapp.forms import VacancyForm, ResponseForm, OfferForm
+from mainapp.forms import VacancyForm, ResponseForm, OfferForm, AddPostForm
 from mainapp.models import Vacancy
 
 from django.shortcuts import render, get_object_or_404
@@ -419,3 +419,14 @@ class OfferApplyView(UpdateView):
         })
         context['success'] = self.request.GET.get('SAVED') == 'Y'
         return context
+
+
+class AddPage(CreateView):
+    form_class = AddPostForm
+    template_name = 'mainapp/addpage.html'
+    success_url = reverse_lazy('mainapp/addpage_success.html')
+
+
+
+
+

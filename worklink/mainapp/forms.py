@@ -129,3 +129,13 @@ class OfferApplyForm(forms.ModelForm):
         super(OfferApplyForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
+
+
+class AddPostForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['vacancy'].empty_label = "Категория не выбрана"
+
+    class Meta:
+        model = Offer
+        fields = ['vacancy']
