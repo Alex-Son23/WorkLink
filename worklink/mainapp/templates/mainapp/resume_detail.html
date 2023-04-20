@@ -77,16 +77,30 @@
 				</div>
 			</div>
 		</div>
-		<div class="border p-4 mt-4 mt-lg-5">
+        {% if object.get_experience %}
+        {% for item in object.get_experience %}
+        <div class="border p-4 mt-4 mt-lg-5">
 			<div class="row">
 				<div class="col-md-4 col-sm-6 mb-4">
 					<div class="d-flex">
 						<div class="feature-info-content pl-3">
-							<label class="mb-1">Опыт</label>
-							<span class="mb-0 font-weight-bold d-block text-dark">{{ object.experience }}</span>
+							<label class="mb-1">Опыт работы</label>
+							<div class="profile">
+                        <p class="dashboard-resume-title"> {{item.position}} ({{item.get_company_name}})</p>
+                        <div class="jobster-candidate-timeline">
+                            <a class="jobster-timeline-cricle">{{item.start_date}}-</a>
+                            <a class="jobster-timeline-cricle">{{item.end_date}}</a>
+                        </div>
+                        <p class="card-text"> {{item.company}}</p>
+                        <p class="card-text"> {{item.description}}</p>
+                    </div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
+
+        {% endfor %}
+        {% endif %}
 		{% endblock %}
