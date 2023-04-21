@@ -31,9 +31,9 @@
                 <div class="row">
                     <div class="col-10">
                         <h4 class="card-title">{{ vacancy_response.resume }} ({{ vacancy_response.resume.user }})</h4>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ vacancy_response.date|date:'d.m.Y H:i:s' }}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted"> {{ vacancy_response.date|date:"d.m.Y H:i:s" }} </h6>
                         <p><strong>Статус:</strong> <span class="text-info">{{ vacancy_response.status }}</span></p>
-                        <a class="text-info card-link" href="{%  url 'company:vacancy_response_update' vacancy_response.vacancy_id vacancy_response.pk %}">Подробнее</a>
+                        <a class="btn-success" style="border:10px; font-weight: bold; font-size: 16px" href="{%  url 'company:vacancy_response_update' vacancy_response.vacancy_id vacancy_response.pk %}">Подробнее</a>
                     </div>
                 </div>
             </div>

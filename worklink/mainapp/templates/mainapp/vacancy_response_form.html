@@ -14,8 +14,8 @@
                         <i class="fas fa-chevron-right"></i>
                         <a href="{% url 'company:my-vacancies' %}">Вакансии компании</a>
                     </li>
+                    <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <a href="{% url 'mainapp:vacancy_responses' object.vacancy.pk %}">{{ sub_title }}</a></li>
                     <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <span>{{ title }}</span></li>
-                    <li class="breadcrumb-item active"> <i class="fas fa-chevron-right"></i> <a href="{% url 'company:vacancy_responses' object.vacancy.pk %}">{{ sub_title }}</a></li>
                 </ol>
             </div>
             <div class="col-lg-3 col-md-12 mt-md-4 text-right">
@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-12">
                 <h4>Отклик</h4>
-                <p>{{ object.resume }} ({{ object.resume.user }})</p>
+                <p><a href="{% url 'mainapp:resume_detail' object.resume.pk %}">{{ object.resume }} ({{ object.resume.user }})</a></p>
                 <strong>Сопроводительное письмо</strong>
                 <p>{{ object.cover_letter }}</p>
             {% if success %}
