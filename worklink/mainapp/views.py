@@ -421,6 +421,23 @@ class OfferApplyView(UpdateView):
         return context
 
 
+def apply_to_resume(request, pk):
+    vacancy = get_object_or_404(Vacancy, pk=pk)
+    resume = get_object_or_404(Resume, pk=pk)
+    company_id = request.user.id
+    if request.method == 'POST':
+        form = AddPostForm(user_id=user_id, data=request.POST)
+        if form.is_valid():
+            vacancy_id = form.cleaned_data['vacancy'].id
+            Offer.objects.create(vacancy=Resume.objects.get(pk=vacancy_id), status=Status.objects.get(title='ожидание ответа'),
+                                    resume=Resume.objects.get(pk=pk),
+                                    cover_letter=request.POST['cover_letter'], date=datetime.now())
+            return render(request, 'mainapp/addpage_success.html', {'vacancy': vacancy})
+    else:
+        form = AddPostForm(company_id=company_id)
+    return render(request, 'mainapp/addpage.html', {'form': form, 'resume': resume})
+
+
 class AddPage(CreateView):
     form_class = AddPostForm
     template_name = 'mainapp/addpage.html'

@@ -33,5 +33,5 @@ urlpatterns = [
     path('my-offers/', OfferListView.as_view(), name='my-offer'),
     path('my-offers/<int:pk>/edit', OfferApplyView.as_view(), name='offer-edit'),
 
-    path('addpage/', AddPage.as_view(), name='add_page'),
+    path('resume/<int:pk>/apply/', apply_to_resume, name='apply_to_resume'),
 ]
