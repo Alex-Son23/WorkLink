@@ -18,7 +18,7 @@
                  <a href="{% url 'mainapp:resume_detail' item.id %}" class="card-link" title="Просмотреть">
                      <i class="fa fa-eye" aria-hidden="true"></i>
                  </a>
-                <a href="#" class="card-link" title="Пригласить">
+                <a href="{% url 'mainapp:apply_to_resume' item.id%}" class="card-link" title="Пригласить">
                    <i class="fa fa-user-plus" aria-hidden="true"></i>
                 </a>
             </div>
