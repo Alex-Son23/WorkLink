@@ -422,7 +422,7 @@ class OfferApplyView(UpdateView):
 
 def apply_to_resume(request, pk):
     resume = get_object_or_404(Resume, pk=pk)
-    company_id = request.user.id
+    company_id = CompanyProfile.objects.get(user_id=request.user.id)
     if request.method == 'POST':
         form = AddPostForm(company_id=company_id, data=request.POST)
         if form.is_valid():
