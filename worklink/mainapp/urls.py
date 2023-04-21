@@ -16,7 +16,7 @@ urlpatterns = [
     path('my-vacancies/<int:pk>/responses/', VacancyResponsesListView.as_view(), name='vacancy_responses'),
     path('my-vacancies/<int:pk>/offers/', VacancyOffersListView.as_view(), name='vacancy_offers'),
     path('my-vacancies/<int:vacancy_id>/responses/<int:pk>/', VacancyResponseUpdateView.as_view(), name='vacancy_response_update'),
-    path('my-vacancies/<int:vacancy_id>/offers/<int:pk>/', VacancyOfferUpdateView.as_view(), name='vacancy_offer_update'),
+    path('my-vacancies/<int:vacancy_id>/offers/<int:pk>/', VacancyOfferDetailView.as_view(), name='vacancy_offer_update'),
 
     path('vacancies/', VacancyView.as_view(), name='vacancies'),
     path('vacancy/<int:pk>/', vacancy, name='vacancy'),

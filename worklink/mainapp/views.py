@@ -161,7 +161,7 @@ class VacancyResponseUpdateView(UpdateView):
         return context
 
 
-class VacancyOfferUpdateView(UpdateView):
+class VacancyOfferDetailView(DetailView):
     template_name = 'mainapp/vacancy_offer_form.html'
     model = Offer
     form_class = OfferForm
@@ -173,11 +173,11 @@ class VacancyOfferUpdateView(UpdateView):
         }) + '?SAVED=Y'
 
     def get_context_data(self, **kwargs):
-        context = super(VacancyOfferUpdateView, self).get_context_data(**kwargs)
+        context = super(VacancyOfferDetailView, self).get_context_data(**kwargs)
         context['title'] = self.object.vacancy.title
         context['sub_title'] = 'Предложения'
-        context['success_message'] = 'Изменения сохранены'
-        context['submit_title'] = 'Сохранить'
+        context['first_name'] = JobFinderProfile.objects.filter(user=self.object.resume.user.id).first().first_name
+        context['last_name'] = JobFinderProfile.objects.filter(user=self.object.resume.user.id).first().last_name
         context['form_action'] = reverse_lazy('company:vacancy_offer_update', kwargs={
             'vacancy_id': self.object.vacancy.pk,
             'pk': self.object.pk,
