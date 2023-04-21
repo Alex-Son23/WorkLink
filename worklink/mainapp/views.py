@@ -258,12 +258,12 @@ class ResumeCreateView(CreateView):
         return reverse_lazy('jobfinder:resume_add') + '?ADDED=Y'
 
     def form_valid(self, form):
-        exp_form = ExperienceFormSet(form.data)
+
         form.instance.user = self.request.user
-
         if form.is_valid():
-            res = form.save()
+            res = form.save(commit=True)
 
+        exp_form = ExperienceFormSet(self.request.POST, instance=res)
         exp_form.instance.resume = res
 
         if exp_form.is_valid():
