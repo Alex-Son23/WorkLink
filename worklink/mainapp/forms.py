@@ -146,4 +146,4 @@ class AddPostForm(forms.ModelForm):
     def __init__(self, company_id=0, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['vacancy'].queryset = Vacancy.objects.filter(company_id=company_id)
-        print(self.fields['vacancy'].queryset)
+        print(Vacancy.objects.all())
