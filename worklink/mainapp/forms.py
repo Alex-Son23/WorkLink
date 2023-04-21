@@ -129,3 +129,21 @@ class OfferApplyForm(forms.ModelForm):
         super(OfferApplyForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
+
+
+class AddPostForm(forms.ModelForm):
+    vacancy = forms.ModelChoiceField(
+        queryset=None,
+        label='Вакансия',
+        empty_label='Выберите вакансию')
+    cover_letter = forms.CharField(label='Сопроводительное письмо')
+    cover_letter.widget = forms.Textarea(attrs={'class': "container mt-2 mb-3", 'rows': 10, 'cols': 12})
+
+    class Meta:
+        model = Offer
+        fields = ('cover_letter',)
+
+    def __init__(self, company_id=0, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['vacancy'].queryset = Vacancy.objects.filter(company_id=company_id)
+        print(Vacancy.objects.all())

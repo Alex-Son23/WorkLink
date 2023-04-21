@@ -8,7 +8,7 @@
     <!-- компания -->
     {% if user.status == 'компания' %}
         <li class="nav-item">
-            <a class="nav-link" href="#">Поиск сотрудников</a>
+            <a class="nav-link" href="{% url 'mainapp:resumes' %}">Поиск сотрудников</a>
         </li>
     {% endif %}
 

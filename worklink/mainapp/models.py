@@ -69,7 +69,8 @@ class Vacancy(models.Model):
         verbose_name_plural = 'Вакансии'
 
     def __str__(self):
-        return f'{self.company}'  # return f'{self.title} - {self.company}'
+        # return f'{self.company}'
+        return f'{self.title} - {self.company}'
 
     def responses(self):
         return Response.objects.filter(vacancy=self).all()

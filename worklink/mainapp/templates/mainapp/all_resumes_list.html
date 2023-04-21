@@ -1,0 +1,32 @@
+{% extends 'worklink/base.html' %}
+{% load static %}
+{% load utils %}
+{% block content %}
+
+{% include 'mainapp/includes/header3.html' %}
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6">
+			{% for item in object_list %}
+			{% if not item.is_draft %}
+			{% include 'mainapp/includes/resume_detail_card.html' %}
+			{% endif %}
+			{% endfor %}
+		</div>
+		<div class="col-sm-6">
+			{% for item in object_list %}
+			{% if item.is_draft %}
+			{% include 'mainapp/includes/resume_detail_card.html' %}
+			{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+{% if is_paginated %}
+{% include 'mainapp/includes/pagination.html' %}
+{% endif %}
+
+{% endblock content %}

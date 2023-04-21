@@ -4,13 +4,13 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
-from mainapp.forms import VacancyForm, ResponseForm, OfferForm
+from mainapp.forms import VacancyForm, ResponseForm, OfferForm, AddPostForm
 from mainapp.models import Vacancy
 
 from django.shortcuts import render, get_object_or_404
 
 from mainapp import models as companyapp_models
-from authapp.models import CompanyProfile
+from authapp.models import CompanyProfile, JobFinderProfile
 from mainapp.forms import ResumeForm, ExperienceFormSet, ExperienceFormSetCreate, ApplyForm, OfferApplyForm
 from mainapp.models import Experience, Resume, Response, Status, Offer
 
@@ -161,7 +161,7 @@ class VacancyResponseUpdateView(UpdateView):
         return context
 
 
-class VacancyOfferUpdateView(UpdateView):
+class VacancyOfferDetailView(DetailView):
     template_name = 'mainapp/vacancy_offer_form.html'
     model = Offer
     form_class = OfferForm
@@ -173,11 +173,11 @@ class VacancyOfferUpdateView(UpdateView):
         }) + '?SAVED=Y'
 
     def get_context_data(self, **kwargs):
-        context = super(VacancyResponseUpdateView, self).get_context_data(**kwargs)
+        context = super(VacancyOfferDetailView, self).get_context_data(**kwargs)
         context['title'] = self.object.vacancy.title
         context['sub_title'] = 'Предложения'
-        context['success_message'] = 'Изменения сохранены'
-        context['submit_title'] = 'Сохранить'
+        context['first_name'] = JobFinderProfile.objects.filter(user=self.object.resume.user.id).first().first_name
+        context['last_name'] = JobFinderProfile.objects.filter(user=self.object.resume.user.id).first().last_name
         context['form_action'] = reverse_lazy('company:vacancy_offer_update', kwargs={
             'vacancy_id': self.object.vacancy.pk,
             'pk': self.object.pk,
@@ -219,7 +219,8 @@ def apply_to_vacancy(request, pk):
         form = ApplyForm(user_id=user_id, data=request.POST)
         if form.is_valid():
             resume_id = form.cleaned_data['resume'].id
-            Response.objects.create(resume=Resume.objects.get(pk=resume_id), status=Status.objects.get(title='ожидание ответа'),
+            Response.objects.create(resume=Resume.objects.get(pk=resume_id),
+                                    status=Status.objects.get(title='ожидание ответа'),
                                     vacancy=Vacancy.objects.get(pk=pk),
                                     cover_letter=request.POST['cover_letter'], date=datetime.now())
             return render(request, 'mainapp/apply_vacancy_success.html', {'vacancy': vacancy})
@@ -258,12 +259,12 @@ class ResumeCreateView(CreateView):
         return reverse_lazy('jobfinder:resume_add') + '?ADDED=Y'
 
     def form_valid(self, form):
-        exp_form = ExperienceFormSet(form.data)
+
         form.instance.user = self.request.user
-
         if form.is_valid():
-            res = form.save()
+            res = form.save(commit=True)
 
+        exp_form = ExperienceFormSet(self.request.POST, instance=res)
         exp_form.instance.resume = res
 
         if exp_form.is_valid():
@@ -324,6 +325,41 @@ def delete_resume(request, pk):
     return HttpResponseRedirect(reverse_lazy('jobfinder:my-resumes'))
 
 
+# Контроллер отображения всех видимых резюме
+
+class ResumesAllListView(ListView):
+    template_name = 'mainapp/all_resumes_list.html'
+    model = Resume
+    paginate_by = 10
+
+    def get_queryset(self):
+        return super().get_queryset().filter(visible=True)
+
+    def get_context_data(self, **kwargs):
+        context = super(ResumesAllListView, self).get_context_data(**kwargs)
+        context['title'] = 'Кандидаты'
+
+        return context
+
+
+class ResumeDetailView(DetailView):
+    template_name = 'mainapp/resume_detail.html'
+    model = Resume
+
+    def get_context_data(self, **kwargs):
+        context = super(ResumeDetailView, self).get_context_data(**kwargs)
+        context['title'] = "Просмотр резюме"
+        context['first_name'] = JobFinderProfile.objects.filter(user=self.object.user.id).first().first_name
+        context['last_name'] = JobFinderProfile.objects.filter(user=self.object.user.id).first().last_name
+        context['age'] = JobFinderProfile.objects.filter(user=self.object.user.id).first().age
+        context['phone'] = JobFinderProfile.objects.filter(user=self.object.user.id).first().phone
+        context['country'] = JobFinderProfile.objects.filter(user=self.object.user.id).first().country
+        context['city'] = JobFinderProfile.objects.filter(user=self.object.user.id).first().city
+        context['experience'] = Experience.objects.filter(resume=self.object.pk)
+        # print(context)
+        return context
+
+
 # Контроллер для спика откликов
 class ResponseListView(ListView):
     template_name = 'mainapp/response_list.html'
@@ -339,7 +375,7 @@ class ResponseListView(ListView):
         context['title'] = 'Мои отклики'
 
         return context
-    
+
 
 # Контроллер для списка предложений
 class OfferListView(ListView):
@@ -382,3 +418,26 @@ class OfferApplyView(UpdateView):
         })
         context['success'] = self.request.GET.get('SAVED') == 'Y'
         return context
+
+
+def apply_to_resume(request, pk):
+    resume = get_object_or_404(Resume, pk=pk)
+    company_id = CompanyProfile.objects.get(user_id=request.user.id)
+    if request.method == 'POST':
+        form = AddPostForm(company_id=company_id, data=request.POST)
+        if form.is_valid():
+            vacancy_id = form.cleaned_data['vacancy'].id
+            Offer.objects.create(vacancy=Vacancy.objects.get(pk=vacancy_id),
+                                 status=Status.objects.get(title='ожидание ответа'),
+                                 resume=Resume.objects.get(pk=pk),
+                                 cover_letter=request.POST['cover_letter'], date=datetime.now())
+            return render(request, 'mainapp/addpage_success.html', {'resume': resume})
+    else:
+        form = AddPostForm(company_id=company_id)
+    return render(request, 'mainapp/addpage.html', {'form': form, 'resume': resume})
+
+
+class AddPage(CreateView):
+    form_class = AddPostForm
+    template_name = 'mainapp/addpage.html'
+    success_url = reverse_lazy('mainapp/addpage_success.html')
