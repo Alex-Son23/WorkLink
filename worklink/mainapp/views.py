@@ -173,7 +173,7 @@ class VacancyOfferUpdateView(UpdateView):
         }) + '?SAVED=Y'
 
     def get_context_data(self, **kwargs):
-        context = super(VacancyResponseUpdateView, self).get_context_data(**kwargs)
+        context = super(VacancyOfferUpdateView, self).get_context_data(**kwargs)
         context['title'] = self.object.vacancy.title
         context['sub_title'] = 'Предложения'
         context['success_message'] = 'Изменения сохранены'
