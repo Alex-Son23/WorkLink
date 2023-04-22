@@ -28,7 +28,7 @@
                                     <a href="{% url 'company:vacancy' vacancy.id %}">{{ vacancy.title }}</a>
                                 </h4>
                                 <p class="card-text">{{ vacancy.salary|price_format }} <span>руб.</span></p>
-                                <a href="{% url 'admin:vacancies_plus' vacancy.id %}" class="btn btn-success">Опубликовать</a>
+                                <a href="{% url 'adminapp:vacancies_plus' vacancy.id %}" class="btn btn-success">Опубликовать</a>
                             </div>
                         </div>
                     </div>

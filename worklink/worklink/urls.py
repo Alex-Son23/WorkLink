@@ -8,7 +8,7 @@ from worklink import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('adminapp/', include('adminapp.urls', namespace='admin')),
+    path('adminapp/', include('adminapp.urls', namespace='adminapp')),
 
     path('', views.IndexView.as_view(), name='index'),
     path('auth/', include('authapp.urls', namespace='auth')),
