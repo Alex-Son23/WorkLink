@@ -63,7 +63,7 @@ class Vacancy(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='создано', editable=False)
     updated_at = models.DateTimeField(auto_now=True, verbose_name='отредактировано', editable=False)
     company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE, verbose_name='компания')
-
+    visible = models.BooleanField(default=False)
     class Meta:
         verbose_name = 'Вакансия'
         verbose_name_plural = 'Вакансии'

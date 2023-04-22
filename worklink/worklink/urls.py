@@ -6,8 +6,8 @@ from django.conf.urls.static import static
 from worklink import settings
 
 urlpatterns = [
-    # закомментировать чтобы прошли миграции
-    path('admin/', admin.site.urls),
+
+    path('admin/', include('adminapp.urls', namespace='admin')),
 
     path('', views.IndexView.as_view(), name='index'),
     path('auth/', include('authapp.urls', namespace='auth')),

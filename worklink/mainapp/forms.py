@@ -69,7 +69,7 @@ class VacancyForm(forms.ModelForm):
     class Meta:
         model = Vacancy
         fields = '__all__'
-        exclude = ('is_closed', 'created_at', 'updated_at', 'company',)
+        exclude = ('is_closed', 'created_at', 'updated_at', 'company', 'visible')
 
     def __init__(self, *args, **kwargs):
         super(VacancyForm, self).__init__(*args, **kwargs)

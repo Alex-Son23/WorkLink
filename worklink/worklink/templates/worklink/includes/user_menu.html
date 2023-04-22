@@ -17,6 +17,13 @@
                             <li>
                                 <a class="nav-link text-dark" href="{% url 'auth:edit' %}">Профиль</a>
                             </li>
+
+                            {% if user.is_superuser %}
+                            <li>
+                                <a class="nav-link text-dark" href="{% url 'admin:vacancies' %}">Модерация вакансий</a>
+                            </li>
+                            {% endif %}
+
                         {% if user.status == 'соискатель' %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'jobfinder:my-resumes' %}">Мои резюме</a>

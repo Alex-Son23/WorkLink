@@ -98,7 +98,7 @@ class VacancyView(ListView):
     paginate_by = 3
 
     def get_queryset(self):
-        return super().get_queryset().filter(is_closed=False)
+        return super().get_queryset().filter(is_closed=False, visible=True)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
