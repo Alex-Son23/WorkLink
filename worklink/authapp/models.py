@@ -17,6 +17,7 @@ class WorkLinkUser(AbstractUser):
 
     avatar = models.ImageField(upload_to='users_avatars', blank=True)
     status = models.CharField(verbose_name='статус пользователя', choices=STATUS_CHOICES, blank=False, max_length=16)
+    moderator = models.BooleanField(default=False)
 
     def get_company(self):
         return CompanyProfile.objects.filter(user=self).first()

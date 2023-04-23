@@ -20,7 +20,7 @@
 
                             {% if user.is_superuser %}
                             <li>
-                                <a class="nav-link text-dark" href="{% url 'adminapp:vacancies' %}">Модерация вакансий</a>
+                               <a class="nav-link text-dark" href="{% url 'admin:index' %}">Административный раздел</a>
                             </li>
                             {% endif %}
 
@@ -34,11 +34,21 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'jobfinder:my-offer' %}">Предложения</a>
                             </li>
+                            {% if user.moderator == True %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'adminapp:vacancies' %}">Модерация вакансий</a>
+                                </li>
+                            {% endif %}
                         {% endif %}
                         {% if user.status == 'компания' %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'company:my-vacancies' %}">Вакансии компании</a>
                             </li>
+                            {% if user.moderator == True %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'adminapp:vacancies' %}">Модерация вакансий</a>
+                                </li>
+                            {% endif %}
                         {% endif %}
                         </ul>
                     </div>
