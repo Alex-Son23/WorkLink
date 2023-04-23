@@ -1,0 +1,23 @@
+{% extends 'worklink/base.html' %}
+{% load static %}
+{% load utils %}
+{% block content %}
+
+{% include 'mainapp/includes/header3.html' %}
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      {% for item in object_list %}
+      {% include 'mainapp/includes/offer_card.html' %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% if is_paginated %}
+  {% include 'mainapp/includes/pagination.html' %}
+{% endif %}
+
+{% endblock content %}

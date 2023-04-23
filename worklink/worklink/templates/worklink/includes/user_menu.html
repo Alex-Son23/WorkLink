@@ -17,6 +17,13 @@
                             <li>
                                 <a class="nav-link text-dark" href="{% url 'auth:edit' %}">Профиль</a>
                             </li>
+
+                            {% if user.is_superuser %}
+                            <li>
+                               <a class="nav-link text-dark" href="{% url 'admin:index' %}">Административный раздел</a>
+                            </li>
+                            {% endif %}
+
                         {% if user.status == 'соискатель' %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'jobfinder:my-resumes' %}">Мои резюме</a>
@@ -25,16 +32,23 @@
                                 <a class="nav-link" href="{% url 'jobfinder:my-response' %}">Отклики</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Предложения</a>
+                                <a class="nav-link" href="{% url 'jobfinder:my-offer' %}">Предложения</a>
                             </li>
+                            {% if user.moderator == True %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'adminapp:vacancies' %}">Модерация вакансий</a>
+                                </li>
+                            {% endif %}
                         {% endif %}
                         {% if user.status == 'компания' %}
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Карточка компании</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="{% url 'company:my-vacancies' %}">Вакансии компании</a>
                             </li>
+                            {% if user.moderator == True %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'adminapp:vacancies' %}">Модерация вакансий</a>
+                                </li>
+                            {% endif %}
                         {% endif %}
                         </ul>
                     </div>

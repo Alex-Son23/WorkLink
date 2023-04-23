@@ -2,9 +2,9 @@
 <nav aria-label="Page navigation example" class="nav-pagination">
   <ul class="pagination">
     {% if page_obj.has_previous %}
-    <li><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+    <li><a href="?page={{ page_obj.previous_page_number }}">Назад</a></li>
     {% else %}
-    <li class="disabled"><span>Previous</span></li>
+    <li class="disabled"><span>Назад</span></li>
     {% endif %}
     {% for i in paginator.page_range %}
     {% if page_obj.number == i %}
@@ -14,9 +14,9 @@
     {% endif %}
     {% endfor %}
     {% if page_obj.has_next %}
-    <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+    <li><a href="?page={{ page_obj.next_page_number }}">Далее</a></li>
     {% else %}
-    <li class="disabled"><span>Next</span></li>
+    <li class="disabled"><span>Далее</span></li>
     {% endif %}
   </ul>
 </nav>

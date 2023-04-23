@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "worklink",
     "authapp",
     'mainapp',
+    'adminapp',
     # 'companyapp',
     
 ]

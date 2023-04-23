@@ -1,0 +1,97 @@
+{% extends 'worklink/base.html' %}
+{% load static %}
+{% load utils %}
+{% block content %}
+
+<div class="header-inner bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-12">
+                <h2 class="text-primary">{{ title }}</h2>
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}">Домой</a></li>
+                    <li class="breadcrumb-item active">
+                        <i class="fas fa-chevron-right"></i>
+                        <a href="{% url 'company:my-vacancies' %}">Вакансии компании</a>
+                    </li>
+                    <li class="breadcrumb-item active"><i class="fas fa-chevron-right"></i> <span>{{ title }}</span>
+                    </li>
+                    <li class="breadcrumb-item active"><i class="fas fa-chevron-right"></i> <a
+                            href="{% url 'company:vacancy_offers' object.vacancy.pk %}">{{ sub_title }}</a></li>
+                </ol>
+            </div>
+            <div class="col-lg-3 col-md-12 mt-md-4 text-right">
+                <a href="{% url 'company:my-vacancies' %}" class="btn btn-outline-success">Назад</a>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="mt-5 mb-5">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="job-list border">
+                    <div class="job-list-details">
+                        <div>
+                            <div class="job-list-title">
+                                <h5 class="mb-0">{{ object.resume }} ({{ object.resume.user }})</h5>
+                            </div>
+                        </div>
+
+                        <div class="job-list-info">
+                            {% if first_name %}
+                            <div class="job-list-title">
+                                <h7 class="mb-0">Имя: {{ first_name }}</h7>
+                            </div>
+                            {% endif %}
+                            {% if last_name %}
+                            <div class="job-list-title">
+                                <h7 class="mb-0">Фамилия: {{ last_name }}</h7>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border p-4 mt-4 mt-lg-5">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="d-flex">
+                        <i class="font-xll text-primary align-self-center flaticon-debit-card"></i>
+                        <div class="feature-info-content pl-3">
+                            <label class="mb-1">Заработная плата</label>
+                            <span class="mb-0 font-weight-bold d-block text-dark">{{ object.vacancy.salary }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border p-4 mt-4 mt-lg-5">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="d-flex">
+                        <div class="feature-info-content pl-3">
+                            <label class="mb-1">Сопроводительное письмо</label>
+                            <span class="mb-0 font-weight-bold d-block text-dark">{{ object.cover_letter }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border p-4 mt-4 mt-lg-5">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="d-flex">
+                        <div class="feature-info-content pl-3">
+                            <label class="mb-1">Статус</label>
+                            <span class="mb-0 font-weight-bold d-block text-dark">{{ object.status }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</section>
+
+{% endblock %}

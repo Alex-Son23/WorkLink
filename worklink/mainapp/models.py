@@ -1,7 +1,9 @@
 from django.db import models
 
 from authapp.models import CompanyProfile
+from django.dispatch import receiver
 from authapp.models import WorkLinkUser
+from django.db.models.signals import post_save
 
 
 class Resume(models.Model):
@@ -61,30 +63,41 @@ class Vacancy(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='создано', editable=False)
     updated_at = models.DateTimeField(auto_now=True, verbose_name='отредактировано', editable=False)
     company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE, verbose_name='компания')
-
+    visible = models.BooleanField(default=False)
     class Meta:
         verbose_name = 'Вакансия'
         verbose_name_plural = 'Вакансии'
 
     def __str__(self):
-        return f'{self.company}'  #  return f'{self.title} - {self.company}'
+        # return f'{self.company}'
+        return f'{self.title} - {self.company}'
+
+    def responses(self):
+        return Response.objects.filter(vacancy=self).all()
+
+    def offers(self):
+        return Offer.objects.filter(vacancy=self)
+
+    def response_count(self):
+        return len(self.responses())
+
+    def offers_count(self):
+        return len(self.offers())
 
 
 class Status(models.Model):
     WAITING = 'ожидание ответа'
-    NOT_INTERESTED = 'не интересует'
-    CALL_SOON = 'свяжусь в ближайшее время'
-    CALL_WEEK = 'готов дать ответ через неделю'
-    CALL_MONTH = 'готов дать ответ через месяц'
-    INTERESTED = 'заинтересован'
+    REFUSAL = 'отказ'
+    ACCEPT = 'принято'
+
+    class Meta:
+        verbose_name = 'Статус'
+        verbose_name_plural = 'Статусы'
 
     STATUS_CHOISES = (
         (WAITING, 'Ожидание ответа'),
-        (NOT_INTERESTED, 'Не интересует'),
-        (CALL_SOON, 'Свяжусь в ближайшее время'),
-        (CALL_WEEK, 'Готов дать ответ через неделю'),
-        (CALL_MONTH, 'Готов дать ответ через месяц'),
-        (INTERESTED, 'Заинтересован'),
+        (ACCEPT, 'Приглашение'),
+        (REFUSAL, 'Отказ'),
     )
 
     title = models.CharField(choices=STATUS_CHOISES, default=WAITING, max_length=128, verbose_name='статус')
@@ -96,6 +109,8 @@ class Status(models.Model):
         except Status.DoesNotExist:
             return Status.objects.create(title=Status.WAITING)
 
+    def __str__(self):
+        return f'{self.title}'
 
 
 class Offer(models.Model):
@@ -103,7 +118,11 @@ class Offer(models.Model):
     vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE, verbose_name='вакансия')
     status = models.ForeignKey(Status, on_delete=models.CASCADE, verbose_name='статус')
     cover_letter = models.TextField(verbose_name='сопроводительное письмо')
-    date = models.DateTimeField(models.DateTimeField(auto_now_add=True, verbose_name='дата'))
+    date = models.DateTimeField(auto_now_add=True, verbose_name='дата')
+
+    class Meta:
+        verbose_name = 'Предложение'
+        verbose_name_plural = 'Предложения'
 
 
 class Response(models.Model):
@@ -112,3 +131,7 @@ class Response(models.Model):
     status = models.ForeignKey(Status, on_delete=models.CASCADE, verbose_name='статус', null=True)
     cover_letter = models.TextField(verbose_name='сопроводительное письмо')
     date = models.DateTimeField(auto_now_add=True, verbose_name='дата', null=True)
+
+# @receiver(post_save, sender=Response)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     instance.status = Status.objects.get(title='Ожидание ответа')
